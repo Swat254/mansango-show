@@ -10,6 +10,8 @@
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --primary: #1a4b8c;
@@ -1128,42 +1130,6 @@
             }
         }
 
-        /* WhatsApp Verification Section */
-        .whatsapp-verification {
-            text-align: center;
-            padding: 20px;
-            background: var(--light-gray);
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .whatsapp-verification h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-
-        .whatsapp-verification p {
-            margin-bottom: 15px;
-        }
-
-        .whatsapp-verification-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #25D366;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-verification-btn:hover {
-            background: #128C7E;
-            transform: translateY(-2px);
-        }
-
         /* Donation Thank You Banner */
         .donation-thank-you {
             position: fixed;
@@ -1461,14 +1427,14 @@
     </div>
 
     <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn">
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
         <i class="fas fa-bars"></i>
     </button>
 
     <!-- Side Navigation -->
-    <nav class="side-nav">
+    <nav class="side-nav" id="sideNav">
         <div class="logo">
-            <img src="https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/sign/Mansango%20event%20tickets/IMG-20251110-WA0041.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zMjNkMDI2Zi0xMzkzLTRmMDQtYjk0Zi0yYzI3NGZiYTRmYzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5zYW5nbyBldmVudCB0aWNrZXRzL0lNRy0yMDI1MTExMC1XQTAwNDEuanBnIiwiaWF0IjoxNzYzMjI0MDgxLCJleHAiOjE3OTQ3NjAwODF9.8o2pCJDUIPZF74CjLr3OalEGVn0u7t6SOGlxmatxMQ8">
+            <img src="https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/sign/Mansango%20event%20tickets/IMG-20251110-WA0041.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zMjNkMDI2Zi0xMzkzLTRmMDQtYjk0Zi0yYzI3NGZiYTRmYzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5zYW5nbyBldmVudCB0aWNrZXRzL0lNRy0yMDI1MTExMC1XQTAwNDEuanBnIiwiaWF0IjoxNzYzMjI0MDgxLCJleHAiOjE3OTQ3NjAwODF9.8o2pCJDUIPZF74CjLr3OalEGVn0u7t6SOGlxmatxMQ8" alt="Man Sango">
             <h1>MAN SANGO</h1>
             <p>Live Concert Experience</p>
         </div>
@@ -1602,17 +1568,17 @@
                     <form id="ticketForm">
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="name">Full Name</label>
+                                <label for="name">Full Name <span style="color: var(--error);">*</span></label>
                                 <input type="text" id="name" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="phone">M-Pesa Phone Number</label>
+                                <label for="phone">M-Pesa Phone Number <span style="color: var(--error);">*</span></label>
                                 <input type="tel" id="phone" class="form-control" placeholder="2547XXXXXXXX or 0712345678" required>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="email">Email Address</label>
+                            <label for="email">Email Address <span style="color: var(--error);">*</span></label>
                             <input type="email" id="email" class="form-control" placeholder="Enter your email address" required>
                         </div>
                         
@@ -1693,25 +1659,6 @@
                         <div id="manualStatus" style="display: none;"></div>
                     </div>
                 </div>
-                
-                <!-- Ticket Retrieval -->
-                <div class="ticket-retrieval fade-in" id="ticketRetrieval">
-                    <h3 class="section-title">Already Paid? Retrieve Your Ticket</h3>
-                    
-                    <div class="form-group">
-                        <label for="retrieveBookingRef">Booking Reference</label>
-                        <input type="text" id="retrieveBookingRef" class="form-control" placeholder="e.g., MS-20251212-ABCDE">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="retrievePhone">Phone Number</label>
-                        <input type="tel" id="retrievePhone" class="form-control" placeholder="2547XXXXXXXX or 0712345678">
-                    </div>
-                    
-                    <button class="btn btn-primary" id="retrieveTicket">Retrieve Ticket</button>
-                    
-                    <div id="retrieveStatus" style="display: none;"></div>
-                </div>
             </div>
         </section>
 
@@ -1723,7 +1670,7 @@
                 <div class="merch-grid">
                     <div class="merch-card fade-in">
                         <div class="merch-image">
-                            <img src="https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/sign/Mansango%20event%20tickets/IMG-20251110-WA0036.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zMjNkMDI2Zi0xMzkzLTRmMDQtYjk0Zi0yYzI3NGZiYTRmYzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5zYW5nbyBldmVudCB0aWNrZXRzL0lNRy0yMDI1MTExMC1XQTAwMzYuanBnIiwiaWF0IjoxNzYzMjI0MzY1LCJleHAiOjE3OTQ3NjAzNjV9.SLoRJKq5NmlIUywXqtNtXhnfDzPEl-Xw0P7ZA5WdbVI">
+                            <img src="https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/sign/Mansango%20event%20tickets/IMG-20251110-WA0036.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zMjNkMDI2Zi0xMzkzLTRmMDQtYjk0Zi0yYzI3NGZiYTRmYzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5zYW5nbyBldmVudCB0aWNrZXRzL0lNRy0yMDI1MTExMC1XQTAwMzYuanBnIiwiaWF0IjoxNzYzMjI0MzY1LCJleHAiOjE3OTQ3NjAzNjV9.SLoRJKq5NmlIUywXqtNtXhnfDzPEl-Xw0P7ZA5WdbVI" alt="Man Sango T-Shirt">
                         </div>
                         <div class="merch-details">
                             <h3 class="merch-title">Man Sango AT 6 event T-Shirt</h3>
@@ -1739,7 +1686,7 @@
                     
                     <div class="merch-card fade-in delay-1">
                         <div class="merch-image">
-                            <img src="https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/sign/Mansango%20event%20tickets/IMG-20251115-WA0007.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zMjNkMDI2Zi0xMzkzLTRmMDQtYjk0Zi0yYzI3NGZiYTRmYzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5zYW5nbyBldmVudCB0aWNrZXRzL0lNRy0yMDI1MTExNS1XQTAwMDcuanBnIiwiaWF0IjoxNzYzMjIzNTUxLCJleHAiOjE3OTQ3NTk1NTF9.uOl9NE-tGTtKnG8me0SeC56yAPnVspZNiUb2k6Gtnww">
+                            <img src="https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/sign/Mansango%20event%20tickets/IMG-20251115-WA0007.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zMjNkMDI2Zi0xMzkzLTRmMDQtYjk0Zi0yYzI3NGZiYTRmYzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5sYW5nbyBldmVudCB0aWNrZXRzL0lNRy0yMDI1MTExNS1XQTAwMDcuanBnIiwiaWF0IjoxNzYzMjIzNTUxLCJleHAiOjE3OTQ3NTk1NTF9.uOl9NE-tGTtKnG8me0SeC56yAPnVspZNiUb2k6Gtnww" alt="Man Sango Hoodie">
                         </div>
                         <div class="merch-details">
                             <h3 class="merch-title">Man Sango AT 6 event Hoodie</h3>
@@ -1754,129 +1701,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Merchandise Purchase Form -->
-                <div class="booking-form fade-in delay-2" id="merchForm" style="display: none;">
-                    <h3 class="section-title">Purchase Merchandise</h3>
-                    
-                    <form id="merchPurchaseForm">
-                        <div class="form-group">
-                            <label for="merchItem">Item</label>
-                            <input type="text" id="merchItem" class="form-control" readonly>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Select Color</label>
-                            <div class="color-options" id="colorOptions"></div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="merchSize">Size</label>
-                                <select id="merchSize" class="form-control">
-                                    <option value="S">Small</option>
-                                    <option value="M">Medium</option>
-                                    <option value="L">Large</option>
-                                    <option value="XL">X-Large</option>
-                                    <option value="XXL">XX-Large</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="merchQuantity">Quantity</label>
-                                <select id="merchQuantity" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="customerName">Full Name</label>
-                                <input type="text" id="customerName" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="customerPhone">M-Pesa Phone Number</label>
-                                <input type="tel" id="customerPhone" class="form-control" placeholder="2547XXXXXXXX or 0712345678" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="customerEmail">Email Address</label>
-                            <input type="email" id="customerEmail" class="form-control" placeholder="Enter your email address" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="deliveryOption">Delivery Option</label>
-                            <select id="deliveryOption" class="form-control">
-                                <option value="event">Collect at Event (Free)</option>
-                                <option value="delivery">Home Delivery (KSH 200)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group" id="deliveryAddressGroup" style="display: none;">
-                            <label for="deliveryAddress">Delivery Address</label>
-                            <textarea id="deliveryAddress" class="form-control" rows="3" placeholder="Enter your full delivery address"></textarea>
-                        </div>
-                        
-                        <div class="total-price">
-                            Total: KSH <span id="merchTotalAmount">0</span>
-                        </div>
-                        
-                        <button type="button" class="btn btn-primary" id="proceedToMerchPayment">Proceed to Payment</button>
-                    </form>
-                </div>
-                
-                <!-- Merchandise Payment Options -->
-                <div class="payment-options fade-in delay-3" id="merchPaymentOptions" style="display: none;">
-                    <h3 class="section-title">Payment Options</h3>
-                    
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="merchPaystack">Pay with M-Pesa</button>
-                        <button class="tab-button" data-tab="merchManual">Manual Payment</button>
-                    </div>
-                    
-                    <div class="payment-tab active" id="merchPaystackTab">
-                        <div class="payment-instructions">
-                            <h4>M-Pesa Payment Instructions:</h4>
-                            <ol>
-                                <li>Click "Pay Now with M-Pesa" below</li>
-                                <li>A Paystack popup will appear</li>
-                                <li>Select "M-Pesa" as your payment method</li>
-                                <li>Enter your M-Pesa PIN when prompted</li>
-                                <li>Wait for payment confirmation</li>
-                            </ol>
-                            <p>You will receive an M-Pesa prompt on your phone to complete the payment.</p>
-                        </div>
-                        
-                        <button class="btn btn-primary" id="merchPaystackPayment">Pay Now with M-Pesa</button>
-                        
-                        <div id="merchPaystackStatus" style="display: none;"></div>
-                    </div>
-                    
-                    <div class="payment-tab" id="merchManualTab">
-                        <div class="payment-instructions">
-                            <h4>Manual M-Pesa Payment Instructions:</h4>
-                            <ol>
-                                <li>Go to your M-Pesa menu</li>
-                                <li>Select "Lipa Na M-Pesa"</li>
-                                <li>Select "Buy Goods and Services"</li>
-                                <li>Enter Till Number: <span class="till-number">3626261</span></li>
-                                <li>Enter Amount: <strong>KSH <span id="merchManualAmount">0</span></strong></li>
-                                <li>Enter your M-Pesa PIN</li>
-                                <li>Enter Account Number: <strong id="merchManualAccount">MS-MERCH-REF</strong></li>
-                                <li>Click "Confirm Payment" below after completing the transaction</li>
-                            </ol>
-                        </div>
-                        
-                        <button class="btn btn-primary" id="confirmMerchManualPayment">Confirm Manual Payment</button>
-                        
-                        <div id="merchManualStatus" style="display: none;"></div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -1889,22 +1713,22 @@
                     <p style="text-align: center; margin-bottom: 20px;">Your support helps create more amazing music and events. Every donation makes a difference!</p>
                     
                     <div class="form-group">
-                        <label for="donorName">Your Name</label>
+                        <label for="donorName">Your Name <span style="color: var(--error);">*</span></label>
                         <input type="text" id="donorName" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="donorPhone">M-Pesa Phone Number</label>
+                        <label for="donorPhone">M-Pesa Phone Number <span style="color: var(--error);">*</span></label>
                         <input type="tel" id="donorPhone" class="form-control" placeholder="2547XXXXXXXX or 0712345678" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="donorEmail">Email Address</label>
+                        <label for="donorEmail">Email Address <span style="color: var(--error);">*</span></label>
                         <input type="email" id="donorEmail" class="form-control" placeholder="Enter your email address" required>
                     </div>
                     
                     <div class="form-group">
-                        <label>Donation Amount</label>
+                        <label>Donation Amount <span style="color: var(--error);">*</span></label>
                         <div class="donation-options">
                             <div class="donation-option" data-amount="100">KSH 100</div>
                             <div class="donation-option" data-amount="500">KSH 500</div>
@@ -1922,32 +1746,7 @@
                         <textarea id="donorMessage" class="form-control" rows="3" placeholder="Share an encouraging message"></textarea>
                     </div>
                     
-                    <div class="tab-buttons" style="margin-bottom: 20px;">
-                        <button class="tab-button active" data-tab="donationPaystack">Pay with M-Pesa</button>
-                        <button class="tab-button" data-tab="donationManual">Manual Payment</button>
-                    </div>
-                    
-                    <div class="payment-tab active" id="donationPaystackTab">
-                        <button class="btn" id="donateNow">Donate Now</button>
-                    </div>
-                    
-                    <div class="payment-tab" id="donationManualTab">
-                        <div class="payment-instructions">
-                            <h4>Manual M-Pesa Payment Instructions:</h4>
-                            <ol>
-                                <li>Go to your M-Pesa menu</li>
-                                <li>Select "Lipa Na M-Pesa"</li>
-                                <li>Select "Buy Goods and Services"</li>
-                                <li>Enter Till Number: <span class="till-number">3626261</span></li>
-                                <li>Enter Amount: <strong>KSH <span id="donationManualAmount">0</span></strong></li>
-                                <li>Enter your M-Pesa PIN</li>
-                                <li>Enter Account Number: <strong id="donationManualAccount">MS-DONATION-REF</strong></li>
-                                <li>Click "Confirm Donation" below after completing the transaction</li>
-                            </ol>
-                        </div>
-                        
-                        <button class="btn" id="confirmDonationManual">Confirm Manual Donation</button>
-                    </div>
+                    <button class="btn" id="donateNow">Donate Now</button>
                     
                     <div id="donationStatus" style="display: none; margin-top: 20px;"></div>
                 </div>
@@ -1957,7 +1756,7 @@
         <!-- Artists Page -->
         <section id="about" class="page">
             <div class="container">
-                <h2 class="section-title fade-in">About The Event and perfoming artists, </h2>
+                <h2 class="section-title fade-in">About The Event and Performing Artists</h2>
                 <div class="about-content fade-in delay-1">
                     <img src="https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/sign/Mansango%20event%20tickets/IMG-20251110-WA0041.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zMjNkMDI2Zi0xMzkzLTRmMDQtYjk0Zi0yYzI3NGZiYTRmYzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5zYW5nbyBldmVudCB0aWNrZXRzL0lNRy0yMDI1MTExMC1XQTAwNDEuanBnIiwiaWF0IjoxNzYzMjIzODE2LCJleHAiOjE3OTQ3NTk4MTZ9.ZZP95rU1FssHAHLlRFH7NaQ0o_T-lR8ZeAGRmHT1Ju4" alt="Man Sango" class="artist-image">
                     <p>Get ready for an unforgettable night of live music with Man Sango at Echo Lounge Kisii! This highly anticipated concert will feature electrifying performances of his biggest hits along with special surprises.</p>
@@ -2057,38 +1856,40 @@
         // Initialize Supabase
         const supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
 
-        // Test Supabase connection on page load
-        async function testSupabaseConnection() {
-            try {
-                const { data, error } = await supabase
-                    .from('ticket_orders')
-                    .select('count')
-                    .limit(1);
-                
-                if (error) {
-                    console.error('Supabase connection test failed:', error);
-                    return false;
-                }
-                
-                console.log('Supabase connection test successful');
-                return true;
-            } catch (error) {
-                console.error('Supabase connection test error:', error);
-                return false;
-            }
+        // Initialize EmailJS with your credentials - FIXED INITIALIZATION
+        (function() {
+            emailjs.init("eUpIab2_n-wLXmMUj");
+            console.log("EmailJS initialized with public key");
+        })();
+
+        // QR Code Generator Function
+        function generateQRCodeData(orderRef, ticketType, customerName, customerPhone, quantity, total) {
+            const qrData = `MAN SANGO CONCERT
+Reference: ${orderRef}
+Name: ${customerName}
+Phone: ${customerPhone}
+Type: ${ticketType}
+Quantity: ${quantity}
+Amount: KSH ${total}
+Event: Man Sango Concert
+Date: 2025-12-12
+Venue: Echo Lounge, Kisii`;
+            return qrData;
+        }
+
+        // Generate QR Code as Image Data URL
+        function generateQRCodeImage(qrData) {
+            const qr = qrcode(0, 'M');
+            qr.addData(qrData);
+            qr.make();
+            return qr.createDataURL(4, 0);
         }
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', async function() {
             console.log('Initializing application...');
             
-            // Test Supabase connection
-            const connectionSuccess = await testSupabaseConnection();
-            if (!connectionSuccess) {
-                console.warn('Supabase connection failed. Some features may not work properly.');
-            }
-            
-            // Initialize other components
+            // Initialize components
             initializeNavigation();
             initializeEventHandlers();
             createArtistCards();
@@ -2105,12 +1906,15 @@
 
         // Enhanced Navigation System
         function initializeNavigation() {
+            console.log('Initializing navigation...');
+            
             // Mobile Navigation
             const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetPage = this.getAttribute('data-page');
+                    console.log('Mobile nav clicked:', targetPage);
                     navigateToPage(targetPage);
                 });
             });
@@ -2121,14 +1925,18 @@
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetPage = this.getAttribute('data-page');
+                    console.log('Desktop nav clicked:', targetPage);
                     navigateToPage(targetPage);
                 });
             });
 
             // Mobile Menu Toggle
-            document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-                document.querySelector('.side-nav').classList.toggle('active');
-            });
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    document.querySelector('.side-nav').classList.toggle('active');
+                });
+            }
 
             // Close mobile menu when clicking outside
             document.addEventListener('click', function(e) {
@@ -2145,13 +1953,21 @@
         }
 
         function navigateToPage(pageId) {
+            console.log('Navigating to page:', pageId);
+            
             // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
             
             // Show target page
-            document.getElementById(pageId).classList.add('active');
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            } else {
+                console.error('Page not found:', pageId);
+                return;
+            }
             
             // Update active nav links
             document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(navLink => {
@@ -2171,22 +1987,32 @@
             if (pageId === 'about') {
                 setTimeout(createArtistCards, 100);
             }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
 
         // Enhanced Event Handlers
         function initializeEventHandlers() {
+            console.log('Initializing event handlers...');
+            
             // Donation Thank You Banner
             const donationThankYou = document.getElementById('donationThankYou');
             const thankYouClose = document.getElementById('thankYouClose');
-            thankYouClose.addEventListener('click', function() {
-                donationThankYou.classList.remove('active');
-            });
+            if (thankYouClose) {
+                thankYouClose.addEventListener('click', function() {
+                    donationThankYou.classList.remove('active');
+                });
+            }
 
             // WhatsApp Banner
-            document.getElementById('closeBanner').addEventListener('click', function() {
-                document.getElementById('whatsappBanner').classList.remove('active');
-                localStorage.setItem('whatsappBannerDismissed', 'true');
-            });
+            const closeBanner = document.getElementById('closeBanner');
+            if (closeBanner) {
+                closeBanner.addEventListener('click', function() {
+                    document.getElementById('whatsappBanner').classList.remove('active');
+                    localStorage.setItem('whatsappBannerDismissed', 'true');
+                });
+            }
 
             // Ticket Selection
             document.querySelectorAll('.select-ticket').forEach(button => {
@@ -2205,34 +2031,47 @@
             });
 
             // Update ticket total
-            document.getElementById('quantity').addEventListener('change', function() {
-                const ticketPrice = parseInt(document.getElementById('ticketType').value === 'Regular' ? 500 : 
-                                          document.getElementById('ticketType').value === 'VIP' ? 1000 : 2000);
-                const quantity = parseInt(this.value);
-                const total = ticketPrice * quantity;
-                
-                document.getElementById('totalAmount').textContent = total;
-                document.getElementById('manualAmount').textContent = total;
-            });
+            const quantitySelect = document.getElementById('quantity');
+            if (quantitySelect) {
+                quantitySelect.addEventListener('change', function() {
+                    const ticketType = document.getElementById('ticketType').value;
+                    let ticketPrice = 0;
+                    
+                    if (ticketType === 'Regular') ticketPrice = 500;
+                    else if (ticketType === 'VIP') ticketPrice = 1000;
+                    else if (ticketType === 'VVIP') ticketPrice = 2000;
+                    
+                    const quantity = parseInt(this.value);
+                    const total = ticketPrice * quantity;
+                    
+                    document.getElementById('totalAmount').textContent = total;
+                    document.getElementById('manualAmount').textContent = total;
+                });
+            }
 
             // Proceed to payment
-            document.getElementById('proceedToPayment').addEventListener('click', function() {
-                if (validateTicketForm()) {
-                    document.getElementById('paymentOptions').style.display = 'block';
-                    document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Generate order reference for manual payment
-                    const orderRef = generateOrderReference('MS');
-                    document.getElementById('manualAccount').textContent = orderRef;
-                    window.currentOrderRef = orderRef;
-                }
-            });
+            const proceedToPayment = document.getElementById('proceedToPayment');
+            if (proceedToPayment) {
+                proceedToPayment.addEventListener('click', function() {
+                    if (validateTicketForm()) {
+                        document.getElementById('paymentOptions').style.display = 'block';
+                        document.getElementById('paymentOptions').scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Generate order reference for manual payment
+                        const orderRef = generateOrderReference('MS');
+                        document.getElementById('manualAccount').textContent = orderRef;
+                        window.currentOrderRef = orderRef;
+                    }
+                });
+            }
 
             // Payment tab switching
             document.querySelectorAll('.tab-button').forEach(button => {
                 button.addEventListener('click', function() {
                     const tabId = this.getAttribute('data-tab');
                     const container = this.closest('.payment-options') || this.closest('.donation-form');
+                    
+                    if (!container) return;
                     
                     // Update active tab button
                     container.querySelectorAll('.tab-button').forEach(btn => {
@@ -2244,20 +2083,33 @@
                     container.querySelectorAll('.payment-tab').forEach(tab => {
                         tab.classList.remove('active');
                     });
-                    container.querySelector(`#${tabId}Tab`).classList.add('active');
+                    
+                    const targetTab = container.querySelector(`#${tabId}Tab`);
+                    if (targetTab) {
+                        targetTab.classList.add('active');
+                    }
                 });
             });
 
             // Paystack payment
-            document.getElementById('paystackPayment').addEventListener('click', processPaystackPayment);
+            const paystackPayment = document.getElementById('paystackPayment');
+            if (paystackPayment) {
+                paystackPayment.addEventListener('click', processPaystackPayment);
+            }
             
             // Manual payment confirmation
-            document.getElementById('confirmManualPayment').addEventListener('click', confirmManualPayment);
+            const confirmManualPayment = document.getElementById('confirmManualPayment');
+            if (confirmManualPayment) {
+                confirmManualPayment.addEventListener('click', confirmManualPaymentHandler);
+            }
             
-            // Initialize other event handlers...
-            initializeMerchandiseHandlers();
+            // Donation handlers
             initializeDonationHandlers();
+            
+            // Modal handlers
             initializeModalHandlers();
+            
+            console.log('Event handlers initialized');
         }
 
         // Form Validation
@@ -2324,7 +2176,7 @@
             };
             
             const handler = PaystackPop.setup({
-                key: 'pk_live_d6b855fdc0f696978818694e852e3fc5f4a1617b',
+                key: 'pk_live_57daa4d45d41c267a4eb508fcdabc32f3410ef52',
                 email: email,
                 amount: total * 100,
                 currency: 'KES',
@@ -2357,7 +2209,7 @@
         }
 
         // Manual Payment Handling
-        async function confirmManualPayment() {
+        async function confirmManualPaymentHandler() {
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
@@ -2385,6 +2237,16 @@
                 );
                 
                 showStatus('manualStatus', 'Manual payment recorded! Redirecting to WhatsApp for verification...', 'success');
+                
+                // Send email
+                const emailSent = await sendTicketEmail(email, orderData, savedOrderRef);
+                
+                if (!emailSent) {
+                    console.warn('Ticket saved but email failed to send');
+                }
+                
+                // Generate and download PDF
+                generateAndDownloadPDFTicket(orderData, savedOrderRef);
                 
                 // Redirect to WhatsApp
                 setTimeout(() => {
@@ -2428,37 +2290,364 @@
             return orderRef;
         }
 
-        async function saveMerchOrder(item, color, size, quantity, name, phone, deliveryOption, deliveryAddress, total, paymentMethod, reference = null) {
-            const orderRef = reference || generateOrderReference('MS-MERCH');
+        // ========== WORKING EMAILJS FUNCTIONS ==========
+        async function sendTicketEmail(customerEmail, ticketData, orderRef) {
+            console.log('Attempting to send email to:', customerEmail);
             
-            const { data, error } = await supabase
-                .from('merch_orders')
-                .insert([
-                    {
-                        order_ref: orderRef,
-                        item: item,
-                        color: color,
-                        size: size,
-                        quantity: parseInt(quantity),
-                        customer_name: name,
-                        customer_phone: phone,
-                        delivery_option: deliveryOption,
-                        delivery_address: deliveryAddress,
-                        total_amount: parseInt(total),
-                        payment_method: paymentMethod,
-                        paystack_reference: reference,
-                        status: paymentMethod === 'manual_mpesa_till' ? 'pending_verification' : 'confirmed',
-                        created_at: new Date().toISOString()
+            try {
+                const qrCodeDataURL = await generateQRCodePNG(ticketData);
+                console.log('QR code generated for email');
+                
+                const result = await sendWithEmailJS(customerEmail, ticketData, qrCodeDataURL, orderRef);
+                console.log('Email sent successfully:', result);
+                return result;
+                
+            } catch (error) {
+                console.error('Error in sendTicketEmail:', error);
+                throw new Error(`Email failed: ${error.text || error.message}`);
+            }
+        }
+
+        async function generateQRCodePNG(ticketData) {
+            return new Promise((resolve) => {
+                const qrData = `MAN SANGO CONCERT
+Reference: ${ticketData.orderRef}
+Name: ${ticketData.name}
+Phone: ${ticketData.phone}
+Type: ${ticketData.ticketType}
+Quantity: ${ticketData.quantity}
+Amount: KSH ${ticketData.total}
+Event: Man Sango Concert
+Date: 2025-12-12
+Venue: Echo Lounge, Kisii`;
+                
+                try {
+                    const typeNumber = 0;
+                    const errorCorrectionLevel = 'L';
+                    const qr = qrcode(typeNumber, errorCorrectionLevel);
+                    qr.addData(qrData);
+                    qr.make();
+                    
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const size = 200;
+                    canvas.width = size;
+                    canvas.height = size;
+                    
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, size, size);
+                    
+                    const moduleCount = qr.getModuleCount();
+                    const tileSize = size / moduleCount;
+                    
+                    ctx.fillStyle = '#000000';
+                    for (let row = 0; row < moduleCount; row++) {
+                        for (let col = 0; col < moduleCount; col++) {
+                            if (qr.isDark(row, col)) {
+                                ctx.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+                            }
+                        }
                     }
-                ]);
+                    
+                    const pngDataUrl = canvas.toDataURL('image/png');
+                    resolve(pngDataUrl);
+                    
+                } catch (error) {
+                    console.error('QR code PNG generation failed:', error);
+                    resolve('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=');
+                }
+            });
+        }
+
+        async function sendWithEmailJS(customerEmail, ticketData, qrCodeDataURL, orderRef) {
+            console.log('Sending with EmailJS to:', customerEmail);
             
-            if (error) {
-                console.error('Supabase error:', error);
-                throw new Error('Failed to save merch order to database: ' + error.message);
+            const templateParams = {
+                to_email: customerEmail,
+                email: customerEmail,
+                from_name: 'Man Sango Concert',
+                ticket_reference: orderRef,
+                customer_name: ticketData.name,
+                customer_phone: ticketData.phone,
+                ticket_type: ticketData.ticketType,
+                quantity: ticketData.quantity.toString(),
+                total_amount: ticketData.total.toString(),
+                qr_code_url: qrCodeDataURL,
+                reply_to: 'noreply@mansango.com',
+                download_link: `https://your-website.com/tickets/${orderRef}`
+            };
+
+            console.log('Template params:', templateParams);
+
+            try {
+                const response = await emailjs.send(
+                    'service_rqxvm4u',
+                    'template_35nma87',
+                    templateParams
+                );
+                console.log('EmailJS response:', response);
+                return response;
+            } catch (error) {
+                console.error('EmailJS error details:', error);
+                if (error.text) {
+                    console.error('EmailJS error text:', error.text);
+                }
+                if (error.status) {
+                    console.error('EmailJS error status:', error.status);
+                }
+                throw error;
+            }
+        }
+
+        // Payment Success Handler
+        async function handleSuccessfulPayment(response, orderData) {
+            try {
+                let savedOrderRef;
+                
+                if (orderData.type === 'ticket') {
+                    savedOrderRef = await saveTicketOrder(
+                        orderData.name, orderData.phone, orderData.email, 
+                        orderData.ticketType, orderData.quantity, orderData.total,
+                        'paystack', response.reference
+                    );
+                    
+                    // Send email to customer - FIXED: Using working EmailJS function
+                    const emailSent = await sendTicketEmail(
+                        orderData.email, 
+                        orderData, 
+                        savedOrderRef
+                    );
+                    
+                    // Show success modal for tickets
+                    showSuccessModal(orderData, savedOrderRef, emailSent);
+                    
+                    // Generate and download PDF immediately
+                    generateAndDownloadPDFTicket(orderData, savedOrderRef);
+                    
+                } else if (orderData.type === 'donation') {
+                    await saveDonation(
+                        orderData.name, orderData.phone, orderData.email,
+                        orderData.amount, orderData.message
+                    );
+
+                    // Show donation thank you banner ONLY for donations
+                    setTimeout(() => {
+                        document.getElementById('donationThankYou').classList.add('active');
+                    }, 1000);
+                    
+                    // Show success message in donation status
+                    showStatus('donationStatus', 'Thank you for your generous donation! Your support means the world to Man Sango.', 'success');
+                }
+                
+            } catch (error) {
+                console.error('Error handling successful payment:', error);
+                showError('Payment successful but there was an error processing your order. Please contact support.');
+            }
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const eventDate = new Date('2025-12-12T16:00:00+03:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = eventDate - now;
+            
+            if (timeLeft < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
             }
             
-            console.log('Merch order saved successfully:', orderRef);
-            return orderRef;
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Artist cards creation
+        const artists = [
+            { name: "Man Sango", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/sango.jpeg" },
+            { name: "Embarambamba", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.17%20PM.jpeg" },
+            { name: "Rikanika", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/rikanika.jpg" },
+            { name: "Vick Young", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.22%20PM%20(1).jpeg" },
+            { name: "Danlee", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.21%20PM%20(1).jpeg" },
+            { name: "Mash Wonder", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.19%20PM.jpeg" },
+            { name: "Uncle Styles", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.18%20PM.jpeg" },
+            { name: "Ali Butterfly", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/butter.jpg" },
+            { name: "Fyna Bee", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.07%20PM.jpeg" },
+            { name: "Sparrow", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.14%20PM%20(1).jpeg" },
+            { name: "Jimnizzo", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/jimnizzo.jpg" },
+            { name: "Culture", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/culture.jpg" },
+            { name: "Mojeje", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/mojeje.jpg" },
+            { name: "Password Adi Dokta", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.13%20PM.jpeg" },
+            { name: "Kamtu Fulani", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/kamtu.jpeg" },
+            { name: "MC Kudu", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.18%20PM%20(1).jpeg" },
+            { name: "Yazeed Classic", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/yazeed.jpg" },
+            { name: "Forever Young", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.16%20PM%20(1).jpeg" },
+            { name: "Vinto Neskon", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/neskon.jpg" },
+            { name: "Cal J Vinka", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/vinka.webp" },
+            { name: "Sonkid Kenyanza", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/kenyansa.jpg" },
+            { name: "Omoisi Bwokioma", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.21%20PM.jpeg" },
+            { name: "Ashur Damsela", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.22%20PM.jpeg" },
+            { name: "Engeer 254", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.15%20PM.jpeg" },
+            { name: "Dion 254", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.20%20PM.jpeg" },
+            { name: "Oriah Msanii", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.11%20PM.jpeg" }
+        ];
+
+        function createArtistCards() {
+            const grid = document.getElementById('artistsGrid');
+            if (!grid) {
+                console.log('Artists grid not found');
+                return;
+            }
+            
+            console.log('Creating artist cards...');
+            grid.innerHTML = '';
+            
+            artists.forEach((artist, index) => {
+                const card = document.createElement('div');
+                card.className = 'artist-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                card.innerHTML = `
+                    <img src="${artist.image}" alt="${artist.name}" class="artist-card-image">
+                    <div class="artist-card-name">${artist.name}</div>
+                `;
+                
+                grid.appendChild(card);
+                
+                setTimeout(() => {
+                    card.classList.add('animate');
+                }, 100 + (index * 100));
+            });
+            
+            console.log('Artist cards created');
+        }
+
+        // Donation Handlers
+        function initializeDonationHandlers() {
+            // Donation option selection
+            document.querySelectorAll('.donation-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.donation-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    document.getElementById('customAmount').value = '';
+                    updateDonationAmount();
+                });
+            });
+
+            // Custom amount input
+            const customAmount = document.getElementById('customAmount');
+            if (customAmount) {
+                customAmount.addEventListener('input', function() {
+                    if (this.value) {
+                        document.querySelectorAll('.donation-option').forEach(opt => {
+                            opt.classList.remove('active');
+                        });
+                    }
+                    updateDonationAmount();
+                });
+            }
+
+            // Donation payment
+            const donateNow = document.getElementById('donateNow');
+            if (donateNow) {
+                donateNow.addEventListener('click', processDonationPayment);
+            }
+
+            function updateDonationAmount() {
+                let amount = 0;
+                const selectedOption = document.querySelector('.donation-option.active');
+                if (selectedOption) {
+                    amount = parseInt(selectedOption.getAttribute('data-amount'));
+                } else if (document.getElementById('customAmount').value) {
+                    amount = parseInt(document.getElementById('customAmount').value);
+                }
+                
+                // Generate order reference for manual donation
+                const orderRef = generateOrderReference('MS-DONATION');
+                window.currentDonationOrderRef = orderRef;
+            }
+        }
+
+        // Donation payment function
+        function processDonationPayment() {
+            const name = document.getElementById('donorName').value;
+            const phone = document.getElementById('donorPhone').value;
+            const email = document.getElementById('donorEmail').value;
+            const message = document.getElementById('donorMessage').value;
+            
+            let amount = 0;
+            const selectedOption = document.querySelector('.donation-option.active');
+            if (selectedOption) {
+                amount = parseInt(selectedOption.getAttribute('data-amount'));
+            } else if (document.getElementById('customAmount').value) {
+                amount = parseInt(document.getElementById('customAmount').value);
+            }
+            
+            if (!name || !phone || !email || amount <= 0) {
+                showError('Please fill in all required fields and select a donation amount');
+                return;
+            }
+            
+            const validatedPhone = validatePhoneNumber(phone);
+            if (!validatedPhone) {
+                showError('Please enter a valid Kenyan phone number');
+                return;
+            }
+            
+            document.getElementById('donorPhone').value = validatedPhone;
+            
+            const orderRef = generateOrderReference('MS-DONATION');
+            window.currentDonationOrderRef = orderRef;
+            
+            const orderData = {
+                name: name,
+                phone: validatedPhone,
+                email: email,
+                amount: amount,
+                message: message,
+                orderRef: orderRef,
+                type: 'donation'
+            };
+            
+            const handler = PaystackPop.setup({
+                key: 'pk_live_57daa4d45d41c267a4eb508fcdabc32f3410ef52',
+                email: email,
+                amount: amount * 100,
+                currency: 'KES',
+                ref: orderRef,
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Donor Name",
+                            variable_name: "donor_name",
+                            value: name
+                        },
+                        {
+                            display_name: "Order Type",
+                            variable_name: "order_type",
+                            value: 'donation'
+                        }
+                    ]
+                },
+                callback: function(response) {
+                    handleSuccessfulPayment(response, orderData);
+                },
+                onClose: function() {
+                    console.log('Donation payment window closed');
+                }
+            });
+            
+            handler.openIframe();
         }
 
         async function saveDonation(name, phone, email, amount, message = '') {
@@ -2484,69 +2673,101 @@
             return data;
         }
 
-        // Payment Success Handler - UPDATED FOR DONATIONS
-        async function handleSuccessfulPayment(response, orderData) {
-            try {
-                let savedOrderRef;
-                
-                if (orderData.type === 'ticket') {
-                    savedOrderRef = await saveTicketOrder(
-                        orderData.name, orderData.phone, orderData.email, 
-                        orderData.ticketType, orderData.quantity, orderData.total,
-                        'paystack', response.reference
-                    );
-                    
-                    // Show success modal for tickets
-                    showSuccessModal(orderData, savedOrderRef);
-                    
-                    // Generate and download PDF for tickets
-                    generateAndDownloadPDFTicket(orderData, savedOrderRef);
-                    
-                    // Send email for tickets
-                    sendTicketEmail(orderData, savedOrderRef);
-                    
-                } else if (orderData.type === 'merch') {
-                    savedOrderRef = await saveMerchOrder(
-                        orderData.item, orderData.color, orderData.size,
-                        orderData.quantity, orderData.name, orderData.phone,
-                        orderData.delivery, orderData.address, orderData.total,
-                        'paystack', response.reference
-                    );
-                    
-                    // Show success modal for merch
-                    showSuccessModal(orderData, savedOrderRef);
-                    
-                    // Generate and download PDF for merch
-                    generateAndDownloadMerchReceipt(orderData, savedOrderRef);
-                    
-                    // Send email for merch
-                    sendMerchEmail(orderData, savedOrderRef);
-                    
-                } else if (orderData.type === 'donation') {
-                    await saveDonation(
-                        orderData.name, orderData.phone, orderData.email,
-                        orderData.amount, orderData.message
-                    );
+        // Modal Handlers
+        function initializeModalHandlers() {
+            // Modal close
+            const closeModal = document.getElementById('closeModal');
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    document.getElementById('successModal').classList.remove('active');
+                });
+            }
 
-                    // Show donation thank you banner ONLY for donations (no PDF download)
-                    setTimeout(() => {
-                        document.getElementById('donationThankYou').classList.add('active');
-                    }, 1000);
-                    
-                    // Send email for donation (no PDF)
-                    sendDonationEmail(orderData);
-                    
-                    // Show success message in donation status
-                    showStatus('donationStatus', 'Thank you for your generous donation! Your support means the world to Man Sango.', 'success');
-                }
-                
-            } catch (error) {
-                console.error('Error handling successful payment:', error);
-                showError('Payment successful but there was an error processing your order. Please contact support.');
+            // Download receipt
+            const downloadReceipt = document.getElementById('downloadReceipt');
+            if (downloadReceipt) {
+                downloadReceipt.addEventListener('click', function() {
+                    if (window.currentOrder) {
+                        generateAndDownloadPDFTicket(window.currentOrder, window.currentOrder.orderRef);
+                    }
+                });
             }
         }
 
-        // PDF Generation Functions - TICKETS ONLY
+        // Utility Functions
+        function generateOrderReference(prefix) {
+            const timestamp = Date.now().toString().slice(-6);
+            const random = Math.random().toString(36).substring(2, 5).toUpperCase();
+            return `${prefix}-${timestamp}-${random}`;
+        }
+
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.style.display = 'block';
+                element.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
+            }
+        }
+
+        function showError(message) {
+            alert(message);
+        }
+
+        function showSuccessModal(orderData, orderRef, emailSent = true) {
+            document.getElementById('modalTitle').textContent = 'Payment Successful!';
+            
+            let message = `Your ${orderData.type} has been successfully processed. `;
+            message += emailSent ? 'A confirmation email has been sent to your inbox.' : 'Please save your order reference for verification.';
+            
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('orderRefDisplay').textContent = orderRef;
+            document.getElementById('successModal').classList.add('active');
+            
+            // Store order data for receipt download
+            window.currentOrder = { ...orderData, orderRef: orderRef };
+        }
+
+        function showManualPaymentOption(orderData) {
+            const statusDiv = document.getElementById('paystackStatus');
+            if (statusDiv) {
+                statusDiv.style.display = 'block';
+                statusDiv.innerHTML = `
+                    <div class="payment-instructions">
+                        <h4>Manual Payment Option</h4>
+                        <p>If M-Pesa payment didn't work, you can make a manual payment:</p>
+                        <ol>
+                            <li>Go to M-Pesa > Lipa Na M-Pesa > Buy Goods and Services</li>
+                            <li>Enter Till Number: <strong>3626261</strong></li>
+                            <li>Amount: <strong>KSH ${orderData.total}</strong></li>
+                            <li>Account: <strong>${orderData.orderRef}</strong></li>
+                        </ol>
+                        <button class="btn btn-secondary" onclick="confirmManualPaymentHandler()">
+                            I've Made the Payment
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // WhatsApp Redirect Functions
+        function redirectToWhatsApp(orderData) {
+            const message = `Hello! I've completed a manual M-Pesa payment for the Man Sango concert. Here are my details:
+            
+Order Reference: ${orderData.orderRef}
+Name: ${orderData.name}
+Phone: ${orderData.phone}
+Ticket Type: ${orderData.ticketType}
+Quantity: ${orderData.quantity}
+Total Amount: KSH ${orderData.total}
+
+Please verify my payment and send my ticket.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/254748840501?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // PDF Generation Functions with QR Code - UPDATED FORMAT
         function generateAndDownloadPDFTicket(order, orderRef) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -2593,14 +2814,15 @@
             doc.text('Venue: Echo Lounge Kisii', 120, 120);
             doc.text('Location: MKO Plaza, Daraja Mbili', 120, 130);
             
-            // Add QR code placeholder
-            doc.setDrawColor(200, 200, 200);
-            doc.rect(75, 180, 60, 60);
+            // Generate QR Code with updated format
+            const qrData = generateQRCodeData(orderRef, order.ticketType, order.name, order.phone, order.quantity, order.total);
+            const qrCodeImage = generateQRCodeImage(qrData);
+            
+            // Add QR Code
+            doc.addImage(qrCodeImage, 'PNG', 75, 180, 60, 60);
             doc.setFontSize(10);
             doc.setTextColor(100, 100, 100);
-            doc.text('QR CODE', 105, 195, { align: 'center' });
-            doc.text('Present at venue', 105, 205, { align: 'center' });
-            doc.text('for entry', 105, 215, { align: 'center' });
+            doc.text('Scan for verification', 105, 245, { align: 'center' });
             
             // Add footer
             doc.setFontSize(8);
@@ -2609,751 +2831,6 @@
             
             // Download the PDF
             doc.save(`ManSango_Ticket_${orderRef}.pdf`);
-        }
-
-        function generateAndDownloadMerchReceipt(order, orderRef) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            // Add background color
-            doc.setFillColor(26, 75, 140);
-            doc.rect(0, 0, 210, 50, 'F');
-            
-            // Add header
-            doc.setFontSize(20);
-            doc.setTextColor(255, 255, 255);
-            doc.text('MAN SANGO MERCHANDISE RECEIPT', 105, 20, { align: 'center' });
-            
-            doc.setFontSize(14);
-            doc.text('Thank you for your purchase!', 105, 30, { align: 'center' });
-            
-            // Add receipt details
-            doc.setFillColor(255, 255, 255);
-            doc.rect(10, 60, 190, 120, 'F');
-            
-            doc.setFontSize(16);
-            doc.setTextColor(26, 75, 140);
-            doc.text('ORDER DETAILS', 20, 75);
-            
-            doc.setFontSize(12);
-            doc.setTextColor(0, 0, 0);
-            doc.text(`Order Reference: ${orderRef}`, 20, 90);
-            doc.text(`Item: ${order.item}`, 20, 100);
-            doc.text(`Color: ${order.color}`, 20, 110);
-            doc.text(`Size: ${order.size}`, 20, 120);
-            doc.text(`Quantity: ${order.quantity}`, 20, 130);
-            doc.text(`Total Amount: KSH ${order.total}`, 20, 140);
-            
-            // Add customer details
-            doc.text('CUSTOMER DETAILS', 120, 75);
-            doc.text(`Name: ${order.name}`, 120, 90);
-            doc.text(`Phone: ${order.phone}`, 120, 100);
-            doc.text(`Email: ${order.email}`, 120, 110);
-            doc.text(`Delivery: ${order.delivery === 'event' ? 'Collect at Event' : 'Home Delivery'}`, 120, 120);
-            
-            if (order.delivery === 'delivery') {
-                doc.text(`Address: ${order.address}`, 120, 130);
-            }
-            
-            // Add footer
-            doc.setFontSize(8);
-            doc.text('Contact: 0748840501 | Email: mansangoentertainment@gmail.com', 105, 280, { align: 'center' });
-            doc.text('© 2025 Fresh Music Entertainment. All rights reserved.', 105, 285, { align: 'center' });
-            
-            // Download the PDF
-            doc.save(`ManSango_Merch_${orderRef}.pdf`);
-        }
-
-        // Email Sending Function
-        async function sendTicketEmail(orderData, orderRef) {
-            try {
-                emailjs.init("eUpIab2_n-wLXmMUj");
-                
-                const templateParams = {
-                    to_name: orderData.name,
-                    to_email: orderData.email,
-                    order_reference: orderRef,
-                    ticket_type: orderData.ticketType,
-                    quantity: orderData.quantity,
-                    total_amount: `KSH ${orderData.total}`,
-                    event_name: 'Man Sango at 6 Live Concert',
-                    event_date: 'December 12, 2025',
-                    event_time: '4:00 PM',
-                    event_venue: 'Echo Lounge, MKO Plaza, Daraja Mbili, Kisii'
-                };
-
-                const response = await emailjs.send('service_rqxvm4u', 'template_35nma87', templateParams);
-                console.log('Ticket email sent successfully:', response);
-                return true;
-            } catch (error) {
-                console.error('Failed to send ticket email:', error);
-                return false;
-            }
-        }
-
-        async function sendMerchEmail(orderData, orderRef) {
-            try {
-                emailjs.init("eUpIab2_n-wLXmMUj");
-                
-                const templateParams = {
-                    to_name: orderData.name,
-                    to_email: orderData.email,
-                    order_reference: orderRef,
-                    item: orderData.item,
-                    color: orderData.color,
-                    size: orderData.size,
-                    quantity: orderData.quantity,
-                    total_amount: `KSH ${orderData.total}`,
-                    delivery_option: orderData.delivery === 'event' ? 'Collect at Event' : 'Home Delivery',
-                    delivery_address: orderData.address || 'N/A'
-                };
-
-                const response = await emailjs.send('service_rqxvm4u', 'template_35nma87', templateParams);
-                console.log('Merch email sent successfully:', response);
-                return true;
-            } catch (error) {
-                console.error('Failed to send merch email:', error);
-                return false;
-            }
-        }
-
-        async function sendDonationEmail(orderData) {
-            try {
-                emailjs.init("eUpIab2_n-wLXmMUj");
-                
-                const templateParams = {
-                    to_name: orderData.name,
-                    to_email: orderData.email,
-                    donation_amount: `KSH ${orderData.amount}`,
-                    message: orderData.message || 'No message provided'
-                };
-
-                const response = await emailjs.send('service_rqxvm4u', 'template_35nma87', templateParams);
-                console.log('Donation email sent successfully:', response);
-                return true;
-            } catch (error) {
-                console.error('Failed to send donation email:', error);
-                return false;
-            }
-        }
-
-        // Utility Functions
-        function generateOrderReference(prefix) {
-            const timestamp = Date.now().toString().slice(-6);
-            const random = Math.random().toString(36).substring(2, 5).toUpperCase();
-            return `${prefix}-${timestamp}-${random}`;
-        }
-
-        function showStatus(elementId, message, type) {
-            const element = document.getElementById(elementId);
-            element.style.display = 'block';
-            element.innerHTML = `<div class="status-message status-${type}">${message}</div>`;
-        }
-
-        function showError(message) {
-            alert(message);
-        }
-
-        function showSuccessModal(orderData, orderRef) {
-            document.getElementById('modalTitle').textContent = 'Payment Successful!';
-            document.getElementById('modalMessage').textContent = `Your ${orderData.type} has been successfully processed.`;
-            document.getElementById('orderRefDisplay').textContent = orderRef;
-            document.getElementById('successModal').classList.add('active');
-            
-            // Store order data for receipt download
-            window.currentOrder = { ...orderData, orderRef: orderRef };
-        }
-
-        function showManualPaymentOption(orderData) {
-            const statusDiv = document.getElementById('paystackStatus');
-            statusDiv.style.display = 'block';
-            statusDiv.innerHTML = `
-                <div class="payment-instructions">
-                    <h4>Manual Payment Option</h4>
-                    <p>If M-Pesa payment didn't work, you can make a manual payment:</p>
-                    <ol>
-                        <li>Go to M-Pesa > Lipa Na M-Pesa > Buy Goods and Services</li>
-                        <li>Enter Till Number: <strong>3626261</strong></li>
-                        <li>Amount: <strong>KSH ${orderData.total}</strong></li>
-                        <li>Account: <strong>${orderData.orderRef}</strong></li>
-                    </ol>
-                    <button class="btn btn-secondary" onclick="confirmManualPayment()">
-                        I've Made the Payment
-                    </button>
-                </div>
-            `;
-        }
-
-        // WhatsApp Redirect Functions
-        function redirectToWhatsApp(orderData) {
-            const message = `Hello! I've completed a manual M-Pesa payment for the Man Sango concert. Here are my details:
-            
-Order Reference: ${orderData.orderRef}
-Name: ${orderData.name}
-Phone: ${orderData.phone}
-Ticket Type: ${orderData.ticketType}
-Quantity: ${orderData.quantity}
-Total Amount: KSH ${orderData.total}
-
-Please verify my payment and send my ticket.`;
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/254748840501?text=${encodedMessage}`;
-            window.open(whatsappUrl, '_blank');
-        }
-
-        function redirectToWhatsAppMerch(orderData) {
-            const message = `Hello! I've completed a manual M-Pesa payment for Man Sango merchandise. Here are my details:
-            
-Order Reference: ${orderData.orderRef}
-Name: ${orderData.name}
-Phone: ${orderData.phone}
-Item: ${orderData.item}
-Color: ${orderData.color}
-Size: ${orderData.size}
-Quantity: ${orderData.quantity}
-Total Amount: KSH ${orderData.total}
-Delivery Option: ${orderData.delivery === 'event' ? 'Collect at Event' : 'Home Delivery'}
-${orderData.delivery === 'delivery' ? `Delivery Address: ${orderData.address}` : ''}
-
-Please verify my payment and process my order.`;
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/254748840501?text=${encodedMessage}`;
-            window.open(whatsappUrl, '_blank');
-        }
-
-        // Initialize other sections (merchandise, donation, etc.)
-        function initializeMerchandiseHandlers() {
-            // Merchandise purchase handlers
-            document.querySelectorAll('.buy-merch').forEach(button => {
-                button.addEventListener('click', function() {
-                    const item = this.getAttribute('data-item');
-                    const price = this.getAttribute('data-price');
-                    
-                    document.getElementById('merchItem').value = item;
-                    document.getElementById('merchTotalAmount').textContent = price;
-                    document.getElementById('merchManualAmount').textContent = price;
-                    
-                    // Set color options
-                    const colorOptions = document.getElementById('colorOptions');
-                    colorOptions.innerHTML = '';
-                    
-                    const colors = item === 'T-Shirt' ? 
-                        [
-                            { name: 'Black', value: '#000000' },
-                            { name: 'White', value: '#FFFFFF' },
-                            { name: 'Navy Blue', value: '#000080' },
-                            { name: 'Red', value: '#FF0000' },
-                            { name: 'Gray', value: '#808080' }
-                        ] : [
-                            { name: 'Black', value: '#000000' },
-                            { name: 'Charcoal', value: '#36454F' },
-                            { name: 'Navy Blue', value: '#000080' },
-                            { name: 'Burgundy', value: '#800020' },
-                            { name: 'Forest Green', value: '#228B22' }
-                        ];
-                    
-                    colors.forEach(color => {
-                        const colorOption = document.createElement('div');
-                        colorOption.className = 'color-option';
-                        colorOption.style.backgroundColor = color.value;
-                        colorOption.setAttribute('data-color', color.name);
-                        colorOption.setAttribute('title', color.name);
-                        
-                        colorOption.addEventListener('click', function() {
-                            document.querySelectorAll('.color-option').forEach(opt => {
-                                opt.classList.remove('selected');
-                            });
-                            this.classList.add('selected');
-                        });
-                        
-                        colorOptions.appendChild(colorOption);
-                    });
-                    
-                    if (colorOptions.firstChild) {
-                        colorOptions.firstChild.classList.add('selected');
-                    }
-                    
-                    document.getElementById('merchForm').style.display = 'block';
-                    document.getElementById('merchPaymentOptions').style.display = 'none';
-                    document.getElementById('merchForm').scrollIntoView({ behavior: 'smooth' });
-                });
-            });
-
-            // Delivery address toggle
-            document.getElementById('deliveryOption').addEventListener('change', function() {
-                const deliveryAddressGroup = document.getElementById('deliveryAddressGroup');
-                deliveryAddressGroup.style.display = this.value === 'delivery' ? 'block' : 'none';
-                updateMerchTotal();
-            });
-
-            // Update merch total
-            document.getElementById('merchQuantity').addEventListener('change', updateMerchTotal);
-            
-            function updateMerchTotal() {
-                const basePrice = parseInt(document.getElementById('merchItem').value === 'T-Shirt' ? 1500 : 3000);
-                const quantity = parseInt(document.getElementById('merchQuantity').value);
-                const deliveryOption = document.getElementById('deliveryOption').value;
-                const deliveryCost = deliveryOption === 'delivery' ? 200 : 0;
-                
-                const total = (basePrice * quantity) + deliveryCost;
-                document.getElementById('merchTotalAmount').textContent = total;
-                document.getElementById('merchManualAmount').textContent = total;
-            }
-
-            // Proceed to merch payment
-            document.getElementById('proceedToMerchPayment').addEventListener('click', function() {
-                if (validateMerchForm()) {
-                    document.getElementById('merchPaymentOptions').style.display = 'block';
-                    
-                    // Generate order reference for manual payment
-                    const orderRef = generateOrderReference('MS-MERCH');
-                    document.getElementById('merchManualAccount').textContent = orderRef;
-                    window.currentMerchOrderRef = orderRef;
-                }
-            });
-
-            // Merch Paystack payment
-            document.getElementById('merchPaystackPayment').addEventListener('click', processMerchPaystackPayment);
-            
-            // Merch manual payment
-            document.getElementById('confirmMerchManualPayment').addEventListener('click', confirmMerchManualPayment);
-        }
-
-        function initializeDonationHandlers() {
-            // Donation option selection
-            document.querySelectorAll('.donation-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.donation-option').forEach(opt => {
-                        opt.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                    document.getElementById('customAmount').value = '';
-                    updateDonationAmount();
-                });
-            });
-
-            // Custom amount input
-            document.getElementById('customAmount').addEventListener('input', function() {
-                if (this.value) {
-                    document.querySelectorAll('.donation-option').forEach(opt => {
-                        opt.classList.remove('active');
-                    });
-                }
-                updateDonationAmount();
-            });
-
-            // Donation payment
-            document.getElementById('donateNow').addEventListener('click', processDonationPayment);
-            document.getElementById('confirmDonationManual').addEventListener('click', confirmDonationManual);
-
-            function updateDonationAmount() {
-                let amount = 0;
-                const selectedOption = document.querySelector('.donation-option.active');
-                if (selectedOption) {
-                    amount = parseInt(selectedOption.getAttribute('data-amount'));
-                } else if (document.getElementById('customAmount').value) {
-                    amount = parseInt(document.getElementById('customAmount').value);
-                }
-                
-                document.getElementById('donationManualAmount').textContent = amount;
-                
-                // Generate order reference for manual donation
-                const orderRef = generateOrderReference('MS-DONATION');
-                document.getElementById('donationManualAccount').textContent = orderRef;
-                window.currentDonationOrderRef = orderRef;
-            }
-        }
-
-        function initializeModalHandlers() {
-            // Modal close
-            document.getElementById('closeModal').addEventListener('click', function() {
-                document.getElementById('successModal').classList.remove('active');
-            });
-
-            // Download receipt
-            document.getElementById('downloadReceipt').addEventListener('click', function() {
-                if (window.currentOrder) {
-                    if (window.currentOrder.type === 'ticket') {
-                        generateAndDownloadPDFTicket(window.currentOrder, window.currentOrder.orderRef);
-                    } else if (window.currentOrder.type === 'merch') {
-                        generateAndDownloadMerchReceipt(window.currentOrder, window.currentOrder.orderRef);
-                    }
-                }
-            });
-        }
-
-        // Form validation functions
-        function validateMerchForm() {
-            const name = document.getElementById('customerName').value;
-            const phone = document.getElementById('customerPhone').value;
-            const email = document.getElementById('customerEmail').value;
-            const item = document.getElementById('merchItem').value;
-            const selectedColor = document.querySelector('.color-option.selected');
-            const deliveryOption = document.getElementById('deliveryOption').value;
-            const deliveryAddress = document.getElementById('deliveryAddress').value;
-            
-            if (!name || !phone || !email || !item) {
-                showError('Please fill in all required fields');
-                return false;
-            }
-            
-            if (!selectedColor) {
-                showError('Please select a color');
-                return false;
-            }
-            
-            if (deliveryOption === 'delivery' && !deliveryAddress) {
-                showError('Please enter your delivery address');
-                return false;
-            }
-            
-            const validatedPhone = validatePhoneNumber(phone);
-            if (!validatedPhone) {
-                showError('Please enter a valid Kenyan phone number');
-                return false;
-            }
-            
-            document.getElementById('customerPhone').value = validatedPhone;
-            return true;
-        }
-
-        // Merchandise payment functions
-        function processMerchPaystackPayment() {
-            const item = document.getElementById('merchItem').value;
-            const selectedColor = document.querySelector('.color-option.selected');
-            const size = document.getElementById('merchSize').value;
-            const quantity = document.getElementById('merchQuantity').value;
-            const name = document.getElementById('customerName').value;
-            const phone = document.getElementById('customerPhone').value;
-            const email = document.getElementById('customerEmail').value;
-            const deliveryOption = document.getElementById('deliveryOption').value;
-            const deliveryAddress = document.getElementById('deliveryAddress').value;
-            const total = parseInt(document.getElementById('merchTotalAmount').textContent);
-            
-            const orderRef = generateOrderReference('MS-MERCH');
-            window.currentMerchOrderRef = orderRef;
-            
-            const orderData = {
-                item: item,
-                color: selectedColor ? selectedColor.getAttribute('data-color') : 'Not selected',
-                size: size,
-                quantity: quantity,
-                name: name,
-                phone: phone,
-                email: email,
-                delivery: deliveryOption,
-                address: deliveryAddress,
-                total: total,
-                orderRef: orderRef,
-                type: 'merch'
-            };
-            
-            const handler = PaystackPop.setup({
-                key: 'pk_live_d6b855fdc0f696978818694e852e3fc5f4a1617b',
-                email: email,
-                amount: total * 100,
-                currency: 'KES',
-                ref: orderRef,
-                metadata: {
-                    custom_fields: [
-                        {
-                            display_name: "Customer Name",
-                            variable_name: "customer_name",
-                            value: name
-                        },
-                        {
-                            display_name: "Order Type",
-                            variable_name: "order_type",
-                            value: 'merchandise'
-                        }
-                    ]
-                },
-                callback: function(response) {
-                    handleSuccessfulPayment(response, orderData);
-                },
-                onClose: function() {
-                    showManualMerchPaymentOption(orderData);
-                }
-            });
-            
-            handler.openIframe();
-        }
-
-        async function confirmMerchManualPayment() {
-            const item = document.getElementById('merchItem').value;
-            const selectedColor = document.querySelector('.color-option.selected');
-            const size = document.getElementById('merchSize').value;
-            const quantity = document.getElementById('merchQuantity').value;
-            const name = document.getElementById('customerName').value;
-            const phone = document.getElementById('customerPhone').value;
-            const email = document.getElementById('customerEmail').value;
-            const deliveryOption = document.getElementById('deliveryOption').value;
-            const deliveryAddress = document.getElementById('deliveryAddress').value;
-            const total = parseInt(document.getElementById('merchTotalAmount').textContent);
-            const orderRef = window.currentMerchOrderRef;
-            
-            const orderData = {
-                item: item,
-                color: selectedColor ? selectedColor.getAttribute('data-color') : 'Not selected',
-                size: size,
-                quantity: quantity,
-                name: name,
-                phone: phone,
-                email: email,
-                delivery: deliveryOption,
-                address: deliveryAddress,
-                total: total,
-                orderRef: orderRef,
-                type: 'merch'
-            };
-            
-            try {
-                const savedOrderRef = await saveMerchOrder(
-                    item, selectedColor.getAttribute('data-color'), size, quantity,
-                    name, phone, deliveryOption, deliveryAddress, total,
-                    'manual_mpesa_till', orderRef
-                );
-                
-                showStatus('merchManualStatus', 'Manual payment recorded! Redirecting to WhatsApp for verification...', 'success');
-                
-                setTimeout(() => {
-                    redirectToWhatsAppMerch(orderData);
-                }, 2000);
-                
-            } catch (error) {
-                console.error('Error saving manual merch payment:', error);
-                showStatus('merchManualStatus', 'Error recording payment: ' + error.message, 'error');
-            }
-        }
-
-        function showManualMerchPaymentOption(orderData) {
-            const statusDiv = document.getElementById('merchPaystackStatus');
-            statusDiv.style.display = 'block';
-            statusDiv.innerHTML = `
-                <div class="payment-instructions">
-                    <h4>Manual Payment Option</h4>
-                    <p>If M-Pesa payment didn't work, you can make a manual payment:</p>
-                    <ol>
-                        <li>Go to M-Pesa > Lipa Na M-Pesa > Buy Goods and Services</li>
-                        <li>Enter Till Number: <strong>3626261</strong></li>
-                        <li>Amount: <strong>KSH ${orderData.total}</strong></li>
-                        <li>Account: <strong>${orderData.orderRef}</strong></li>
-                    </ol>
-                    <button class="btn btn-secondary" onclick="confirmMerchManualPayment()">
-                        I've Made the Payment
-                    </button>
-                </div>
-            `;
-        }
-
-        // Donation payment functions
-        function processDonationPayment() {
-            const name = document.getElementById('donorName').value;
-            const phone = document.getElementById('donorPhone').value;
-            const email = document.getElementById('donorEmail').value;
-            const message = document.getElementById('donorMessage').value;
-            
-            let amount = 0;
-            const selectedOption = document.querySelector('.donation-option.active');
-            if (selectedOption) {
-                amount = parseInt(selectedOption.getAttribute('data-amount'));
-            } else if (document.getElementById('customAmount').value) {
-                amount = parseInt(document.getElementById('customAmount').value);
-            }
-            
-            if (!name || !phone || !email || amount <= 0) {
-                showError('Please fill in all required fields and select a donation amount');
-                return;
-            }
-            
-            const validatedPhone = validatePhoneNumber(phone);
-            if (!validatedPhone) {
-                showError('Please enter a valid Kenyan phone number');
-                return;
-            }
-            
-            document.getElementById('donorPhone').value = validatedPhone;
-            
-            const orderRef = generateOrderReference('MS-DONATION');
-            window.currentDonationOrderRef = orderRef;
-            
-            const orderData = {
-                name: name,
-                phone: validatedPhone,
-                email: email,
-                amount: amount,
-                message: message,
-                orderRef: orderRef,
-                type: 'donation'
-            };
-            
-            const handler = PaystackPop.setup({
-                key: 'pk_live_d6b855fdc0f696978818694e852e3fc5f4a1617b',
-                email: email,
-                amount: amount * 100,
-                currency: 'KES',
-                ref: orderRef,
-                metadata: {
-                    custom_fields: [
-                        {
-                            display_name: "Donor Name",
-                            variable_name: "donor_name",
-                            value: name
-                        },
-                        {
-                            display_name: "Order Type",
-                            variable_name: "order_type",
-                            value: 'donation'
-                        }
-                    ]
-                },
-                callback: function(response) {
-                    handleSuccessfulPayment(response, orderData);
-                },
-                onClose: function() {
-                    showManualDonationPaymentOption(orderData);
-                }
-            });
-            
-            handler.openIframe();
-        }
-
-        async function confirmDonationManual() {
-            const name = document.getElementById('donorName').value;
-            const phone = document.getElementById('donorPhone').value;
-            const email = document.getElementById('donorEmail').value;
-            const message = document.getElementById('donorMessage').value;
-            
-            let amount = 0;
-            const selectedOption = document.querySelector('.donation-option.active');
-            if (selectedOption) {
-                amount = parseInt(selectedOption.getAttribute('data-amount'));
-            } else if (document.getElementById('customAmount').value) {
-                amount = parseInt(document.getElementById('customAmount').value);
-            }
-            
-            const orderRef = window.currentDonationOrderRef;
-            
-            const orderData = {
-                name: name,
-                phone: phone,
-                email: email,
-                amount: amount,
-                message: message,
-                orderRef: orderRef,
-                type: 'donation'
-            };
-            
-            try {
-                await saveDonation(name, phone, email, amount, message);
-                
-                showStatus('donationStatus', 'Manual donation recorded! Thank you for your support.', 'success');
-                
-                // Show donation thank you banner
-                setTimeout(() => {
-                    document.getElementById('donationThankYou').classList.add('active');
-                }, 1000);
-                
-                // Send email (no PDF for donations)
-                sendDonationEmail(orderData);
-                
-            } catch (error) {
-                console.error('Error saving manual donation:', error);
-                showStatus('donationStatus', 'Error recording donation: ' + error.message, 'error');
-            }
-        }
-
-        function showManualDonationPaymentOption(orderData) {
-            const statusDiv = document.getElementById('donationStatus');
-            statusDiv.style.display = 'block';
-            statusDiv.innerHTML = `
-                <div class="payment-instructions">
-                    <h4>Manual Payment Option</h4>
-                    <p>If M-Pesa payment didn't work, you can make a manual payment:</p>
-                    <ol>
-                        <li>Go to M-Pesa > Lipa Na M-Pesa > Buy Goods and Services</li>
-                        <li>Enter Till Number: <strong>3626261</strong></li>
-                        <li>Amount: <strong>KSH ${orderData.amount}</strong></li>
-                        <li>Account: <strong>${orderData.orderRef}</strong></li>
-                    </ol>
-                    <button class="btn btn-secondary" onclick="confirmDonationManual()">
-                        I've Made the Donation
-                    </button>
-                </div>
-            `;
-        }
-
-        // Artist cards creation
-        const artists = [
-            { name: "Man Sango", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/sango.jpeg" },
-            { name: "Embarambamba", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.17%20PM.jpeg" },
-            { name: "Rikanika", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/rikanika.jpg" },
-            { name: "Vick Young", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.22%20PM%20(1).jpeg" },
-            { name: "Danlee", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.21%20PM%20(1).jpeg" },
-            { name: "Mash Wonder", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.19%20PM.jpeg" },
-            { name: "Uncle Styles", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.18%20PM.jpeg" },
-            { name: "Ali Butterfly", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/butter.jpg" },
-            { name: "Fyna Bee", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.07%20PM.jpeg" },
-            { name: "Sparrow", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.14%20PM%20(1).jpeg" },
-            { name: "Jimnizzo", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/jimnizzo.jpg" },
-            { name: "Culture", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/culture.jpg" },
-            { name: "Mojeje", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/mojeje.jpg" },
-            { name: "Password Adi Dokta", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.13%20PM.jpeg" },
-            { name: "Kamtu Fulani", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/kamtu.jpeg" },
-            { name: "MC Kudu", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.18%20PM%20(1).jpeg" },
-            { name: "Yazeed Classic", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/yazeed.jpg" },
-            { name: "Forever Young", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.16%20PM%20(1).jpeg" },
-            { name: "Vinto Neskon", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/neskon.jpg" },
-            { name: "Cal J Vinka", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/vinka.webp" },
-            { name: "Sonkid Kenyanza", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/kenyansa.jpg" },
-            { name: "Omoisi Bwokioma", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.21%20PM.jpeg" },
-            { name: "Ashur Damsela", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.22%20PM.jpeg" },
-            { name: "engeer 254", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.15%20PM.jpeg" },
-            { name: "Dion 254", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.20%20PM.jpeg" },
-            { name: "Oriah Msanii", image: "https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/public/Mansango%20event%20tickets/WhatsApp%20Image%202025-11-16%20at%208.05.11%20PM.jpeg" }
-        ];
-
-        function createArtistCards() {
-            const grid = document.getElementById('artistsGrid');
-            if (!grid) return;
-            
-            grid.innerHTML = '';
-            
-            artists.forEach((artist, index) => {
-                const card = document.createElement('div');
-                card.className = 'artist-card';
-                card.style.animationDelay = `${index * 0.1}s`;
-                
-                card.innerHTML = `
-                    <img src="${artist.image}" alt="${artist.name}" class="artist-card-image" onerror="this.src='https://via.placeholder.com/200x200/333333/FFFFFF?text=${encodeURIComponent(artist.name)}'">
-                    <div class="artist-card-name">${artist.name}</div>
-                `;
-                
-                grid.appendChild(card);
-                
-                setTimeout(() => {
-                    card.classList.add('animate');
-                }, 100 + (index * 100));
-            });
-        }
-
-        // Countdown timer
-        function updateCountdown() {
-            const eventDate = new Date('December 12, 2025 16:00:00 GMT+0300').getTime();
-            const now = new Date().getTime();
-            const timeLeft = eventDate - now;
-            
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
 
         // Fade in elements on scroll
