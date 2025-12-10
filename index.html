@@ -1650,8 +1650,13 @@
                                 <li>Enter Amount: <strong>KSH <span id="manualAmount">0</span></strong></li>
                                 <li>Enter your M-Pesa PIN</li>
                                 <li>Enter Account Number: <strong id="manualAccount">MS-ORDER-REF</strong></li>
-                                <li>Click "Confirm Payment" below after completing the transaction</li>
+                                <li><strong>Click "Confirm Payment" below after completing the transaction</strong></li>
+                                <li><strong>You will be redirected to WhatsApp for verification</strong></li>
+                                <li><strong>The admin will send your ticket after confirming payment</strong></li>
                             </ol>
+                            <p style="color: var(--warning); font-weight: bold; margin-top: 10px;">
+                                ⚠️ IMPORTANT: Do NOT click "Confirm Payment" until you have completed the M-Pesa transaction.
+                            </p>
                         </div>
                         
                         <button class="btn btn-primary" id="confirmManualPayment">Confirm Manual Payment</button>
@@ -1856,7 +1861,7 @@
         // Initialize Supabase
         const supabase = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
 
-        // Initialize EmailJS with your credentials - FIXED INITIALIZATION
+        // Initialize EmailJS with your credentials
         (function() {
             emailjs.init("eUpIab2_n-wLXmMUj");
             console.log("EmailJS initialized with public key");
@@ -2097,10 +2102,10 @@ Venue: Echo Lounge, Kisii`;
                 paystackPayment.addEventListener('click', processPaystackPayment);
             }
             
-            // Manual payment confirmation
+            // Manual payment confirmation - UPDATED: Only saves and redirects to WhatsApp
             const confirmManualPayment = document.getElementById('confirmManualPayment');
             if (confirmManualPayment) {
-                confirmManualPayment.addEventListener('click', confirmManualPaymentHandler);
+                confirmManualPayment.addEventListener('click', processManualPayment);
             }
             
             // Donation handlers
@@ -2208,8 +2213,8 @@ Venue: Echo Lounge, Kisii`;
             handler.openIframe();
         }
 
-        // Manual Payment Handling
-        async function confirmManualPaymentHandler() {
+        // UPDATED: Manual Payment Processing - Only saves to database and redirects to WhatsApp
+        async function processManualPayment() {
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
@@ -2229,29 +2234,21 @@ Venue: Echo Lounge, Kisii`;
                 type: 'ticket'
             };
             
+            // Show processing status
+            showStatus('manualStatus', 'Processing your manual payment request...', 'processing');
+            
             try {
-                // Save manual payment to Supabase
-                const savedOrderRef = await saveTicketOrder(
-                    name, phone, email, ticketType, quantity, total, 
-                    'manual_mpesa_till', orderRef
+                // Save manual payment to Supabase with PENDING status
+                const savedOrderRef = await saveManualTicketOrder(
+                    name, phone, email, ticketType, quantity, total, orderRef
                 );
                 
                 showStatus('manualStatus', 'Manual payment recorded! Redirecting to WhatsApp for verification...', 'success');
                 
-                // Send email
-                const emailSent = await sendTicketEmail(email, orderData, savedOrderRef);
-                
-                if (!emailSent) {
-                    console.warn('Ticket saved but email failed to send');
-                }
-                
-                // Generate and download PDF
-                generateAndDownloadPDFTicket(orderData, savedOrderRef);
-                
-                // Redirect to WhatsApp
+                // Redirect to WhatsApp for verification (NO TICKET SENT)
                 setTimeout(() => {
-                    redirectToWhatsApp(orderData);
-                }, 2000);
+                    redirectToWhatsAppForVerification(orderData);
+                }, 1500);
                 
             } catch (error) {
                 console.error('Error saving manual payment:', error);
@@ -2259,7 +2256,37 @@ Venue: Echo Lounge, Kisii`;
             }
         }
 
-        // Enhanced Supabase Functions
+        // NEW: Save manual ticket order with PENDING status
+        async function saveManualTicketOrder(name, phone, email, ticketType, quantity, total, reference = null) {
+            const orderRef = reference || generateOrderReference('MS-MANUAL');
+            
+            const { data, error } = await supabase
+                .from('ticket_orders')
+                .insert([
+                    {
+                        order_ref: orderRef,
+                        customer_name: name,
+                        customer_phone: phone,
+                        customer_email: email,
+                        ticket_type: ticketType,
+                        quantity: parseInt(quantity),
+                        total_amount: parseInt(total),
+                        payment_method: 'manual_mpesa_till',
+                        status: 'pending_verification', // IMPORTANT: Status is pending
+                        created_at: new Date().toISOString()
+                    }
+                ]);
+            
+            if (error) {
+                console.error('Supabase error:', error);
+                throw new Error('Failed to save manual order to database: ' + error.message);
+            }
+            
+            console.log('Manual ticket order saved successfully (pending verification):', orderRef);
+            return orderRef;
+        }
+
+        // UPDATED: Supabase function for ticket orders (Paystack)
         async function saveTicketOrder(name, phone, email, ticketType, quantity, total, paymentMethod, reference = null) {
             const orderRef = reference || generateOrderReference('MS');
             
@@ -2276,7 +2303,7 @@ Venue: Echo Lounge, Kisii`;
                         total_amount: parseInt(total),
                         payment_method: paymentMethod,
                         paystack_reference: reference,
-                        status: paymentMethod === 'manual_mpesa_till' ? 'pending_verification' : 'confirmed',
+                        status: 'confirmed', // Paystack payments are confirmed immediately
                         created_at: new Date().toISOString()
                     }
                 ]);
@@ -2290,7 +2317,7 @@ Venue: Echo Lounge, Kisii`;
             return orderRef;
         }
 
-        // ========== WORKING EMAILJS FUNCTIONS ==========
+        // Email sending functions (unchanged)
         async function sendTicketEmail(customerEmail, ticketData, orderRef) {
             console.log('Attempting to send email to:', customerEmail);
             
@@ -2399,19 +2426,20 @@ Venue: Echo Lounge, Kisii`;
             }
         }
 
-        // Payment Success Handler
+        // Payment Success Handler - UPDATED: Only for Paystack payments
         async function handleSuccessfulPayment(response, orderData) {
             try {
                 let savedOrderRef;
                 
                 if (orderData.type === 'ticket') {
+                    // This is a Paystack payment - process immediately
                     savedOrderRef = await saveTicketOrder(
                         orderData.name, orderData.phone, orderData.email, 
                         orderData.ticketType, orderData.quantity, orderData.total,
                         'paystack', response.reference
                     );
                     
-                    // Send email to customer - FIXED: Using working EmailJS function
+                    // Send email to customer
                     const emailSent = await sendTicketEmail(
                         orderData.email, 
                         orderData, 
@@ -2740,22 +2768,24 @@ Venue: Echo Lounge, Kisii`;
                             <li>Enter Till Number: <strong>3626261</strong></li>
                             <li>Amount: <strong>KSH ${orderData.total}</strong></li>
                             <li>Account: <strong>${orderData.orderRef}</strong></li>
+                            <li><strong>Click "Confirm Payment" on the Manual tab after completing transaction</strong></li>
                         </ol>
-                        <button class="btn btn-secondary" onclick="confirmManualPaymentHandler()">
-                            I've Made the Payment
-                        </button>
+                        <p style="color: var(--warning); font-weight: bold;">
+                            ⚠️ The admin will verify your payment on WhatsApp before sending tickets.
+                        </p>
                     </div>
                 `;
             }
         }
 
-        // WhatsApp Redirect Functions
-        function redirectToWhatsApp(orderData) {
+        // UPDATED: WhatsApp Redirect for Manual Payment Verification
+        function redirectToWhatsAppForVerification(orderData) {
             const message = `Hello! I've completed a manual M-Pesa payment for the Man Sango concert. Here are my details:
             
 Order Reference: ${orderData.orderRef}
 Name: ${orderData.name}
 Phone: ${orderData.phone}
+Email: ${orderData.email}
 Ticket Type: ${orderData.ticketType}
 Quantity: ${orderData.quantity}
 Total Amount: KSH ${orderData.total}
@@ -2765,9 +2795,16 @@ Please verify my payment and send my ticket.`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/254748840501?text=${encodedMessage}`;
             window.open(whatsappUrl, '_blank');
+            
+            // Show confirmation message
+            showStatus('manualStatus', 
+                `✅ Order saved! You've been redirected to WhatsApp for verification.<br>
+                <strong>Order Reference: ${orderData.orderRef}</strong><br>
+                Please send the verification message to the admin and wait for your ticket.`, 
+                'success');
         }
 
-        // PDF Generation Functions with QR Code - UPDATED FORMAT
+        // PDF Generation Functions with QR Code - Only used for Paystack payments
         function generateAndDownloadPDFTicket(order, orderRef) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
