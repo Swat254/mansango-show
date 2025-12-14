@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Man Sango</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a4b8c;
+            --primary-light: #2a6fd6;
+            --primary-dark: #0d2b5a;
+            --accent: #ff6b35;
+            --white: #ffffff;
+            --dark: #1e1e1e;
+            --light-gray: #f5f5f5;
+            --success: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .logo {
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-top: 20px;
+            color: var(--white);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        .thank-you-message {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border-left: 5px solid var(--accent);
+            backdrop-filter: blur(10px);
+            text-align: left;
+        }
+
+        .thank-you-message h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .thank-you-message p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .donation-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .donation-btn {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, var(--accent), #ff8c5a);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+            animation: pulse 2s infinite;
+            margin: 20px 0;
+        }
+
+        .donation-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.6);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .social-link.facebook:hover { background: #1877F2; }
+        .social-link.twitter:hover { background: #1DA1F2; }
+        .social-link.instagram:hover { 
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); 
+        }
+        .social-link.youtube:hover { background: #FF0000; }
+        .social-link.whatsapp:hover { background: #25D366; }
+
+        .developer-credit {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-top: 2px solid var(--accent);
+        }
+
+        .developer-credit p {
+            margin: 5px 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .developer-name {
+            color: var(--accent) !important;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Donation Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .modal h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .donation-options {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .donation-option {
+            flex: 1;
+            min-width: 100px;
+            padding: 15px;
+            background: var(--light-gray);
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .donation-option:hover,
+        .donation-option.active {
+            background: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(26, 75, 140, 0.3);
+        }
+
+        #donationStatus {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        /* Thank You Banner */
+        .thank-you-banner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            max-width: 500px;
+            width: 90%;
+            display: none;
+            text-align: center;
+        }
+
+        .thank-you-banner.active {
+            display: block;
+            animation: fadeInScale 0.5s ease-out;
+        }
+
+        .thank-you-banner h2 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .thank-you-banner p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .banner-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: var(--white);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .logo h1 {
+                font-size: 2rem;
+            }
+
+            .thank-you-message {
+                padding: 25px;
+            }
+
+            .thank-you-message h2 {
+                font-size: 1.7rem;
+            }
+
+            .thank-you-message p {
+                font-size: 1.1rem;
+            }
+
+            .donation-btn {
+                padding: 18px 40px;
+                font-size: 1.2rem;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .thank-you-message {
+                padding: 20px;
+            }
+
+            .thank-you-message h2 {
+                font-size: 1.5rem;
+            }
+
+            .donation-option {
+                min-width: 80px;
+                padding: 12px;
+            }
+
+            .form-control {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="logo">
+            <img src="https://vsxlzihjcmgkjqcpsrkc.supabase.co/storage/v1/object/sign/Mansango%20event%20tickets/IMG-20251110-WA0041.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8zMjNkMDI2Zi0xMzkzLTRmMDQtYjk0Zi0yYzI3NGZiYTRmYzMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNYW5zYW5nbyBldmVudCB0aWNrZXRzL0lNRy0yMDI1MTExMC1XQTAwNDEuanBnIiwiaWF0IjoxNzYzMjI0MDgxLCJleHAiOjE3OTQ3NjAwODF9.8o2pCJDUIPZF74CjLr3OalEGVn0u7t6SOGlxmatxMQ8" alt="Man Sango">
+            <h1>MAN SANGO</h1>
+            <p>6 Years of Musical Excellence</p>
+        </div>
+
+        <div class="thank-you-message">
+            <h2>THANK YOU! 🙏</h2>
+            <p>To every single fan, supporter, friend, and family member who made <span class="highlight">"Man Sango at 6"</span> an unforgettable success...</p>
+            <p>Your love, energy, and support filled Echo Lounge Kisii with magic. Seeing you sing along, dance, and celebrate with me for 6+ hours was a dream come true.</p>
+            <p>This milestone isn't just my achievement - it's <span class="highlight">OUR achievement</span>. From the bottom of my heart, thank you for being part of this incredible journey.</p>
+            <p style="text-align: center; margin-top: 25px; font-weight: 600; color: var(--accent);">
+                Your support fuels more music, more shows, and more unforgettable moments. 🎵
+            </p>
+        </div>
+
+        <div class="donation-section">
+            <h3 style="margin-bottom: 20px; font-size: 1.5rem;">Support the Journey Continue</h3>
+            <button class="donation-btn" id="openDonationModal">
+                <i class="fas fa-heart"></i> MAKE A DONATION
+            </button>
+            <p style="margin-top: 15px; opacity: 0.9;">Every contribution helps create more amazing music</p>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/ManSangoOfficial" class="social-link facebook" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://x.com/MRikindi" class="social-link twitter" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.instagram.com/man_sango_official/" class="social-link instagram" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/@ManSangoOfficial" class="social-link youtube" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://wa.me/254748840501" class="social-link whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <div class="developer-credit">
+            <p>Website developed by</p>
+            <p class="developer-name">Felix Nyabuto</p>
+            <p><i class="fas fa-phone"></i> 0716 625 790</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">Event Websites • Business Solutions • Web Development</p>
+        </div>
+    </div>
+
+    <!-- Donation Modal -->
+    <div class="modal" id="donationModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2>Support Man Sango</h2>
+            <form id="donationForm">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">M-Pesa Phone Number *</label>
+                    <input type="tel" id="phone" class="form-control" placeholder="0712345678" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Donation Amount *</label>
+                    <div class="donation-options">
+                        <div class="donation-option" data-amount="200">200</div>
+                        <div class="donation-option" data-amount="500">500</div>
+                        <div class="donation-option active" data-amount="1000">1,000</div>
+                        <div class="donation-option" data-amount="2000">2,000</div>
+                        <div class="donation-option" data-amount="5000">5,000</div>
+                    </div>
+                    <input type="number" id="customAmount" class="form-control" placeholder="Other amount" style="margin-top: 10px;">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message (Optional)</label>
+                    <textarea id="message" class="form-control" rows="3" placeholder="Share an encouraging message"></textarea>
+                </div>
+                <button type="button" class="modal-btn" id="processDonation">
+                    DONATE NOW
+                </button>
+            </form>
+            <div id="donationStatus"></div>
+        </div>
+    </div>
+
+    <!-- Thank You Banner -->
+    <div class="thank-you-banner" id="thankYouBanner">
+        <button class="banner-close" id="closeBanner">&times;</button>
+        <h2>Thank You! ❤️</h2>
+        <p><strong>This is Man Sango</strong> - your generous support means the world to me.</p>
+        <p>Your donation helps me continue creating music that touches hearts and brings people together.</p>
+        <p>This website will be regularly updated with my latest news, music releases, and upcoming shows.</p>
+        <p style="margin-top: 20px; color: var(--accent); font-weight: 600;">
+            🎵 Your belief fuels my music 🎵
+        </p>
+        <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <p>Follow me for updates:</p>
+            <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px;">
+                <a href="https://www.instagram.com/man_sango_official/" style="color: white; font-size: 1.5rem;" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/ManSangoOfficial" style="color: white; font-size: 1.5rem;" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.youtube.com/@ManSangoOfficial" style="color: white; font-size: 1.5rem;" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        emailjs.init("eUpIab2_n-wLXmMUj");
+
+        // DOM Elements
+        const donationModal = document.getElementById('donationModal');
+        const openModalBtn = document.getElementById('openDonationModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const thankYouBanner = document.getElementById('thankYouBanner');
+        const closeBannerBtn = document.getElementById('closeBanner');
+        const processDonationBtn = document.getElementById('processDonation');
+        const donationOptions = document.querySelectorAll('.donation-option');
+        const customAmountInput = document.getElementById('customAmount');
+        const donationStatus = document.getElementById('donationStatus');
+
+        // Event Listeners
+        openModalBtn.addEventListener('click', () => donationModal.classList.add('active'));
+        closeModalBtn.addEventListener('click', () => donationModal.classList.remove('active'));
+        closeBannerBtn.addEventListener('click', () => thankYouBanner.classList.remove('active'));
+
+        // Donation option selection
+        donationOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                donationOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                customAmountInput.value = '';
+            });
+        });
+
+        // Custom amount input
+        customAmountInput.addEventListener('input', function() {
+            if (this.value) {
+                donationOptions.forEach(opt => opt.classList.remove('active'));
+            }
+        });
+
+        // Process donation
+        processDonationBtn.addEventListener('click', processDonation);
+
+        // Process donation function
+        async function processDonation() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            let amount = 0;
+            const selectedOption = document.querySelector('.donation-option.active');
+            if (selectedOption) {
+                amount = parseInt(selectedOption.getAttribute('data-amount'));
+            } else if (customAmountInput.value) {
+                amount = parseInt(customAmountInput.value);
+            }
+            
+            // Validate form
+            if (!name || !phone || !email) {
+                showError('Please fill in all required fields');
+                return;
+            }
+            
+            if (amount <= 0) {
+                showError('Please select or enter a donation amount');
+                return;
+            }
+            
+            if (!validatePhone(phone)) {
+                showError('Please enter a valid Kenyan phone number');
+                return;
+            }
+            
+            const formattedPhone = formatPhone(phone);
+            const orderRef = generateOrderRef();
+            
+            // Show processing status
+            donationStatus.innerHTML = `<div style="color: var(--accent);">Processing your donation...</div>`;
+            donationStatus.className = '';
+            
+            // Paystack payment
+            const handler = PaystackPop.setup({
+                key: 'pk_live_57daa4d45d41c267a4eb508fcdabc32f3410ef52',
+                email: email,
+                amount: amount * 100,
+                currency: 'KES',
+                ref: orderRef,
+                metadata: {
+                    custom_fields: [
+                        { display_name: "Donor Name", variable_name: "donor_name", value: name }
+                    ]
+                },
+                callback: function(response) {
+                    // Success
+                    donationStatus.innerHTML = `<div class="status-success">✅ Thank you for your donation!</div>`;
+                    
+                    // Close modal and show thank you banner
+                    setTimeout(() => {
+                        donationModal.classList.remove('active');
+                        resetForm();
+                        thankYouBanner.classList.add('active');
+                        
+                        // Send thank you email
+                        sendThankYouEmail(name, email, amount, orderRef);
+                    }, 1500);
+                },
+                onClose: function() {
+                    donationStatus.innerHTML = `<div style="color: var(--accent);">Payment window closed. If completed, your donation will be processed.</div>`;
+                }
+            });
+            
+            handler.openIframe();
+        }
+
+        // Helper functions
+        function validatePhone(phone) {
+            const clean = phone.replace(/\D/g, '');
+            return (clean.startsWith('254') && clean.length === 12) || 
+                   (clean.startsWith('0') && clean.length === 10) ||
+                   (clean.startsWith('7') && clean.length === 9);
+        }
+
+        function formatPhone(phone) {
+            const clean = phone.replace(/\D/g, '');
+            if (clean.startsWith('254')) return clean;
+            if (clean.startsWith('0')) return '254' + clean.substring(1);
+            if (clean.startsWith('7')) return '254' + clean;
+            return phone;
+        }
+
+        function generateOrderRef() {
+            return 'MS-' + Date.now().toString().slice(-6) + Math.random().toString(36).substring(2, 5).toUpperCase();
+        }
+
+        function resetForm() {
+            document.getElementById('donationForm').reset();
+            donationOptions.forEach(opt => opt.classList.remove('active'));
+            document.querySelector('.donation-option[data-amount="1000"]').classList.add('active');
+            customAmountInput.value = '';
+            donationStatus.innerHTML = '';
+        }
+
+        function showError(message) {
+            donationStatus.innerHTML = `<div style="color: #ef4444; padding: 10px; background: rgba(239,68,68,0.1); border-radius: 5px;">${message}</div>`;
+            donationStatus.className = '';
+        }
+
+        // Send thank you email
+        async function sendThankYouEmail(name, email, amount, orderRef) {
+            try {
+                const templateParams = {
+                    to_email: email,
+                    donor_name: name,
+                    donation_amount: amount,
+                    order_reference: orderRef,
+                    from_name: 'Man Sango'
+                };
+
+                await emailjs.send(
+                    'service_rqxvm4u',
+                    'template_35nma87',
+                    templateParams
+                );
+                console.log('Thank you email sent');
+            } catch (error) {
+                console.error('Email error:', error);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === donationModal) {
+                donationModal.classList.remove('active');
+            }
+            if (e.target === thankYouBanner) {
+                thankYouBanner.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
