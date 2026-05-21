@@ -893,7 +893,7 @@
     <!-- NAVIGATION -->
     <nav class="navbar">
         <div class="logo">
-            <span class="logo-icon">🌿</span>
+            <span class="logo-icon">🫘</span>
             <span class="logo-text">CHING'ENDE LAUNCH</span>
         </div>
         <ul class="nav-links">
@@ -920,10 +920,10 @@
                     <span class="title-line">Launch Event</span>
                 </h1>
                 <p class="hero-subtitle">
-                    One night. One experience. One CHING'ENDE. Secure your spot for the most anticipated event of 2026. Limited tickets available!
+                    One night. One experience. One CHING'ENDE. Secure your spot for the most anticipated event of 2026. Unlimited tickets available!
                 </p>
                 <div class="hero-buttons">
-                    <a class="btn-primary pulse nav-link" data-page="book">🎫 Book Your Ticket</a>
+                    <a class="btn-primary pulse nav-link" data-page="book"> Book Your Ticket</a>
                     <a href="https://wa.me/254748840501?text=Hi%20CHING'ENDE!%20I'm%20interested%20in%20the%20event" target="_blank" class="btn-whatsapp">💬 WhatsApp Us</a>
                 </div>
                 <div class="countdown" id="countdown">
@@ -950,7 +950,7 @@
             <div class="pricing-grid">
                 <!-- Regular -->
                 <div class="pricing-card">
-                    <div class="ticket-icon">🎫</div>
+                    <div class="ticket-icon"></div>
                     <h3>Regular</h3>
                     <div class="price">KSH 500<small>/person</small></div>
                     <ul class="perks">
@@ -963,17 +963,17 @@
                 </div>
                 <!-- VIP -->
                 <div class="pricing-card featured">
-                    <div class="ticket-icon">👑</div>
+                    <div class="ticket-icon"></div>
                     <h3>VIP</h3>
                     <div class="price">KSH 1,000<small>/person</small></div>
                     <ul class="perks">
                         <li>Priority Entry</li>
                         <li>Premium Seating</li>
-                        <li>2 Complimentary Drinks</li>
+                        <li>2 Order drinks from your seat</li>
                         <li>VIP Lounge Access</li>
-                        <li>Exclusive Merch</li>
+                        <li>Chnace to talk with celebrities</li>
                     </ul>
-                    <button class="btn-select-ticket" onclick="selectTicket('VIP', 1000)">Select VIP 👑</button>
+                    <button class="btn-select-ticket" onclick="selectTicket('VIP', 1000)">Select VIP </button>
                 </div>
                 <!-- VVIP -->
                 <div class="pricing-card">
@@ -983,10 +983,10 @@
                     <ul class="perks">
                         <li>Red Carpet Entry</li>
                         <li>Front Row Seating</li>
-                        <li>Unlimited Premium Drinks</li>
+                        <li>order drinks from your seat</li>
                         <li>VVIP Backstage Access</li>
                         <li>Meet & Greet</li>
-                        <li>Luxury Gift Bag</li>
+                        <li>pictures with celebrities, </li>
                     </ul>
                     <button class="btn-select-ticket" onclick="selectTicket('VVIP', 2000)">Select VVIP 💎</button>
                 </div>
@@ -1002,11 +1002,11 @@
         </div>
         <div class="booking-section">
             <div class="booking-form-container">
-                <h2>🎫 Ticket Reservation</h2>
+                <h2> Ticket Reservation</h2>
                 <p class="form-subtitle">Saturday, October 10th 2026 • 8PM • Fill form → WhatsApp Confirmation</p>
 
                 <div class="selected-ticket-display" id="selectedTicketDisplay">
-                    <div class="selected-ticket-icon">🎫</div>
+                    <div class="selected-ticket-icon"></div>
                     <div class="selected-ticket-info">
                         <h4 id="selectedTicketName">Select a ticket above</h4>
                         <div class="st-price" id="selectedTicketPrice">KSH 0</div>
@@ -1028,7 +1028,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="ticketType">🎟️ Ticket Type</label>
+                            <label for="ticketType"> Ticket Type</label>
                             <select id="ticketType" onchange="updateTicketFromSelect()">
                                 <option value="">Choose ticket...</option>
                                 <option value="Regular|500">Regular - KSH 500</option>
@@ -1110,7 +1110,7 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <h3>🌿 CHING'ENDE LAUNCH</h3>
+                <h3>🫘 CHING'ENDE LAUNCH</h3>
                 <p>October 10th 2026 • Saturday 8PM</p>
             </div>
             <div class="footer-links">
@@ -1121,7 +1121,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 CHING'ENDE LAUNCH. All rights reserved. | <span class="footer-whatsapp">💬 0748 840 501</span></p>
+            <p>&copy; 2026 CHING'ENDE LAUNCH. All rights reserved. website made and published by felix nyabuto(0716625790) | <span class="footer-whatsapp">💬 0748 840 501</span></p>
         </div>
     </footer>
 
@@ -1238,7 +1238,7 @@
             const total = selectedTicketPrice * parseInt(qty);
 
             if (!selectedTicketName) {
-                alert('Please select a ticket type first! 🎫');
+                alert('Please select a ticket type first! ');
                 return;
             }
 
