@@ -4,1361 +4,413 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHING'ENDE ALBUM LAUNCH - October 10th 2026</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
-        :root {
-            --primary: #059669;
-            --primary-light: #10b981;
-            --primary-dark: #047857;
-            --accent: #34d399;
-            --accent-light: #6ee7b7;
-            --gold: #f59e0b;
-            --bg: #f0fdf4;
-            --bg-white: #ffffff;
-            --text: #064e3b;
-            --text-light: #047857;
-            --text-lighter: #6b7280;
-            --border: #d1fae5;
-            --shadow: 0 4px 6px -1px rgba(5,150,105,0.1);
-            --shadow-lg: 0 20px 50px rgba(5,150,105,0.2);
-            --gradient: linear-gradient(135deg, #059669, #34d399);
-            --gradient-gold: linear-gradient(135deg, #f59e0b, #fbbf24);
-            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-display: 'JetBrains Mono', 'Inter', monospace;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: var(--font-main);
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-            letter-spacing: -0.01em;
-        }
-
-        h1, h2, h3 { letter-spacing: -0.02em; font-weight: 700; }
-
-        /* === SWINGING CHING'ENDE LOGO === */
-        .swinging-logo-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.06;
-        }
-
-        .swinging-logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 8rem;
-            font-weight: 900;
-            color: #059669;
-            white-space: nowrap;
-            animation: swingLogo 4s ease-in-out infinite;
-            transform-origin: top center;
-            text-shadow: 0 0 80px rgba(5,150,105,0.3);
-        }
-
-        @keyframes swingLogo {
-            0% { transform: rotate(-8deg); }
-            50% { transform: rotate(8deg); }
-            100% { transform: rotate(-8deg); }
-        }
-
-        .logo-sparkles {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 600px;
-            height: 200px;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-
-        .sparkle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #34d399;
-            border-radius: 50%;
-            animation: sparkleFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes sparkleFloat {
-            0%, 100% { transform: translateY(0) scale(1); opacity: 0; }
-            50% { transform: translateY(-30px) scale(2); opacity: 1; }
-        }
-
-        /* === NAVBAR === */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 2px solid var(--border);
-            box-shadow: 0 2px 20px rgba(5,150,105,0.08);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            font-size: 2.2rem;
-            animation: logoBounce 1.5s ease-in-out infinite;
-            display: inline-block;
-        }
-
-        @keyframes logoBounce {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-8px) rotate(-5deg); }
-            75% { transform: translateY(-8px) rotate(5deg); }
-        }
-
-        .logo-text {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-            font-size: 0.95rem;
-            cursor: pointer;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-            border-radius: 2px;
-        }
-
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-
-        .btn-glow {
-            text-decoration: none;
-            background: var(--gradient);
-            color: white;
-            padding: 0.7rem 1.8rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.4s;
-            border: none;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(5,150,105,0.3);
-        }
-
-        .btn-glow:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(5,150,105,0.4);
-        }
-
-        /* === HERO === */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8rem 5% 4rem;
-            position: relative;
-            z-index: 1;
-            background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
-        }
-
-        .hero-content { max-width: 600px; }
-
-        .event-date-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(5,150,105,0.1);
-            color: var(--primary-dark);
-            padding: 0.6rem 1.4rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border);
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .event-date-badge .dot {
-            width: 10px;
-            height: 10px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: pulseDot 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulseDot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.8); }
-        }
-
-        @keyframes fadeInUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .title-line { display: block; }
-
-        .gradient-text {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 800;
-        }
-
-        .gold-text {
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 800;
-        }
-
-        .hero-subtitle {
-            color: var(--text-light);
-            font-size: 1.15rem;
-            margin-bottom: 2rem;
-            max-width: 500px;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 1rem 2.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.4s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: white;
-            box-shadow: 0 5px 25px rgba(5,150,105,0.3);
-            border: none;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .pulse { animation: pulseBtn 2s infinite; }
-
-        @keyframes pulseBtn {
-            0%, 100% { box-shadow: 0 5px 25px rgba(5,150,105,0.3); }
-            50% { box-shadow: 0 10px 50px rgba(5,150,105,0.5); }
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(5,150,105,0.05);
-            transform: translateY(-3px);
-        }
-
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-            border: none;
-            padding: 1rem 2.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.4s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 5px 25px rgba(37,211,102,0.3);
-            animation: pulseWhatsApp 2s infinite;
-        }
-
-        @keyframes pulseWhatsApp {
-            0%, 100% { box-shadow: 0 5px 25px rgba(37,211,102,0.3); }
-            50% { box-shadow: 0 10px 50px rgba(37,211,102,0.5); }
-        }
-
-        .btn-whatsapp:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(37,211,102,0.4);
-        }
-
-        /* === COUNTDOWN === */
-        .countdown {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2.5rem;
-            animation: fadeInUp 0.8s ease-out 0.8s both;
-            flex-wrap: wrap;
-        }
-
-        .countdown-item {
-            text-align: center;
-            background: var(--bg-white);
-            padding: 1.2rem 1.3rem;
-            border-radius: 16px;
-            border: 2px solid var(--border);
-            box-shadow: var(--shadow);
-            min-width: 90px;
-        }
-
-        .countdown-item span {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 600;
-            color: var(--primary);
-            font-feature-settings: 'tnum';
-        }
-
-        .countdown-item small {
-            color: var(--text-light);
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        /* === CHINGENDE ORB (Hero Visual) === */
-        .hero-visual { position: relative; animation: fadeInUp 0.8s ease-out 0.5s both; }
-        .chingende-orb {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: orbFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .orb-ring {
-            position: absolute;
-            border-radius: 50%;
-            animation: ringRotate linear infinite;
-        }
-
-        .ring-1 { width: 300px; height: 300px; animation-duration: 8s; border: 3px solid rgba(5,150,105,0.15); }
-        .ring-2 { width: 240px; height: 240px; animation-duration: 6s; animation-direction: reverse; border: 3px solid rgba(52,211,153,0.2); }
-        .ring-3 { width: 180px; height: 180px; animation-duration: 10s; border: 3px dashed rgba(5,150,105,0.3); }
-
-        @keyframes ringRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* === ORB BEANS === */
-        .orb-beans {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .orb-bean {
-            position: absolute;
-            font-size: 1.3rem;
-            animation: orbBeanFly 3s ease-in-out infinite;
-            opacity: 0;
-        }
-
-        .orb-bean .half1,
-        .orb-bean .half2 {
-            display: inline-block;
-            animation: beanSplit 0.8s ease-in-out infinite;
-        }
-
-        .orb-bean .half2 {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes orbBeanFly {
-            0% { transform: translate(0, 0) rotate(0deg) scale(0); opacity: 0; }
-            15% { opacity: 1; }
-            50% { transform: translate(60px, -40px) rotate(180deg) scale(1.1); opacity: 1; }
-            85% { opacity: 1; }
-            100% { transform: translate(0, 0) rotate(360deg) scale(0); opacity: 0; }
-        }
-
-        @keyframes beanSplit {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-
-        /* === ORB CORE === */
-        .orb-core {
-            width: 110px;
-            height: 110px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            font-weight: 800;
-            color: white;
-            text-align: center;
-            line-height: 1.1;
-            box-shadow: 0 0 60px rgba(5,150,105,0.5);
-            animation: corePulse 2s ease-in-out infinite;
-            z-index: 3;
-        }
-
-        .orb-core-text {
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-
-        .orb-core-gold {
-            font-size: 0.7rem;
-            color: #fbbf24;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(245,158,11,0.5);
-        }
-
-        @keyframes corePulse {
-            0%, 100% { 
-                box-shadow: 0 0 60px rgba(5,150,105,0.5); 
-                transform: scale(1); 
-            }
-            50% { 
-                box-shadow: 0 0 100px rgba(5,150,105,0.7), 0 0 140px rgba(245,158,11,0.3); 
-                transform: scale(1.05); 
-            }
-        }
-
-        /* === TICKET PRICING CARDS === */
-        .pricing-section {
-            padding: 5rem 5%;
-            background: var(--bg-white);
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-light);
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: var(--bg-white);
-            border-radius: 24px;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.4s;
-            border: 2px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
-        }
-
-        .pricing-card.featured {
-            border-color: var(--primary);
-            background: linear-gradient(180deg, #ffffff 0%, #ecfdf5 100%);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .pricing-card.featured::before {
-            content: 'BEST VALUE';
-            position: absolute;
-            top: 20px;
-            right: -30px;
-            background: var(--gradient-gold);
-            color: white;
-            padding: 0.3rem 3rem;
-            font-size: 0.7rem;
-            font-weight: 700;
-            transform: rotate(45deg);
-            letter-spacing: 1px;
-        }
-
-        .ticket-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-        .pricing-card h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem; }
-        .pricing-card .price {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .pricing-card .price small { font-size: 1rem; font-weight: 500; color: var(--text-light); }
-
-        .pricing-card .perks {
-            list-style: none;
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .pricing-card .perks li {
-            padding: 0.5rem 0;
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .pricing-card .perks li::before {
-            content: '✅ ';
-        }
-
-        .btn-select-ticket {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
-            border: none;
-            background: var(--gradient);
-            color: white;
-            box-shadow: 0 4px 15px rgba(5,150,105,0.3);
-        }
-
-        .btn-select-ticket:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(5,150,105,0.4);
-        }
-
-        /* === PAGE SECTIONS === */
-        .page-section { display: none; }
-        .page-section.active { display: block; }
-
-        .page-hero {
-            padding: 8rem 5% 4rem;
-            text-align: center;
-            background: var(--bg-white);
-            position: relative;
-            z-index: 1;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .page-hero h1 {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        .page-hero p { color: var(--text-light); font-size: 1.15rem; }
-
-        /* === BOOKING FORM === */
-        .booking-section {
-            padding: 3rem 5%;
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .booking-form-container {
-            background: var(--bg-white);
-            border-radius: 24px;
-            padding: 3rem;
-            border: 2px solid var(--border);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .booking-form-container h2 {
-            font-family: var(--font-display);
-            margin-bottom: 0.5rem;
-            font-size: 1.8rem;
-        }
-
-        .booking-form-container .form-subtitle {
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
-
-        .selected-ticket-display {
-            background: var(--bg);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .selected-ticket-icon { font-size: 3rem; }
-        .selected-ticket-info h4 { font-size: 1.1rem; margin-bottom: 0.2rem; }
-        .selected-ticket-info .st-price {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .form-group { margin-bottom: 1.2rem; }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.4rem;
-            font-weight: 500;
-            color: var(--text);
-            font-size: 0.9rem;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-family: var(--font-main);
-            font-size: 1rem;
-            transition: all 0.3s;
-            background: var(--bg);
-            color: var(--text);
-            outline: none;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(5,150,105,0.08);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .booking-summary {
-            background: var(--bg);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 2px solid var(--border);
-        }
-
-        .booking-summary h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.4rem 0;
-            font-size: 0.95rem;
-        }
-
-        .summary-row.total {
-            border-top: 2px solid var(--border);
-            margin-top: 0.5rem;
-            padding-top: 0.8rem;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--primary);
-        }
-
-        #summaryTotal {
-            font-family: var(--font-display);
-            font-feature-settings: 'tnum';
-        }
-
-        .btn-submit {
-            position: relative;
-            padding: 1.2rem;
-            background: #25D366;
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            overflow: hidden;
-            transition: all 0.3s;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(37,211,102,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(37,211,102,0.4);
-        }
-
-        .btn-shine {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .btn-submit:hover .btn-shine { left: 100%; }
-
-        /* === ABOUT PAGE === */
-        .about-content {
-            padding: 4rem 5%;
-            max-width: 1100px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .about-card {
-            background: var(--bg-white);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            border: 2px solid var(--border);
-            transition: all 0.4s;
-            text-align: center;
-        }
-
-        .about-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .about-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-        .about-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; }
-        .about-card p { color: var(--text-light); font-size: 0.95rem; line-height: 1.7; }
-
-        /* === CONTACT PAGE === */
-        .contact-content {
-            padding: 4rem 5%;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-
-        .whatsapp-contact-card {
-            background: var(--bg-white);
-            border-radius: 24px;
-            padding: 3rem;
-            border: 2px solid var(--border);
-            box-shadow: var(--shadow-lg);
-            display: inline-block;
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .whatsapp-icon-large { font-size: 5rem; margin-bottom: 1rem; }
-
-        .whatsapp-contact-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .whatsapp-number {
-            font-family: var(--font-display);
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-        }
-
-        .whatsapp-contact-card p { color: var(--text-light); margin-bottom: 1.5rem; }
-
-        /* === FOOTER === */
-        .footer {
-            background: var(--bg-white);
-            border-top: 2px solid var(--border);
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 3rem 5%;
-            max-width: 1100px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .footer-brand h3 {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .footer-brand p { color: var(--text-light); font-size: 0.9rem; }
-
-        .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
-
-        .footer-links a {
-            text-decoration: none;
-            color: var(--text-light);
-            font-size: 0.9rem;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-
-        .footer-links a:hover { color: var(--primary); }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 1.5rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-lighter);
-            font-size: 0.85rem;
-        }
-
-        .footer-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            color: #25D366;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        /* === RESPONSIVE === */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 6rem;
-            }
-            .hero-title { font-size: 2rem; }
-            .hero-buttons { justify-content: center; }
-            .countdown { justify-content: center; }
-            .hero-visual { margin-top: 2rem; }
-            .nav-links { display: none; }
-            .form-row { grid-template-columns: 1fr; }
-            .swinging-logo { font-size: 3.5rem; }
-            .pricing-grid { grid-template-columns: 1fr; }
-            .page-hero h1 { font-size: 2rem; }
-        }
+        :root{--p:#059669;--g:#f59e0b;--bg:#f0fdf4;--w:#fff;--t:#064e3b;--b:#d1fae5;--gr:linear-gradient(135deg,#059669,#34d399);--f:'Inter',sans-serif;--m:'JetBrains Mono',monospace}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:var(--f);background:var(--bg);color:var(--t);overflow-x:hidden;line-height:1.6}
+        a,button{cursor:pointer}
+        .swing-bg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--m);font-size:7rem;font-weight:900;color:#059669;opacity:0.04;pointer-events:none;z-index:0;animation:swing 4s infinite;white-space:nowrap}
+        @keyframes swing{0%{transform:translate(-50%,-50%) rotate(-8deg)}50%{transform:translate(-50%,-50%) rotate(8deg)}100%{transform:translate(-50%,-50%) rotate(-8deg)}}
+        nav{position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1rem 5%;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);border-bottom:2px solid var(--b)}
+        .logo-text{font-family:var(--m);font-size:1.1rem;font-weight:700;background:var(--gr);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-links{display:flex;list-style:none;gap:1.5rem}
+        .nav-links a{text-decoration:none;color:var(--t);font-weight:500;font-size:0.9rem}.nav-links a:hover,.nav-links a.on{color:var(--p)}
+        .btn-glow{background:var(--gr);color:white;padding:0.6rem 1.5rem;border-radius:50px;border:none;font-weight:600;font-size:0.85rem;text-decoration:none;display:inline-block}
+        .section{display:none;position:relative;z-index:1}.section.active{display:block}
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 4rem;background:linear-gradient(180deg,#fff 0%,#f0fdf4 100%)}
+        .hero-inner{max-width:600px}
+        .badge{display:inline-block;background:rgba(5,150,105,0.08);color:var(--t);padding:0.5rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;margin:0.3rem;border:1px solid var(--b)}
+        .badge .dot{display:inline-block;width:8px;height:8px;background:#10b981;border-radius:50%;margin-right:6px;animation:pulse 1.5s infinite}
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(2.5)}}
+        .hero h1{font-family:var(--m);font-size:3rem;line-height:1.2;margin:0.8rem 0}
+        .hero h1 .g{color:var(--p)}.hero h1 .gd{color:var(--g)}.hero p.sub{color:var(--t);opacity:0.8;margin-bottom:1.5rem}
+        .btns{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap}
+        .btn{padding:0.9rem 1.8rem;border-radius:50px;font-weight:600;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;border:none}
+        .btn-green{background:var(--gr);color:white}.btn-green:hover{transform:translateY(-3px)}
+        .btn-wa{background:#25D366;color:white}.btn-wa:hover{transform:translateY(-3px)}
+        .btn-donate{background:var(--g);color:#000;font-weight:700}
+        .countdown{display:flex;gap:0.8rem;margin-top:1.5rem;justify-content:center;flex-wrap:wrap}
+        .cd-item{background:white;padding:0.8rem 1rem;border-radius:14px;border:2px solid var(--b);text-align:center;min-width:75px}
+        .cd-item span{display:block;font-family:var(--m);font-size:1.8rem;font-weight:700;color:var(--p)}.cd-item small{font-size:0.7rem}
+        .orb{position:relative;width:200px;height:200px;margin:2rem auto 0;display:flex;align-items:center;justify-content:center;animation:orbFloat 4s infinite}
+        @keyframes orbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+        .orb-ring{position:absolute;border-radius:50%;animation:spin linear infinite}
+        .orb-ring.a{width:190px;height:190px;border:3px solid rgba(5,150,105,0.15);animation-duration:10s}
+        .orb-ring.b{width:145px;height:145px;border:3px dashed rgba(52,211,153,0.25);animation-duration:7s;animation-direction:reverse}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .orb-core{width:85px;height:85px;background:var(--gr);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--m);font-size:0.7rem;font-weight:800;color:white;text-align:center;line-height:1.1;box-shadow:0 0 50px rgba(5,150,105,0.5);animation:corePulse 2s infinite}
+        @keyframes corePulse{0%,100%{box-shadow:0 0 50px rgba(5,150,105,0.5)}50%{box-shadow:0 0 90px rgba(5,150,105,0.7)}}
+        .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:950px;margin:2rem auto;padding:0 5%}
+        .pcard{background:white;border-radius:18px;padding:1.8rem;text-align:center;border:2px solid var(--b)}
+        .pcard:hover{transform:translateY(-6px)}.pcard.hot{border-color:var(--p);position:relative}
+        .pcard.hot::after{content:'HOT';position:absolute;top:12px;right:-22px;background:var(--g);color:#fff;padding:0.2rem 2rem;font-size:0.65rem;font-weight:700;transform:rotate(45deg)}
+        .pcard h3{font-family:var(--m);font-size:1.1rem}.pcard .price{font-family:var(--m);font-size:2rem;font-weight:800;color:var(--p);margin:0.5rem 0}
+        .pcard ul{list-style:none;text-align:left;margin:1rem 0;font-size:0.85rem}.pcard ul li{padding:0.25rem 0}.pcard ul li::before{content:'✅ '}
+        .btn-pick{width:100%;padding:0.8rem;border:none;border-radius:50px;font-weight:600;background:var(--gr);color:white;font-size:0.9rem;cursor:pointer}
+        .page-top{padding:7rem 5% 2rem;text-align:center;background:white;border-bottom:2px solid var(--b)}.page-top h2{font-family:var(--m);font-size:2.2rem}
+        .form-wrap{max-width:500px;margin:2rem auto;padding:0 5%}
+        .form-card{background:white;border-radius:18px;padding:2rem;border:2px solid var(--b)}
+        .form-card h3{font-family:var(--m)}.sel-box{background:var(--bg);border-radius:12px;padding:1rem;margin:1rem 0;border:2px solid var(--b);display:flex;align-items:center;gap:1rem}
+        .f-group{margin-bottom:0.8rem}.f-group label{display:block;margin-bottom:0.2rem;font-weight:500;font-size:0.85rem}
+        .f-group input,.f-group select{width:100%;padding:0.7rem 0.9rem;border:2px solid var(--b);border-radius:10px;font-size:0.9rem;background:var(--bg);outline:none}
+        .f-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
+        .sum-box{background:var(--bg);border-radius:12px;padding:1rem;margin-bottom:1rem;border:2px solid var(--b)}
+        .s-row{display:flex;justify-content:space-between;padding:0.2rem 0;font-size:0.9rem}
+        .s-row.bold{border-top:1px solid var(--b);margin-top:0.3rem;padding-top:0.5rem;font-weight:700;color:var(--p);font-size:1rem}
+        .btn-pay{width:100%;padding:0.9rem;background:var(--gr);color:white;border:none;border-radius:12px;font-weight:600;font-size:1rem;margin:0.3rem 0;cursor:pointer}
+        .btn-pay:disabled{background:#9ca3af;cursor:not-allowed}
+        .btn-wa-pay{width:100%;padding:0.9rem;background:#25D366;color:white;border:none;border-radius:12px;font-weight:600;font-size:1rem;cursor:pointer}
+        .msg-box{display:none;padding:1rem;border-radius:12px;margin-top:1rem;text-align:center}
+        .msg-box.show{display:block}.msg-box.ok{background:#ecfdf5;border:2px solid #6ee7b7;color:#065f46}
+        .msg-box.err{background:#fef2f2;border:2px solid #fca5a5;color:#991b1b}
+        .msg-box.info{background:#eff6ff;border:2px solid #93c5fd;color:#1e40af}
+        .msg-box.love{background:#fef3c7;border:2px solid #fcd34d;color:#92400e}
+        .ref{font-family:var(--m);font-size:1.2rem;font-weight:700;color:var(--p);letter-spacing:2px}
+        .spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin2 0.6s linear infinite}
+        @keyframes spin2{to{transform:rotate(360deg)}}
+        footer{text-align:center;padding:1.5rem;background:white;border-top:2px solid var(--b);font-size:0.85rem;color:#6b7280}
+        @media(max-width:768px){.hero h1{font-size:2rem}.nav-links{display:none}.f-row{grid-template-columns:1fr}}
     </style>
 </head>
 <body>
 
-    <!-- SWINGING CHING'ENDE LOGO BACKGROUND -->
-    <div class="swinging-logo-container">
-        <div class="swinging-logo">CHING'ENDE</div>
-        <div class="logo-sparkles">
-            <div class="sparkle" style="top:10%;left:20%;animation-delay:0s;"></div>
-            <div class="sparkle" style="top:30%;left:70%;animation-delay:0.5s;"></div>
-            <div class="sparkle" style="top:60%;left:40%;animation-delay:1s;"></div>
-            <div class="sparkle" style="top:80%;left:80%;animation-delay:1.5s;"></div>
-            <div class="sparkle" style="top:40%;left:10%;animation-delay:2s;"></div>
-            <div class="sparkle" style="top:70%;left:55%;animation-delay:2.5s;"></div>
-            <div class="sparkle" style="top:15%;left:50%;animation-delay:0.8s;"></div>
-            <div class="sparkle" style="top:50%;left:85%;animation-delay:1.8s;"></div>
-        </div>
-    </div>
+    <div class="swing-bg">CHING'ENDE</div>
 
-    <!-- NAVIGATION -->
-    <nav class="navbar">
-        <div class="logo">
-            <span class="logo-icon">🫘</span>
-            <span class="logo-text">CHING'ENDE ALBUM LAUNCH</span>
-        </div>
-        <ul class="nav-links">
-            <li><a class="nav-link active" data-page="home">Home</a></li>
+    <nav>
+        <span style="font-size:1.5rem;">🫘</span>
+        <span class="logo-text">CHING'ENDE LAUNCH</span>
+        <ul class="nav-links" id="navLinks">
+            <li><a class="nav-link on" data-page="home">Home</a></li>
             <li><a class="nav-link" data-page="book">Book Now</a></li>
+            <li><a class="nav-link" data-page="donate">💛 Donate</a></li>
             <li><a class="nav-link" data-page="about">About</a></li>
-            <li><a class="nav-link" data-page="contact">Contact us</a></li>
+            <li><a class="nav-link" data-page="contact">Contact</a></li>
         </ul>
-        <div class="nav-cta">
-            <a class="btn-glow nav-link" data-page="book">Get Tickets</a>
-        </div>
+        <a class="btn-glow" id="navGetTickets">Get Tickets</a>
     </nav>
 
-    <!-- ==================== HOME PAGE ==================== -->
-    <section class="page-section active" id="page-home">
-        <div class="hero">
-            <div class="hero-content">
-                <div class="event-date-badge">
-                    <span class="dot"></span> 📅 SATURDAY • OCT 10, 2026 • 8PM
-                </div>
-                <h1 class="hero-title">
-                    <span class="title-line">The Biggest</span>
-                    <span class="title-line gradient-text">CHING'ENDE ALBUM</span>
-                    <span class="title-line">Launch Event</span>
-                </h1>
-                <p class="hero-subtitle">
-                    One night. One experience. One CHING'ENDE. Secure your spot for the most anticipated event of 2026. Unlimited tickets available!
-                </p>
-                <div class="hero-buttons">
-                    <a class="btn-primary pulse nav-link" data-page="book">🎫 Book Your Ticket</a>
-                    <a href="https://wa.me/254748840501?text=Hi%20CHING'ENDE!%20I'm%20interested%20in%20the%20event" target="_blank" class="btn-whatsapp">💬 WhatsApp Us</a>
-                </div>
-                <div class="countdown" id="countdown">
-                    <div class="countdown-item"><span id="days">00</span><small>Days</small></div>
-                    <div class="countdown-item"><span id="hours">00</span><small>Hours</small></div>
-                    <div class="countdown-item"><span id="minutes">00</span><small>Mins</small></div>
-                    <div class="countdown-item"><span id="seconds">00</span><small>Secs</small></div>
-                </div>
+    <!-- HOME -->
+    <section class="section active" id="page-home">
+        <div class="hero"><div class="hero-inner">
+            <div class="badge"><span class="dot"></span>🎵 ALBUM LAUNCH • MANSANGO</div>
+            <div class="badge">📅 SATURDAY • OCT 10, 2026 • 8PM</div>
+            <h1><span class="g">CHING</span><span class="gd">'ENDE</span><br>Album Launch</h1>
+            <p class="sub">🫘 The biggest album launch of 2026! Join us for an unforgettable night.</p>
+            <div class="btns">
+                <button class="btn btn-green" id="homeGetTickets">🎫 Get Tickets</button>
+                <button class="btn btn-donate" id="homeDonate">💛 Donate</button>
+                <a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa">💬 WhatsApp</a>
             </div>
-            <div class="hero-visual">
-                <div class="chingende-orb">
-                    <!-- Splitting beans flying around the orb -->
-                    <div class="orb-beans" id="orbBeans"></div>
-                    
-                    <div class="orb-ring ring-1"></div>
-                    <div class="orb-ring ring-2"></div>
-                    <div class="orb-ring ring-3"></div>
-                    
-                    <!-- Core with CHING'ENDE text -->
-                    <div class="orb-core">
-                        <span class="orb-core-text">CHING</span>
-                        <span class="orb-core-gold">'ENDE</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TICKET PRICING -->
-        <section class="pricing-section">
-            <h2 class="section-title">Choose Your <span class="gradient-text">Ticket</span></h2>
-            <p class="section-subtitle">Saturday, October 10th 2026 • Gates Open 6PM • Show Starts 8PM</p>
-            <div class="pricing-grid">
-                <!-- Regular -->
-                <div class="pricing-card">
-                    <div class="ticket-icon">🎫</div>
-                    <h3>Regular</h3>
-                    <div class="price">KSH 500<small>/person</small></div>
-                    <ul class="perks">
-                        <li>General Admission</li>
-                        <li>Access to Main Arena</li>
-                        <li>Standard Seating</li>
-                        <li>Event Lanyard</li>
-                    </ul>
-                    <button class="btn-select-ticket" onclick="selectTicket('Regular', 500)">Select Regular 🎫</button>
-                </div>
-                <!-- VIP -->
-                <div class="pricing-card featured">
-                    <div class="ticket-icon">👑</div>
-                    <h3>VIP</h3>
-                    <div class="price">KSH 1,000<small>/person</small></div>
-                    <ul class="perks">
-                        <li>Priority Entry</li>
-                        <li>Premium Seating</li>
-                        <li>Order drinks from your seat</li>
-                        <li>VIP Lounge Access</li>
-                        <li>Chance to talk with celebrities</li>
-                    </ul>
-                    <button class="btn-select-ticket" onclick="selectTicket('VIP', 1000)">Select VIP 👑</button>
-                </div>
-                <!-- VVIP -->
-                <div class="pricing-card">
-                    <div class="ticket-icon">💎</div>
-                    <h3>VVIP</h3>
-                    <div class="price">KSH 2,000<small>/person</small></div>
-                    <ul class="perks">
-                        <li>Red Carpet Entry</li>
-                        <li>Front Row Seating</li>
-                        <li>Order drinks from your seat</li>
-                        <li>VVIP Backstage Access</li>
-                        <li>Meet & Greet</li>
-                        <li>Shoot with celebrities</li>
-                    </ul>
-                    <button class="btn-select-ticket" onclick="selectTicket('VVIP', 2000)">Select VVIP 💎</button>
-                </div>
-            </div>
-        </section>
-    </section>
-
-    <!-- ==================== BOOKING PAGE ==================== -->
-    <section class="page-section" id="page-book">
-        <div class="page-hero">
-            <h1>Reserve Your <span class="gradient-text">CHING'ENDE</span> Spot</h1>
-            <p>Fill in your details and confirm via WhatsApp</p>
-        </div>
-        <div class="booking-section">
-            <div class="booking-form-container">
-                <h2>🎫 Ticket Reservation</h2>
-                <p class="form-subtitle">Saturday, October 10th 2026 • 8PM • Fill form → WhatsApp Confirmation</p>
-
-                <div class="selected-ticket-display" id="selectedTicketDisplay">
-                    <div class="selected-ticket-icon">🎫</div>
-                    <div class="selected-ticket-info">
-                        <h4 id="selectedTicketName">Select a ticket above</h4>
-                        <div class="st-price" id="selectedTicketPrice">KSH 0</div>
-                    </div>
-                </div>
-
-                <form id="bookingForm">
-                    <div class="form-group">
-                        <label for="fullName">👤 Full Name</label>
-                        <input type="text" id="fullName" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">📱 Phone Number (WhatsApp)</label>
-                        <input type="tel" id="phone" placeholder="07XX XXX XXX" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">📧 Email Address</label>
-                        <input type="email" id="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="ticketType">🎟️ Ticket Type</label>
-                            <select id="ticketType" onchange="updateTicketFromSelect()">
-                                <option value="">Choose ticket...</option>
-                                <option value="Regular|500">Regular - KSH 500</option>
-                                <option value="VIP|1000">VIP - KSH 1,000</option>
-                                <option value="VVIP|2000">VVIP - KSH 2,000</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="quantity">🔢 Number of Tickets</label>
-                            <input type="number" id="quantity" min="1" max="20" value="1" onchange="updateSummary()">
-                        </div>
-                    </div>
-
-                    <div class="booking-summary">
-                        <h3>📋 Booking Summary</h3>
-                        <div class="summary-row"><span>Event:</span><span>CHING'ENDE Launch</span></div>
-                        <div class="summary-row"><span>Date:</span><span>Sat, Oct 10, 2026 • 8PM</span></div>
-                        <div class="summary-row"><span>Ticket:</span><span id="summaryTicketType">-</span></div>
-                        <div class="summary-row"><span>Quantity:</span><span id="summaryQty">1</span></div>
-                        <div class="summary-row total"><span>Total:</span><span id="summaryTotal">KSH 0</span></div>
-                    </div>
-
-                    <button type="submit" class="btn-submit">
-                        <span>💬 Reserve via WhatsApp</span>
-                        <span class="btn-shine"></span>
-                    </button>
-                </form>
-            </div>
+            <div class="countdown" id="countdown"><div class="cd-item"><span id="cd-d">00</span><small>Days</small></div><div class="cd-item"><span id="cd-h">00</span><small>Hours</small></div><div class="cd-item"><span id="cd-m">00</span><small>Mins</small></div><div class="cd-item"><span id="cd-s">00</span><small>Secs</small></div></div>
+            <div class="orb"><div class="orb-ring a"></div><div class="orb-ring b"></div><div class="orb-core">CHING<br>'ENDE</div></div>
+        </div></div>
+        <div class="pricing">
+            <div class="pcard"><div style="font-size:2.5rem;">🎫</div><h3>Regular</h3><div class="price">KSH 500</div><ul><li>General Admission</li><li>Main Arena</li><li>Standard Seat</li><li>Lanyard</li></ul><button class="btn-pick pick-ticket" data-name="Regular" data-price="500">Select</button></div>
+            <div class="pcard hot"><div style="font-size:2.5rem;">👑</div><h3>VIP</h3><div class="price">KSH 1,000</div><ul><li>Priority Entry</li><li>Premium Seat</li><li>2 Free Drinks</li><li>VIP Lounge</li><li>Celebrity Access</li></ul><button class="btn-pick pick-ticket" data-name="VIP" data-price="1000">Select</button></div>
+            <div class="pcard"><div style="font-size:2.5rem;">💎</div><h3>VVIP</h3><div class="price">KSH 2,000</div><ul><li>Red Carpet</li><li>Front Row</li><li>Unlimited Drinks</li><li>Backstage</li><li>Meet Mansango</li><li>Gift Bag</li></ul><button class="btn-pick pick-ticket" data-name="VVIP" data-price="2000">Select</button></div>
         </div>
     </section>
 
-    <!-- ==================== ABOUT PAGE ==================== -->
-    <section class="page-section" id="page-about">
-        <div class="page-hero">
-            <h1>About <span class="gradient-text">CHING'ENDE</span></h1>
-            <p>The story behind the most exciting launch event of 2026</p>
-        </div>
-        <div class="about-content">
-            <div class="about-grid">
-                <div class="about-card">
-                    <div class="about-icon">🎯</div>
-                    <h3>Our Mission</h3>
-                    <p>CHING'ENDE LAUNCH is dedicated to creating unforgettable experiences that bring people together. October 10th 2026 marks our biggest event yet!</p>
+    <!-- BOOKING -->
+    <section class="section" id="page-book">
+        <div class="page-top"><h2>Reserve Your Spot</h2><p>Fill form → M-PESA → Ticket via Email</p></div>
+        <div class="form-wrap"><div class="form-card">
+            <h3>🎫 Ticket Reservation</h3>
+            <div class="sel-box"><div style="font-size:2rem;">🎫</div><div><strong id="selName">Select a ticket</strong><br><span id="selPrice" style="font-family:var(--m);color:var(--p);font-weight:700;">KSH 0</span></div></div>
+            <form id="bookingForm">
+                <div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" placeholder="Enter full name" required></div>
+                <div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone" placeholder="0712345678" required></div>
+                <div class="f-group"><label>📧 Email</label><input type="email" id="bEmail" placeholder="your@email.com" required></div>
+                <div class="f-row">
+                    <div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Choose...</option><option value="Regular|500">Regular - 500</option><option value="VIP|1000">VIP - 1,000</option><option value="VVIP|2000">VVIP - 2,000</option></select></div>
+                    <div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty" min="1" max="20" value="1"></div>
                 </div>
-                <div class="about-card">
-                    <div class="about-icon">👁️</div>
-                    <h3>Our Vision</h3>
-                    <p>To become the most sought-after event experience in Kenya. CHING'ENDE is more than an event - it's a movement, a lifestyle, a community.</p>
-                </div>
-                <div class="about-card">
-                    <div class="about-icon">📅</div>
-                    <h3>The Big Night</h3>
-                    <p>Saturday, October 10th 2026. Gates open 6PM. Show starts 8PM sharp. Three ticket tiers: Regular (500), VIP (1,000), VVIP (2,000).</p>
-                </div>
-            </div>
-        </div>
+                <div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 8PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
+                <button type="submit" class="btn-pay" id="payBtn">📱 Pay Now via M-PESA</button>
+                <button type="button" class="btn-wa-pay" id="waPayBtn">💬 Reserve via WhatsApp</button>
+            </form>
+            <div class="msg-box" id="msgBox"></div>
+        </div></div>
     </section>
 
-    <!-- ==================== CONTACT PAGE ==================== -->
-    <section class="page-section" id="page-contact">
-        <div class="page-hero">
-            <h1>Contact <span class="gradient-text">CHING'ENDE</span></h1>
-            <p>Reach us directly on WhatsApp</p>
-        </div>
-        <div class="contact-content">
-            <div class="whatsapp-contact-card">
-                <div class="whatsapp-icon-large">💬</div>
-                <h3>Chat With Us on WhatsApp</h3>
-                <div class="whatsapp-number">📱 0748 840 501</div>
-                <p>For reservations, inquiries, or group bookings, message us on WhatsApp. We respond fast!</p>
-                <a href="https://wa.me/254748840501?text=Hi%20CHING'ENDE!%20I%20have%20a%20question" target="_blank" class="btn-whatsapp" style="display:inline-flex;">
-                    💬 Start WhatsApp Chat
-                </a>
-            </div>
-        </div>
+    <!-- DONATE -->
+    <section class="section" id="page-donate">
+        <div class="page-top"><h2>💛 Quick Donation</h2><p>Phone + Amount — Anonymous</p></div>
+        <div class="form-wrap"><div class="form-card" style="border-color:var(--g);">
+            <h3>💛 Support CHING'ENDE</h3>
+            <form id="donateForm">
+                <div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" placeholder="0712345678" required></div>
+                <div class="f-group"><label>💰 Amount (min 50)</label><input type="number" id="dAmount" value="1000" min="50" required></div>
+                <button type="submit" class="btn-pay" id="donateBtn" style="background:var(--g);color:#000;">💛 Donate Now</button>
+            </form>
+            <div class="msg-box" id="donateMsg"></div>
+        </div></div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3>🫘 CHING'ENDE LAUNCH</h3>
-                <p>October 10th 2026 • Saturday 8PM</p>
-            </div>
-            <div class="footer-links">
-                <a class="nav-link" data-page="home">Home</a>
-                <a class="nav-link" data-page="book">Book Now</a>
-                <a class="nav-link" data-page="about">About</a>
-                <a class="nav-link" data-page="contact">Contact</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 CHING'ENDE LAUNCH. All rights reserved. website made and published by felix nyabuto(0716625790) | <span class="footer-whatsapp">💬 0748 840 501</span></p>
-        </div>
-    </footer>
+    <!-- ABOUT / CONTACT -->
+    <section class="section" id="page-about"><div class="page-top"><h2>About</h2></div><div style="max-width:800px;margin:2rem auto;padding:0 5%;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;"><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">🎯</div><h3>Mission</h3><p>Unforgettable experiences.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">👁️</div><h3>Vision</h3><p>Kenya's most sought-after event.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">📅</div><h3>Big Night</h3><p>Oct 10, 2026. Gates 6PM.</p></div></div></section>
+    <section class="section" id="page-contact"><div class="page-top"><h2>Contact</h2></div><div style="max-width:400px;margin:2rem auto;text-align:center;background:white;padding:2.5rem;border-radius:18px;border:2px solid var(--b);"><div style="font-size:4rem;">💬</div><h3>WhatsApp</h3><p style="font-family:var(--m);font-size:1.5rem;color:var(--p);">📱 0748 840 501</p><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;margin-top:1rem;">💬 Start Chat</a></div></section>
+    <footer><p>🫘 CHING'ENDE LAUNCH • Oct 10, 2026 • 💬 0748 840 501 • 🏦 Till: 3626261</p></footer>
 
     <script>
-        // === CHING'ENDE LAUNCH - FULL SCRIPT ===
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
 
-        // --- ORB SPLITTING BEANS ---
-        function createOrbBeans() {
-            const container = document.getElementById('orbBeans');
-            if (!container) return;
-            
-            const beanEmojis = ['🫘', '🫘', '🫘', '✨', '💚', '🌱'];
-            
-            for (let i = 0; i < 12; i++) {
-                const bean = document.createElement('span');
-                bean.className = 'orb-bean';
-                
-                const emoji = beanEmojis[Math.floor(Math.random() * beanEmojis.length)];
-                bean.innerHTML = '<span class="half1">' + emoji + '</span><span class="half2">' + emoji + '</span>';
-                
-                const angle = (i / 12) * 360;
-                const radius = 130 + Math.random() * 50;
-                const x = Math.cos(angle * Math.PI / 180) * radius;
-                const y = Math.sin(angle * Math.PI / 180) * radius;
-                
-                bean.style.left = 'calc(50% + ' + x + 'px)';
-                bean.style.top = 'calc(50% + ' + y + 'px)';
-                bean.style.animationDelay = (i * 0.25) + 's';
-                bean.style.animationDuration = (2.5 + Math.random() * 2) + 's';
-                
-                container.appendChild(bean);
+            // ============================================
+            // SINGLE SUPABASE CLIENT
+            // ============================================
+            const supabase = window.supabase.createClient(
+                'https://zxforhokpsiqkceesalk.supabase.co',
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm9yaG9rcHNpcWtjZWVzYWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MTYxMjksImV4cCI6MjA5NTM5MjEyOX0.-circeJO1eayDkn3jHDC53oBxoRgDLmr5Uk2XBPYglA'
+            );
+
+            emailjs.init('eUpIab2_n-wLXmMUj');
+
+            const STKPUSH_URL = 'https://zxforhokpsiqkceesalk.supabase.co/functions/v1/stkpush';
+
+            let selName = '', selPrice = 0, currentRef = '', pollTimer = null;
+
+            // ============================================
+            // NAVIGATION
+            // ============================================
+            function goTo(p) {
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('on'));
+                const sec = document.getElementById('page-' + p);
+                if (sec) sec.classList.add('active');
+                document.querySelectorAll('.nav-link[data-page="' + p + '"]').forEach(l => l.classList.add('on'));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-        }
 
-        // --- PAGE NAVIGATION ---
-        function navigateTo(pageName) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-
-            const target = document.getElementById('page-' + pageName);
-            if (target) target.classList.add('active');
-
-            document.querySelectorAll('.nav-link[data-page="' + pageName + '"]').forEach(l => l.classList.add('active'));
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const page = this.getAttribute('data-page');
-                if (page) navigateTo(page);
-            });
-        });
-
-        // --- COUNTDOWN TO OCT 10, 2026 8PM ---
-        function startCountdown() {
-            const targetDate = new Date('October 10, 2026 20:00:00').getTime();
-
-            function update() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-
-                if (distance < 0) {
-                    const cd = document.getElementById('countdown');
-                    if (cd) cd.innerHTML = '<h3 style="color:var(--primary);text-align:center;width:100%;">🚀 CHING\'ENDE IS LIVE NOW!</h3>';
-                    return;
-                }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                ['days', 'hours', 'minutes', 'seconds'].forEach((id, i) => {
-                    const el = document.getElementById(id);
-                    if (el) el.textContent = String([days, hours, minutes, seconds][i]).padStart(2, '0');
+            // Nav link clicks
+            document.querySelectorAll('.nav-link').forEach(l => {
+                l.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    goTo(this.getAttribute('data-page'));
                 });
+            });
+
+            // Nav "Get Tickets" button
+            document.getElementById('navGetTickets').addEventListener('click', function(e) {
+                e.preventDefault();
+                goTo('book');
+            });
+
+            // Home page buttons
+            document.getElementById('homeGetTickets').addEventListener('click', function() { goTo('book'); });
+            document.getElementById('homeDonate').addEventListener('click', function() { goTo('donate'); });
+
+            // Ticket selection buttons
+            document.querySelectorAll('.pick-ticket').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const name = this.getAttribute('data-name');
+                    const price = parseInt(this.getAttribute('data-price'));
+                    selName = name;
+                    selPrice = price;
+                    document.getElementById('selName').textContent = name + ' Ticket';
+                    document.getElementById('selPrice').textContent = 'KSH ' + price;
+                    document.getElementById('bTicket').value = name + '|' + price;
+                    updateSummary();
+                    goTo('book');
+                });
+            });
+
+            // Ticket dropdown change
+            document.getElementById('bTicket').addEventListener('change', function() {
+                if (this.value) {
+                    const [name, price] = this.value.split('|');
+                    selName = name;
+                    selPrice = parseInt(price);
+                    document.getElementById('selName').textContent = name + ' Ticket';
+                    document.getElementById('selPrice').textContent = 'KSH ' + price;
+                }
+                updateSummary();
+            });
+
+            // Quantity change
+            document.getElementById('bQty').addEventListener('input', updateSummary);
+
+            function updateSummary() {
+                const q = parseInt(document.getElementById('bQty').value) || 1;
+                document.getElementById('sumType').textContent = selName || '-';
+                document.getElementById('sumQty').textContent = q;
+                document.getElementById('sumTotal').textContent = 'KSH ' + (selPrice * q).toLocaleString();
             }
-            setInterval(update, 1000);
-            update();
-        }
 
-        // --- TICKET SELECTION ---
-        let selectedTicketName = '';
-        let selectedTicketPrice = 0;
+            // ============================================
+            // BOOKING FORM SUBMIT
+            // ============================================
+            document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await processPayment();
+            });
 
-        function selectTicket(name, price) {
-            selectedTicketName = name;
-            selectedTicketPrice = price;
+            // WhatsApp button
+            document.getElementById('waPayBtn').addEventListener('click', payViaWhatsApp);
 
-            document.getElementById('selectedTicketName').textContent = name + ' Ticket';
-            document.getElementById('selectedTicketPrice').textContent = 'KSH ' + price.toLocaleString();
+            // Donation form
+            document.getElementById('donateForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await processDonation();
+            });
 
-            const select = document.getElementById('ticketType');
-            if (select) {
-                for (let option of select.options) {
-                    if (option.value === name + '|' + price) {
-                        option.selected = true;
-                        break;
-                    }
+            // ============================================
+            // COUNTDOWN
+            // ============================================
+            setInterval(() => {
+                const d = new Date('October 10, 2026 20:00:00').getTime() - Date.now();
+                if (d < 0) return;
+                document.getElementById('cd-d').textContent = String(Math.floor(d / 86400000)).padStart(2, '0');
+                document.getElementById('cd-h').textContent = String(Math.floor((d % 86400000) / 3600000)).padStart(2, '0');
+                document.getElementById('cd-m').textContent = String(Math.floor((d % 3600000) / 60000)).padStart(2, '0');
+                document.getElementById('cd-s').textContent = String(Math.floor((d % 60000) / 1000)).padStart(2, '0');
+            }, 1000);
+
+            // ============================================
+            // HELPERS
+            // ============================================
+            function fmtPhone(p) {
+                let x = p.replace(/\s/g, '').replace(/^0/, '254').replace(/^\+/, '');
+                return x.startsWith('254') ? x : '254' + x;
+            }
+
+            // ============================================
+            // PROCESS PAYMENT
+            // ============================================
+            async function processPayment() {
+                const btn = document.getElementById('payBtn');
+                const msg = document.getElementById('msgBox');
+                const name = document.getElementById('bName').value.trim();
+                const phone = document.getElementById('bPhone').value.trim();
+                const email = document.getElementById('bEmail').value.trim();
+                const qty = parseInt(document.getElementById('bQty').value);
+                const total = selPrice * qty;
+
+                if (!selName) { alert('Select a ticket first!'); return; }
+                if (!name || !phone || !email) { alert('Fill all fields!'); return; }
+
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner"></span> Sending STK Push...';
+                msg.style.display = 'none';
+                msg.className = 'msg-box';
+
+                try {
+                    const res = await fetch(STKPUSH_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            phone: fmtPhone(phone),
+                            amount: total,
+                            name, email,
+                            ticketType: selName,
+                            quantity: qty,
+                            pricePerTicket: selPrice
+                        })
+                    });
+
+                    const data = await res.json();
+                    console.log('Edge response:', data);
+
+                    if (!data.success) throw new Error(data.message || 'STK Push failed');
+
+                    currentRef = data.reference;
+
+                    msg.className = 'msg-box show info';
+                    msg.innerHTML = '<div class="spinner"></div><h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN</p><div class="ref">' + currentRef + '</div><p>KSH ' + total.toLocaleString() + '</p>';
+                    btn.innerHTML = '⏳ Waiting for payment...';
+
+                    let tries = 0;
+                    pollTimer = setInterval(async () => {
+                        tries++;
+                        const { data: booking } = await supabase.from('bookings').select('status').eq('booking_reference', currentRef).single();
+                        if (booking && booking.status === 'paid') {
+                            clearInterval(pollTimer);
+                            msg.className = 'msg-box show ok';
+                            msg.innerHTML = '<div style="font-size:3rem;">✅</div><h3>Paid!</h3><p>Ticket sent to ' + email + '</p><div class="ref">' + currentRef + '</div>';
+                            btn.style.display = 'none';
+                        }
+                        if (tries > 45) {
+                            clearInterval(pollTimer);
+                            msg.innerHTML = '<p>⏰ Timeout. Contact 0748 840 501</p>';
+                            btn.innerHTML = '📱 Pay Now';
+                        }
+                    }, 4000);
+
+                } catch (e) {
+                    msg.className = 'msg-box show err';
+                    msg.innerHTML = '<div style="font-size:2rem;">❌</div><p>' + e.message + '</p>';
+                } finally {
+                    btn.disabled = false;
                 }
             }
 
-            updateSummary();
-            navigateTo('book');
-        }
-
-        function updateTicketFromSelect() {
-            const select = document.getElementById('ticketType');
-            if (select.value) {
-                const [name, price] = select.value.split('|');
-                selectedTicketName = name;
-                selectedTicketPrice = parseInt(price);
-                document.getElementById('selectedTicketName').textContent = name + ' Ticket';
-                document.getElementById('selectedTicketPrice').textContent = 'KSH ' + parseInt(price).toLocaleString();
-            }
-            updateSummary();
-        }
-
-        function updateSummary() {
-            const qty = parseInt(document.getElementById('quantity')?.value) || 1;
-            const total = selectedTicketPrice * qty;
-
-            const summaryType = document.getElementById('summaryTicketType');
-            const summaryQty = document.getElementById('summaryQty');
-            const summaryTotal = document.getElementById('summaryTotal');
-
-            if (summaryType) summaryType.textContent = selectedTicketName || '-';
-            if (summaryQty) summaryQty.textContent = qty;
-            if (summaryTotal) summaryTotal.textContent = 'KSH ' + total.toLocaleString();
-        }
-
-        // --- WHATSAPP REDIRECT ---
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const name = document.getElementById('fullName').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const qty = document.getElementById('quantity').value;
-            const total = selectedTicketPrice * parseInt(qty);
-
-            if (!selectedTicketName) {
-                alert('Please select a ticket type first! 🎫');
-                return;
+            // ============================================
+            // WHATSAPP FALLBACK
+            // ============================================
+            function payViaWhatsApp() {
+                const name = document.getElementById('bName').value.trim();
+                const phone = document.getElementById('bPhone').value.trim();
+                const email = document.getElementById('bEmail').value.trim();
+                const qty = parseInt(document.getElementById('bQty').value);
+                const total = selPrice * qty;
+                const ref = 'CHG-' + Date.now().toString(36).toUpperCase();
+                window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0ARef:' + ref + '%0A' + encodeURIComponent(name) + '%0A' + phone + '%0A' + email + '%0A' + selName + ' x' + qty + '%0AKSH ' + total + '%0ATill:3626261', '_blank');
             }
 
-            const message = `*CHING'ENDE LAUNCH - TICKET RESERVATION*%0A%0A` +
-                `👤 *Name:* ${name}%0A` +
-                `📱 *Phone:* ${phone}%0A` +
-                `📧 *Email:* ${email}%0A` +
-                `🎟️ *Ticket:* ${selectedTicketName}%0A` +
-                `🔢 *Quantity:* ${qty}%0A` +
-                `💰 *Total:* KSH ${total.toLocaleString()}%0A%0A` +
-                `📅 *Event:* Saturday, October 10th 2026%0A` +
-                `⏰ *Time:* 8PM%0A%0A` +
-                `Please confirm my reservation! 🙏`;
+            // ============================================
+            // DONATION
+            // ============================================
+            async function processDonation() {
+                const btn = document.getElementById('donateBtn');
+                const msg = document.getElementById('donateMsg');
+                const phone = document.getElementById('dPhone').value.trim();
+                const amount = parseInt(document.getElementById('dAmount').value);
 
-            window.open('https://wa.me/254748840501?text=' + message, '_blank');
-        });
+                if (!phone || amount < 50) { alert('Enter phone & amount (min 50)!'); return; }
 
-        // --- INIT ---
-        document.addEventListener('DOMContentLoaded', () => {
-            startCountdown();
-            createOrbBeans();
-            console.log('🫘 CHING\'ENDE LAUNCH - Oct 10, 2026 Ready!');
-            console.log('💬 WhatsApp: 0748 840 501');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner"></span> Sending...';
+                msg.style.display = 'none';
+                msg.className = 'msg-box';
+
+                try {
+                    const res = await fetch(STKPUSH_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ phone: fmtPhone(phone), amount, isDonation: true })
+                    });
+                    const data = await res.json();
+                    if (!data.success) throw new Error(data.message || 'Failed');
+
+                    currentRef = data.reference;
+                    msg.className = 'msg-box show info';
+                    msg.innerHTML = '<div class="spinner"></div><h3>📱 Check Phone</h3><p>Enter PIN</p><div class="ref">' + currentRef + '</div><p>KSH ' + amount.toLocaleString() + '</p>';
+
+                    let tries = 0;
+                    pollTimer = setInterval(async () => {
+                        tries++;
+                        const { data: booking } = await supabase.from('bookings').select('status').eq('booking_reference', currentRef).single();
+                        if (booking && booking.status === 'paid') {
+                            clearInterval(pollTimer);
+                            msg.className = 'msg-box show love';
+                            msg.innerHTML = '<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH ' + amount.toLocaleString() + '</p><p><em>"Thank you! See you at the launch!"<br>- Mansango</em></p>';
+                            btn.style.display = 'none';
+                        }
+                        if (tries > 45) { clearInterval(pollTimer); msg.innerHTML = '<p>Timeout.</p>'; }
+                    }, 4000);
+                } catch (e) {
+                    msg.className = 'msg-box show err';
+                    msg.innerHTML = '<p>' + e.message + '</p>';
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = '💛 Donate Now';
+                }
+            }
+
+            console.log('🫘 CHINGENDE - All buttons working!');
         });
     </script>
 </body>
