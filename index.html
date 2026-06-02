@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHING'ENDE Album Launch - Mansango | Oct 10, 2026 | Book Tickets Online</title>
     <meta name="description" content="Book your tickets for the biggest CHING'ENDE Album Launch featuring Mansango. Pay via M-PESA and get your ticket instantly via email.">
-    <meta name="keywords" content="chingende, ching'ende, chingende album launch, mansango, nairobi events 2026, kenya concerts, mpesa tickets">
+    <meta name="keywords" content="chingende, ching'ende, mansango, nairobi events 2026, kenya concerts, mpesa tickets">
     <meta name="author" content="Felix Nyabuto">
     <meta property="og:title" content="CHING'ENDE Album Launch - Mansango | Oct 10, 2026">
     <meta property="og:description" content="Book your tickets now! Pay via M-PESA and get your ticket instantly.">
@@ -97,6 +97,9 @@
         .ref{font-family:var(--m);font-size:1.3rem;font-weight:700;color:var(--p);letter-spacing:2px}
         .spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin2 0.7s linear infinite}
         @keyframes spin2{to{transform:rotate(360deg)}}
+        .progress-bar{background:#e2e8f0;border-radius:10px;height:6px;margin-top:0.8rem;overflow:hidden}
+        .progress-bar div{background:var(--p);height:100%;border-radius:10px;width:100%;animation:shrink 120s linear}
+        @keyframes shrink{from{width:100%}to{width:0%}}
         .dev-credit{text-align:center;padding:0.5rem;font-size:0.75rem;color:var(--t);opacity:0.6}
         .dev-credit a{color:var(--p);text-decoration:none;font-weight:600}
         footer{text-align:center;padding:1.5rem;background:white;border-top:2px solid var(--b);font-size:0.85rem;color:#6b7280}
@@ -121,7 +124,7 @@
             <div class="orb"><div class="orb-ring a"></div><div class="orb-ring b"></div><div class="orb-core">CHING<br>'ENDE</div></div>
         </div></div>
         <div class="pricing">
-            <div class="pcard"><div class="ticket-icon">🎫</div><h3>Regular</h3><div class="price">KSH 500<small>/person</small></div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul><button class="btn-pick pick-ticket" data-name="Regular" data-price="500">Select Regular</button></div>
+            <div class="pcard"><div class="ticket-icon">🎫</div><h3>Regular</h3><div class="price">KSH 11<small>/person</small></div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul><button class="btn-pick pick-ticket" data-name="Regular" data-price="11">Select Regular</button></div>
             <div class="pcard hot"><div class="ticket-icon">👑</div><h3>VIP</h3><div class="price">KSH 1,000<small>/person</small></div><ul><li>Priority Entry</li><li>Premium Seating</li><li>2 Complimentary Drinks</li><li>VIP Lounge Access</li><li>Celebrity Meet & Greet</li></ul><button class="btn-pick pick-ticket" data-name="VIP" data-price="1000">Select VIP</button></div>
             <div class="pcard"><div class="ticket-icon">💎</div><h3>VVIP</h3><div class="price">KSH 2,000<small>/person</small></div><ul><li>Red Carpet Entry</li><li>Front Row Seating</li><li>Unlimited Premium Drinks</li><li>Backstage Access</li><li>Meet Mansango</li><li>Luxury Gift Bag</li></ul><button class="btn-pick pick-ticket" data-name="VVIP" data-price="2000">Select VVIP</button></div>
         </div>
@@ -135,7 +138,7 @@
                 <div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" placeholder="Enter your full name" required></div>
                 <div class="f-group"><label>📱 M-PESA Phone Number</label><input type="tel" id="bPhone" placeholder="0712 345 678" required></div>
                 <div class="f-group"><label>📧 Email Address (for ticket delivery)</label><input type="email" id="bEmail" placeholder="your@email.com" required></div>
-                <div class="f-row"><div class="f-group"><label>🎟️ Ticket Type</label><select id="bTicket"><option value="">Select...</option><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div></div>
+                <div class="f-row"><div class="f-group"><label>🎟️ Ticket Type</label><select id="bTicket"><option value="">Select...</option><option value="Regular|11">Regular - KSH 11</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div></div>
                 <div class="sum-box"><strong>📋 Booking Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE Album Launch</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 8PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType">-</span></div><div class="s-row"><span>Quantity:</span><span id="sumQty">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
                 <button type="submit" class="btn-pay" id="payBtn">📱 Pay Now via M-PESA</button>
                 <button type="button" class="btn-wa-pay" id="waPayBtn">💬 Reserve via WhatsApp</button>
@@ -157,11 +160,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded',function(){
+            // Single Supabase client
             const supabase=window.supabase.createClient('https://zxforhokpsiqkceesalk.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm9yaG9rcHNpcWtjZWVzYWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MTYxMjksImV4cCI6MjA5NTM5MjEyOX0.-circeJO1eayDkn3jHDC53oBxoRgDLmr5Uk2XBPYglA');
             emailjs.init('eUpIab2_n-wLXmMUj');
             const STKPUSH_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/stkpush';
-            const CHECK_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/check-payment';
-            let selName='',selPrice=0,currentRef='',pollTimer=null;
+            let selName='',selPrice=0,currentRef='',pollTimer=null,pollTries=0;
 
             // Sparkles
             for(let i=0;i<25;i++){const s=document.createElement('div');s.className='sparkle';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.animationDelay=Math.random()*3+'s';s.style.animationDuration=(Math.random()*3+2)+'s';document.getElementById('sparkles').appendChild(s);}
@@ -178,75 +181,173 @@
             setInterval(()=>{const d=new Date('October 10, 2026 20:00:00').getTime()-Date.now();if(d<0)return;document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');},1000);
             function fmtPhone(p){let x=p.replace(/[\s\-\(\)]/g,'').replace(/^0/,'254').replace(/^\+/,'');return x.startsWith('254')?x:'254'+x;}
 
-            // BOOKING
+            // QR Code generator
+            function qrUrl(ref,name,ticket){return'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl='+encodeURIComponent(JSON.stringify({ref,name,ticket,event:'CHINGENDE',date:'2026-10-10'}))+'&choe=UTF-8';}
+
+            // Send email via EmailJS
+            async function sendTicketEmail(name,email,ref,ticket,qty,total,phone){
+                try{
+                    await emailjs.send('service_rqxvm4u','template_t85ouum',{
+                        to_name:name,to_email:email,reference:ref,phone:phone,
+                        ticket_type:ticket,quantity:qty.toString(),total:total.toLocaleString(),
+                        qr_code:qrUrl(ref,name,ticket)
+                    });
+                    await supabase.from('bookings').update({email_sent:true}).eq('booking_reference',ref);
+                    console.log('📧 Email sent to:',email);
+                    return true;
+                }catch(e){console.error('Email failed:',e);return false;}
+            }
+
+            // Redirect to WhatsApp
+            function redirectToWhatsApp(name,phone,email,ticket,qty,total,ref){
+                const msg='*CHING%27ENDE%20BOOKING*%0A%0A'+
+                    '👤%20Name:%20'+encodeURIComponent(name)+'%0A'+
+                    '📱%20Phone:%20'+encodeURIComponent(phone)+'%0A'+
+                    '📧%20Email:%20'+encodeURIComponent(email)+'%0A'+
+                    '🎟%20Ticket:%20'+encodeURIComponent(ticket)+'%20x'+qty+'%0A'+
+                    '💰%20Total:%20KSH%20'+total.toLocaleString()+'%0A'+
+                    '🔖%20Ref:%20'+ref+'%0A%0A'+
+                    'Pay%20via%20Till:%203626261%20(Caleb%20Sangara)';
+                window.open('https://wa.me/254748840501?text='+msg,'_blank');
+            }
+
+            // Stop polling
+            function stopPolling(){
+                if(pollTimer){clearInterval(pollTimer);pollTimer=null;}
+            }
+
+            // BOOKING FORM
             document.getElementById('bookingForm').addEventListener('submit',async function(e){
                 e.preventDefault();
+                stopPolling();
                 const btn=document.getElementById('payBtn'),msg=document.getElementById('msgBox');
                 const name=document.getElementById('bName').value.trim(),phone=document.getElementById('bPhone').value.trim(),email=document.getElementById('bEmail').value.trim();
                 const qty=parseInt(document.getElementById('bQty').value),total=selPrice*qty;
-                if(!selName){alert('Select a ticket first!');return;}
-                if(!name||!phone||!email){alert('Fill all fields!');return;}
 
-                btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending...';
+                if(!selName){alert('Please select a ticket type first!');return;}
+                if(!name||!phone||!email){alert('Please fill in all fields!');return;}
+
+                // Show loading
+                btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending STK Push to your phone...';
                 msg.style.display='none';msg.className='msg-box';
 
                 try{
                     const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount:total,name,email,ticketType:selName,quantity:qty,pricePerTicket:selPrice})});
                     const data=await res.json();
-                    console.log('Edge:',data);
+                    console.log('STK Response:',data);
+
+                    // Generate reference
+                    currentRef=data.reference||('CHG-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).substring(2,5).toUpperCase());
 
                     if(data.status==='pending'){
-                        currentRef=data.reference;
+                        // STK Push sent - show waiting screen
                         msg.className='msg-box show info';
-                        msg.innerHTML='<div class="spinner"></div><h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN</p><div class="ref">'+currentRef+'</div><p>KSH '+total.toLocaleString()+'</p>';
-                        btn.innerHTML='⏳ Waiting...';
-                        let tries=0;
-                        pollTimer=setInterval(async()=>{tries++;try{const checkRes=await fetch(CHECK_URL+'?ref='+currentRef);const checkData=await checkRes.json();if(checkData.isPaid){clearInterval(pollTimer);msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Paid!</h3><p>📧 Ticket sent to <strong>'+email+'</strong></p><div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p>';btn.style.display='none';}}catch(e){}if(tries>45){clearInterval(pollTimer);msg.innerHTML='<p>⏰ Contact 0748 840 501</p>';btn.innerHTML='📱 Pay Now';btn.disabled=false;}},4000);
-                    }else if(data.action==='fallback'){
-                        const ref=data.reference||'CHG-'+Date.now().toString(36).toUpperCase();
+                        msg.innerHTML='<div class="spinner"></div><h3>📱 STK Push Sent!</h3><p>Check your phone and enter M-PESA PIN</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p><p style="font-size:0.8rem;">Waiting for payment confirmation...</p><div class="progress-bar"><div></div></div>';
+                        btn.innerHTML='⏳ Waiting for M-PESA payment...';
+
+                        // Start polling
+                        pollTries=0;
+                        pollTimer=setInterval(async()=>{
+                            pollTries++;
+                            console.log('Poll attempt:',pollTries,'for:',currentRef);
+                            
+                            try{
+                                const{data:booking,error}=await supabase.from('bookings').select('status,email_sent').eq('booking_reference',currentRef).single();
+                                
+                                if(!error&&booking&&booking.status==='paid'){
+                                    stopPolling();
+                                    
+                                    // Send email if not sent
+                                    if(!booking.email_sent){
+                                        const sent=await sendTicketEmail(name,email,currentRef,selName,qty,total,phone);
+                                        if(sent){
+                                            msg.className='msg-box show ok';
+                                            msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3><p>📧 Ticket with QR code sent to <strong>'+email+'</strong></p><div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = <strong>KSH '+total.toLocaleString()+'</strong></p><p style="font-size:0.8rem;">📅 Oct 10, 2026 • 8PM | Check spam folder</p>';
+                                        }else{
+                                            msg.className='msg-box show ok';
+                                            msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3><p>Ticket will be sent to <strong>'+email+'</strong> shortly</p><div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = <strong>KSH '+total.toLocaleString()+'</strong></p>';
+                                        }
+                                    }else{
+                                        msg.className='msg-box show ok';
+                                        msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3><p>📧 Ticket already sent to <strong>'+email+'</strong></p><div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = <strong>KSH '+total.toLocaleString()+'</strong></p>';
+                                    }
+                                    btn.style.display='none';
+                                }
+                            }catch(err){console.log('Poll error:',err);}
+
+                            // Timeout after 30 attempts (2 minutes)
+                            if(pollTries>=30){
+                                stopPolling();
+                                msg.className='msg-box show err';
+                                msg.innerHTML='<div style="font-size:2rem;">⏰</div><h3>Payment Not Confirmed</h3><p>Taking longer than expected.</p><div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p><button class="btn-retry" onclick="location.reload()">🔄 Try Again</button><a href="#" onclick="redirectToWhatsApp(\''+name.replace(/'/g,"\\'")+'\',\''+phone+'\',\''+email+'\',\''+selName+'\','+qty+','+total+',\''+currentRef+'\');return false;" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;margin-top:0.3rem;">💬 Complete via WhatsApp</a>';
+                                btn.innerHTML='📱 Pay Now via M-PESA';
+                                btn.disabled=false;
+                            }
+                        },4000);
+
+                    }else{
+                        // STK Failed - redirect to WhatsApp
+                        stopPolling();
+                        redirectToWhatsApp(name,phone,email,selName,qty,total,currentRef);
                         msg.className='msg-box show err';
-                        msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>'+data.message+'</h3><div class="ref">'+ref+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p><div style="background:#fef3c7;padding:0.8rem;border-radius:8px;margin:0.5rem 0;text-align:left;"><strong>📱 Pay via M-PESA:</strong><br>Till: <strong>'+data.till+'</strong><br>Name: <strong>'+data.tillName+'</strong><br>Amount: <strong>KSH '+total.toLocaleString()+'</strong></div><button class="btn-retry" onclick="location.reload()">🔄 Try Again</button><a href="https://wa.me/'+data.whatsapp+'?text=*CHING%27ENDE*%0ARef:%20'+ref+'%0A'+encodeURIComponent(name)+'%0A'+phone+'%0A'+selName+'%20x'+qty+'%0AKSH%20'+total+'" target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;margin-top:0.3rem;">💬 Reserve via WhatsApp</a>';
-                        btn.innerHTML='📱 Pay Now';btn.disabled=false;
+                        msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>STK Push Could Not Be Sent</h3><p>Redirected to WhatsApp for manual payment.</p><div class="ref">'+currentRef+'</div><p>Till: <strong>3626261</strong> (Caleb Sangara)</p><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p><button class="btn-retry" onclick="location.reload()">🔄 Try Again</button>';
+                        btn.innerHTML='📱 Pay Now via M-PESA';
+                        btn.disabled=false;
                     }
+
                 }catch(e){
+                    stopPolling();
+                    console.error('Error:',e);
+                    currentRef='CHG-'+Date.now().toString(36).toUpperCase();
+                    redirectToWhatsApp(name,phone,email,selName,qty,total,currentRef);
                     msg.className='msg-box show err';
-                    msg.innerHTML='<div style="font-size:2rem;">❌</div><p>Connection error. Try again or use WhatsApp.</p><a href="https://wa.me/254748840501?text=*CHING%27ENDE%20HELP*" target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;">💬 WhatsApp Support</a>';
-                    btn.disabled=false;btn.innerHTML='📱 Pay Now';
+                    msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Connection Error</h3><p>Redirected to WhatsApp.</p><div class="ref">'+currentRef+'</div><p>Till: <strong>3626261</strong></p>';
+                    btn.innerHTML='📱 Pay Now via M-PESA';
+                    btn.disabled=false;
                 }
             });
 
             // WhatsApp button
             document.getElementById('waPayBtn').addEventListener('click',function(){
                 const name=document.getElementById('bName').value.trim(),phone=document.getElementById('bPhone').value.trim(),email=document.getElementById('bEmail').value.trim();
-                const qty=parseInt(document.getElementById('bQty').value),total=selPrice*qty,ref='CHG-'+Date.now().toString(36).toUpperCase();
-                window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0ARef:%20'+ref+'%0A'+encodeURIComponent(name)+'%0A'+phone+'%0A'+email+'%0A'+selName+'%20x'+qty+'%0AKSH%20'+total+'%0A%0ATill:%203626261','_blank');
+                const qty=parseInt(document.getElementById('bQty').value),total=selPrice*qty;
+                const ref='CHG-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).substring(2,5).toUpperCase();
+                redirectToWhatsApp(name,phone,email,selName,qty,total,ref);
             });
 
             // DONATION
             document.getElementById('donateForm').addEventListener('submit',async function(e){
                 e.preventDefault();
+                stopPolling();
                 const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');
                 const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);
                 if(!phone){alert('Enter phone number!');return;}
                 if(!amount||amount<10){alert('Minimum KSH 10!');return;}
-                btn.disabled=true;btn.innerHTML='<span class="spinner"></span>...';msg.style.display='none';msg.className='msg-box';
+                btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending STK Push...';msg.style.display='none';msg.className='msg-box';
+
                 try{
                     const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});
                     const data=await res.json();
-                    const ref=data.reference||('DON-'+Date.now().toString(36).toUpperCase());
+                    currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());
+
                     if(data.status==='pending'){
-                        currentRef=ref;msg.className='msg-box show info';
-                        msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';
-                        let tries=0;pollTimer=setInterval(async()=>{tries++;try{const checkRes=await fetch(CHECK_URL+'?ref='+currentRef);const checkData=await checkRes.json();if(checkData.isPaid){clearInterval(pollTimer);msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH '+amount.toLocaleString()+'</p><p><em>"Thank you! See you at the launch!"<br>- Mansango</em></p>';btn.style.display='none';}}catch(e){}if(tries>45){clearInterval(pollTimer);msg.innerHTML='<p>⏰ Contact 0748 840 501</p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},4000);
+                        msg.className='msg-box show info';
+                        msg.innerHTML='<div class="spinner"></div><h3>📱 STK Push Sent!</h3><p>Check your phone for M-PESA prompt</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+amount.toLocaleString()+'</strong></p><div class="progress-bar"><div></div></div>';
+                        pollTries=0;
+                        pollTimer=setInterval(async()=>{pollTries++;try{const{data:booking}=await supabase.from('bookings').select('status').eq('booking_reference',currentRef).single();if(booking&&booking.status==='paid'){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante Sana!</h3><p>Your donation of <strong>KSH '+amount.toLocaleString()+'</strong> has been received!</p><p><em>"Thank you for your support! See you at the launch! 🎵💛"<br>- Mansango</em></p>';btn.style.display='none';}}catch(e){}if(pollTries>=30){stopPolling();msg.innerHTML='<p>⏰ Contact <strong>0748 840 501</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},4000);
                     }else{
                         msg.className='msg-box show love';
-                        msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Donate via Till</h3><p>Till: <strong>3626261</strong></p><p>Caleb Sangara</p><p>KSH '+amount.toLocaleString()+'</p><p><em>"Asante sana!"<br>- Mansango 🎵</em></p>';
+                        msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Donate via Till</h3><p>Till: <strong>3626261</strong></p><p>Caleb Sangara</p><p>Amount: <strong>KSH '+amount.toLocaleString()+'</strong></p><p><em>"Asante sana!"<br>- Mansango 🎵</em></p>';
                         btn.style.display='none';
                     }
-                }catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Thank You!</h3><p>Till: <strong>3626261</strong></p>';btn.style.display='none';}
+                }catch(e){
+                    msg.className='msg-box show love';
+                    msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Donate via Till</h3><p>Till: <strong>3626261</strong></p><p>Caleb Sangara</p>';
+                    btn.style.display='none';
+                }
             });
 
-            console.log('🫘 CHING\'ENDE - Final Version Ready! | Dev: Felix Nyabuto 0716 625 790');
+            console.log('🫘 CHING\'ENDE - Complete! | Dev: Felix Nyabuto 0716 625 790');
         });
     </script>
 </body>
