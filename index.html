@@ -59,17 +59,16 @@
         .btn-pay:disabled{background:#9ca3af;cursor:not-allowed}
         .btn-wa-pay{width:100%;padding:1rem;background:#25D366;color:white;border:none;border-radius:14px;font-weight:600;font-size:1.05rem;cursor:pointer}
         .btn-retry{width:100%;padding:1rem;background:var(--g);color:#000;border:none;border-radius:14px;font-weight:600;font-size:1.05rem;cursor:pointer;margin-top:0.3rem}
-        .msg-box{display:none;padding:1.2rem;border-radius:14px;margin-top:1rem;text-align:center}
+        .msg-box{display:none;padding:1.2rem;border-radius:14px;margin-top:1rem;text-align:center;animation:fadeIn 0.4s ease-out}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
         .msg-box.show{display:block}.msg-box.ok{background:#ecfdf5;border:2px solid #6ee7b7;color:#065f46}
         .msg-box.err{background:#fef2f2;border:2px solid #fca5a5;color:#991b1b}
         .msg-box.info{background:#eff6ff;border:2px solid #93c5fd;color:#1e40af}
+        .msg-box.warn{background:#fffbeb;border:2px solid #fcd34d;color:#92400e}
         .msg-box.love{background:#fef3c7;border:2px solid #fcd34d;color:#92400e}
         .ref{font-family:var(--m);font-size:1.3rem;font-weight:700;color:var(--p);letter-spacing:2px}
         .spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin2 0.7s linear infinite}
         @keyframes spin2{to{transform:rotate(360deg)}}
-        .progress-bar{background:#e2e8f0;border-radius:10px;height:6px;margin-top:0.8rem;overflow:hidden}
-        .progress-bar div{background:var(--p);height:100%;border-radius:10px;animation:shrink 300s linear}
-        @keyframes shrink{from{width:100%}to{width:0%}}
         .dev-credit{text-align:center;padding:0.5rem;font-size:0.75rem;color:var(--t);opacity:0.6}
         footer{text-align:center;padding:1.5rem;background:white;border-top:2px solid var(--b);font-size:0.85rem;color:#6b7280}
         @media(max-width:768px){.hero h1{font-size:2rem}.nav-links{display:none}.f-row{grid-template-columns:1fr}}
@@ -134,7 +133,7 @@
             const supabase=window.supabase.createClient('https://zxforhokpsiqkceesalk.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm9yaG9rcHNpcWtjZWVzYWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MTYxMjksImV4cCI6MjA5NTM5MjEyOX0.-circeJO1eayDkn3jHDC53oBxoRgDLmr5Uk2XBPYglA');
             const STKPUSH_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/stkpush';
             const STATUS_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/payment-status';
-            let selName='',selPrice=0,currentRef='',pollTimer=null,pollTries=0;
+            let selName='',selPrice=0,currentRef='',pollTimer=null,pollTries=0,isPolling=false;
 
             function goTo(p){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('on'));const sec=document.getElementById('page-'+p);if(sec)sec.classList.add('active');document.querySelectorAll('.nav-link[data-page="'+p+'"]').forEach(l=>l.classList.add('on'));window.scrollTo({top:0,behavior:'smooth'});}
             document.querySelectorAll('.nav-link').forEach(l=>{l.addEventListener('click',function(e){e.preventDefault();goTo(this.getAttribute('data-page'));});});
@@ -148,10 +147,24 @@
             setInterval(()=>{const d=new Date('October 10, 2026 20:00:00').getTime()-Date.now();if(d<0)return;document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');},1000);
             function fmtPhone(p){let x=p.replace(/[\s\-\(\)]/g,'').replace(/^0/,'254').replace(/^\+/,'');return x.startsWith('254')?x:'254'+x;}
             function genRef(){return'CHG-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).substring(2,5).toUpperCase();}
-            function stopPolling(){if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
-            function goWA(n,p,e,t,q,to,ref){window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(e)+'%0A🎟%20'+encodeURIComponent(t)+'%20x'+q+'%0A💰%20KSH%20'+to.toLocaleString()+'%0A🔖%20'+ref+'%0A%0APay%20Till:%203626261%20(Caleb%20Sangara)','_blank');}
+            function stopPolling(){isPolling=false;if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
 
-            // BOOKING - NO AUTO REDIRECT
+            function resetPaymentForm(btn,msg){
+                stopPolling();
+                msg.style.display='none';msg.className='msg-box';
+                btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
+            }
+
+            function showRetryAndWA(msg,ref,title,subtitle,boxClass){
+                msg.className='msg-box show '+boxClass;
+                msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>'+title+'</h3><p>'+subtitle+'</p><div class="ref">'+ref+'</div><p>Pay via Till: <strong>3626261</strong> (Caleb Sangara)</p><button class="btn-retry" id="retryBtn">🔄 Try Again</button><a href="https://wa.me/254748840501?text=*CHING%27ENDE*%0ARef:%20'+ref+'" target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;margin-top:0.3rem;">💬 WhatsApp Support</a>';
+                document.getElementById('retryBtn').addEventListener('click',function(){
+                    const btn=document.getElementById('payBtn'),msg=document.getElementById('msgBox');
+                    resetPaymentForm(btn,msg);
+                });
+            }
+
+            // BOOKING
             document.getElementById('bookingForm').addEventListener('submit',async function(e){
                 e.preventDefault();stopPolling();
                 const btn=document.getElementById('payBtn'),msg=document.getElementById('msgBox');
@@ -166,57 +179,93 @@
                 try{
                     const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount:total,name,email,ticketType:selName,quantity:qty,pricePerTicket:selPrice})});
                     const data=await res.json();
-
-                    // DEBUG LOGGING
-                    console.log('═══════════════════════════════');
-                    console.log('📥 FRONTEND RECEIVED:');
-                    console.log('  data.success:', data.success);
-                    console.log('  data.reference:', data.reference);
-                    console.log('  data.message:', data.message);
-                    console.log('  data.debug:', JSON.stringify(data.debug));
-                    console.log('═══════════════════════════════');
-
                     currentRef=data.reference||genRef();
 
-                    // CHECK SUCCESS - Only redirect to WhatsApp on explicit STK failure
                     if(data.success===true){
-                        // STK PUSH SENT - Show waiting screen
-                        console.log('✅ SUCCESS BRANCH - Showing waiting screen');
-                        msg.innerHTML='<div class="spinner"></div><h3>📱 STK Push Sent!</h3><p>Check your phone & enter M-PESA PIN</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p><p style="font-size:0.8rem;">No prompt? Pay via Till: <strong>3626261</strong></p><div class="progress-bar"><div></div></div>';
+                        msg.innerHTML='<div class="spinner"></div><h3>📱 STK Push Sent!</h3><p>Check your phone & enter M-PESA PIN</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p>';
                         btn.innerHTML='⏳ Waiting for payment...';
+                        isPolling=true;pollTries=0;
 
-                        pollTries=0;
                         pollTimer=setInterval(async()=>{
+                            if(!isPolling)return;
                             pollTries++;
+                            console.log('🔍 Poll #'+pollTries+' for:',currentRef);
+
                             try{
                                 const r=await fetch(STATUS_URL+'?ref='+currentRef);
                                 const d=await r.json();
-                                if(d.isPaid){stopPolling();msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent to <strong>'+email+'</strong></p>':'')+(d.ticketCode?'<p>🎫 Ticket: <strong>'+d.ticketCode+'</strong></p>':'')+'<div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p>';btn.style.display='none';}
-                                if(d.isFailed){stopPolling();msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Payment Failed</h3><p>Your M-PESA payment was not completed.</p><div class="ref">'+currentRef+'</div><button class="btn-retry" id="retryBtn">🔄 Try Again</button><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;margin-top:0.3rem;">💬 WhatsApp Support</a>';btn.innerHTML='📱 Pay Now';btn.disabled=false;document.getElementById('retryBtn').addEventListener('click',function(){stopPolling();msg.style.display='none';msg.className='msg-box';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;});}
-                            }catch(e){}
-                            if(pollTries>=75){stopPolling();const fr=await fetch(STATUS_URL+'?ref='+currentRef);const fd=await fr.json();if(fd.isPaid){msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3><div class="ref">'+currentRef+'</div>';btn.style.display='none';}else{msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">⏰</div><h3>Payment Not Confirmed</h3><p>Taking longer than expected.</p><div class="ref">'+currentRef+'</div><button class="btn-retry" id="retryBtn2">🔄 Try Again</button><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;margin-top:0.3rem;">💬 WhatsApp Support</a>';btn.innerHTML='📱 Pay Now';btn.disabled=false;document.getElementById('retryBtn2').addEventListener('click',function(){stopPolling();msg.style.display='none';msg.className='msg-box';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;});}}
+                                console.log('📊 Payment Status:',d.status,'| isPaid:',d.isPaid,'| isFailed:',d.isFailed);
+
+                                // PAID
+                                if(d.isPaid){
+                                    stopPolling();
+                                    msg.className='msg-box show ok';
+                                    msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent to <strong>'+email+'</strong></p>':'<p>Ticket being processed</p>')+(d.ticketCode?'<p>🎫 Ticket: <strong>'+d.ticketCode+'</strong></p>':'')+'<div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p>';
+                                    btn.style.display='none';
+                                    return;
+                                }
+
+                                // FAILED
+                                if(d.isFailed || d.status==='failed'){
+                                    stopPolling();
+                                    showRetryAndWA(msg,currentRef,'Payment Failed','Your M-PESA payment was not completed.','err');
+                                    btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
+                                    return;
+                                }
+
+                                // CANCELLED
+                                if(d.status==='cancelled'){
+                                    stopPolling();
+                                    showRetryAndWA(msg,currentRef,'Payment Cancelled','You cancelled the M-PESA prompt.','warn');
+                                    btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
+                                    return;
+                                }
+
+                                // EXPIRED
+                                if(d.status==='expired'){
+                                    stopPolling();
+                                    showRetryAndWA(msg,currentRef,'Payment Request Expired','The M-PESA prompt timed out.','warn');
+                                    btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
+                                    return;
+                                }
+
+                            }catch(e){console.error('Poll error:',e);}
+
+                            // TIMEOUT after 20 seconds (5 attempts × 4 seconds)
+                            if(pollTries>=5){
+                                stopPolling();
+                                // Final check
+                                try{
+                                    const fr=await fetch(STATUS_URL+'?ref='+currentRef);
+                                    const fd=await fr.json();
+                                    if(fd.isPaid){
+                                        msg.className='msg-box show ok';
+                                        msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3><div class="ref">'+currentRef+'</div>';
+                                        btn.style.display='none';
+                                        return;
+                                    }
+                                }catch(e){}
+                                showRetryAndWA(msg,currentRef,'Payment Not Detected','No payment was detected within the time limit.','err');
+                                btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
+                            }
                         },4000);
 
                     }else{
-                        // STK PUSH FAILED - Show error, do NOT auto-redirect
-                        console.log('❌ FAILURE BRANCH - Showing error on page');
-                        msg.className='msg-box show err';
-                        msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>STK Push Could Not Be Sent</h3><p>'+(data.message||'Please try again')+'</p><div class="ref">'+currentRef+'</div><p>You can still pay via:</p><p><strong>Till: 3626261</strong> (Caleb Sangara)<br>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p><button class="btn-retry" id="retryBtn3">🔄 Try Again</button><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;margin-top:0.3rem;">💬 WhatsApp Support</a>';
+                        showRetryAndWA(msg,currentRef,'STK Push Failed',data.message||'Could not send M-PESA prompt.','err');
                         btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-                        document.getElementById('retryBtn3').addEventListener('click',function(){stopPolling();msg.style.display='none';msg.className='msg-box';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;});
                     }
-
                 }catch(e){
-                    console.log('💥 CATCH BRANCH - Connection error');
                     currentRef=genRef();
-                    msg.className='msg-box show err';
-                    msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Connection Error</h3><p>Please check your internet connection and try again.</p><button class="btn-retry" id="retryBtn4">🔄 Try Again</button><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;margin-top:0.3rem;">💬 WhatsApp Support</a>';
+                    showRetryAndWA(msg,currentRef,'Connection Error','Please check your internet connection.','err');
                     btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-                    document.getElementById('retryBtn4').addEventListener('click',function(){stopPolling();msg.style.display='none';msg.className='msg-box';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;});
                 }
             });
 
-            document.getElementById('waPayBtn').addEventListener('click',function(){const n=document.getElementById('bName').value.trim(),p=document.getElementById('bPhone').value.trim(),e=document.getElementById('bEmail').value.trim(),q=parseInt(document.getElementById('bQty').value),t=selPrice*q;goWA(n,p,e,selName,q,t,genRef());});
+            document.getElementById('waPayBtn').addEventListener('click',function(){
+                const n=document.getElementById('bName').value.trim(),p=document.getElementById('bPhone').value.trim(),e=document.getElementById('bEmail').value.trim();
+                const q=parseInt(document.getElementById('bQty').value),t=selPrice*q;
+                window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(e)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');
+            });
 
             // DONATION
             document.getElementById('donateForm').addEventListener('submit',async function(e){
@@ -228,7 +277,7 @@
                 try{
                     const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});
                     const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());
-                    if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';pollTries=0;pollTimer=setInterval(async()=>{pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH '+amount.toLocaleString()+' received!</p>';btn.style.display='none';}if(d.isFailed){stopPolling();msg.innerHTML='<p>Payment failed.</p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}}catch(e){}if(pollTries>=75){stopPolling();msg.innerHTML='<p>⏰ Contact 0748 840 501</p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},4000);}else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3><p>Caleb Sangara</p>';btn.style.display='none';}
+                    if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';isPolling=true;pollTries=0;pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH '+amount.toLocaleString()+' received!</p>';btn.style.display='none';}if(d.isFailed||d.status==='cancelled'||d.status==='expired'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>Payment Not Completed</h3><p>You can still donate via Till: <strong>3626261</strong></p><button class="btn-retry" id="dRetryBtn">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='💛 Donate Now';document.getElementById('dRetryBtn').addEventListener('click',function(){stopPolling();msg.style.display='none';btn.innerHTML='💛 Donate Now';btn.disabled=false;});}}catch(e){}if(pollTries>=5){stopPolling();msg.innerHTML='<p>Payment not detected. Till: <strong>3626261</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},4000);}else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3><p>Caleb Sangara</p>';btn.style.display='none';}
                 }catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}
             });
 
