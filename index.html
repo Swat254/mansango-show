@@ -7,7 +7,6 @@
     <meta name="description" content="Book tickets for CHING'ENDE Album Launch. Pay via M-PESA.">
     <link rel="icon" href="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/Untitled%20folder/sano.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root{--p:#059669;--g:#f59e0b;--bg:#f0fdf4;--w:#fff;--t:#064e3b;--b:#d1fae5;--gr:linear-gradient(135deg,#059669,#34d399);--f:'Inter',sans-serif;--m:'JetBrains Mono',monospace}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -21,14 +20,14 @@
         .nav-links{display:flex;list-style:none;gap:1.5rem}
         .nav-links a{text-decoration:none;color:var(--t);font-weight:500;font-size:0.9rem}.nav-links a:hover,.nav-links a.on{color:var(--p)}
         .btn-glow{background:var(--gr);color:white;padding:0.6rem 1.5rem;border-radius:50px;border:none;font-weight:600;font-size:0.85rem;text-decoration:none;display:inline-block}
-        .section{display:none;position:relative;z-index:1}.section.active{display:block}
+        .section{display:none}.section.active{display:block}
         .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 5% 4rem;background:linear-gradient(180deg,#fff 0%,#f0fdf4 100%)}
-        .hero-inner{max-width:650px}
+        .hero-inner{max-width:700px}
         .badge{display:inline-block;background:rgba(5,150,105,0.08);color:var(--t);padding:0.5rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;margin:0.3rem;border:1px solid var(--b)}
         .badge .dot{display:inline-block;width:8px;height:8px;background:#10b981;border-radius:50%;margin-right:6px;animation:pulse 1.5s infinite}
         @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(2.5)}}
         .hero h1{font-family:var(--m);font-size:3rem;line-height:1.2;margin:0.8rem 0}
-        .hero h1 .g{color:var(--p)}.hero h1 .gd{color:var(--g)}.hero p.sub{color:var(--t);opacity:0.8;margin-bottom:1.5rem}
+        .hero h1 .g{color:var(--p)}.hero h1 .gd{color:var(--g)}
         .btns{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap}
         .btn{padding:0.9rem 1.8rem;border-radius:50px;font-weight:600;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;border:none;transition:0.3s}
         .btn-green{background:var(--gr);color:white}.btn-green:hover{transform:translateY(-3px)}
@@ -37,13 +36,15 @@
         .countdown{display:flex;gap:0.8rem;margin-top:1.5rem;justify-content:center;flex-wrap:wrap}
         .cd-item{background:white;padding:0.8rem 1rem;border-radius:14px;border:2px solid var(--b);text-align:center;min-width:75px}
         .cd-item span{display:block;font-family:var(--m);font-size:1.8rem;font-weight:700;color:var(--p)}.cd-item small{font-size:0.7rem}
-        .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1000px;margin:2rem auto;padding:0 5%}
-        .pcard{background:white;border-radius:20px;padding:2rem 1.8rem;text-align:center;border:2px solid var(--b);transition:0.3s}
+        .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;max-width:1100px;margin:2rem auto;padding:0 5%}
+        .pcard{background:white;border-radius:20px;padding:2rem 1.5rem;text-align:center;border:2px solid var(--b);transition:0.3s}
         .pcard:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(5,150,105,0.2)}
         .pcard.hot{border-color:var(--p);position:relative;background:linear-gradient(180deg,#fff 0%,#ecfdf5 100%)}
         .pcard.hot::after{content:'POPULAR';position:absolute;top:12px;right:-28px;background:var(--g);color:#fff;padding:0.2rem 2.5rem;font-size:0.6rem;font-weight:700;transform:rotate(45deg)}
-        .pcard h3{font-family:var(--m);font-size:1.2rem}.pcard .price{font-family:var(--m);font-size:2.5rem;font-weight:800;color:var(--p);margin:0.5rem 0}
-        .pcard ul{list-style:none;text-align:left;margin:1rem 0;font-size:0.9rem}.pcard ul li{padding:0.3rem 0}.pcard ul li::before{content:'✅ '}
+        .pcard.featured{border-color:#8b5cf6;background:linear-gradient(180deg,#fff 0%,#f5f3ff 100%)}
+        .pcard.featured::after{content:'BEST VALUE';position:absolute;top:12px;right:-28px;background:#8b5cf6;color:#fff;padding:0.2rem 2.5rem;font-size:0.6rem;font-weight:700;transform:rotate(45deg)}
+        .pcard h3{font-family:var(--m);font-size:1.2rem}.pcard .price{font-family:var(--m);font-size:2rem;font-weight:800;color:var(--p);margin:0.5rem 0}
+        .pcard ul{list-style:none;text-align:left;margin:1rem 0;font-size:0.85rem}.pcard ul li{padding:0.25rem 0}.pcard ul li::before{content:'✅ '}
         .btn-pick{width:100%;padding:0.9rem;border:none;border-radius:50px;font-weight:600;background:var(--gr);color:white;font-size:0.95rem;cursor:pointer}
         .page-top{padding:7rem 5% 2rem;text-align:center;background:white;border-bottom:2px solid var(--b)}.page-top h2{font-family:var(--m);font-size:2.5rem}
         .form-wrap{max-width:520px;margin:2rem auto;padding:0 5%}
@@ -71,7 +72,7 @@
         @keyframes spin2{to{transform:rotate(360deg)}}
         .dev-credit{text-align:center;padding:0.5rem;font-size:0.75rem;color:var(--t);opacity:0.6}
         footer{text-align:center;padding:1.5rem;background:white;border-top:2px solid var(--b);font-size:0.85rem;color:#6b7280}
-        @media(max-width:768px){.hero h1{font-size:2rem}.nav-links{display:none}.f-row{grid-template-columns:1fr}}
+        @media(max-width:768px){.hero h1{font-size:2rem}.nav-links{display:none}.f-row{grid-template-columns:1fr}.pricing{grid-template-columns:1fr 1fr}}
     </style>
 </head>
 <body>
@@ -89,10 +90,53 @@
             <div class="btns"><button class="btn btn-green" id="homeGetTickets">🎫 Get Tickets</button><button class="btn btn-donate" id="homeDonate">💛 Donate</button><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa">💬 WhatsApp</a></div>
             <div class="countdown" id="countdown"><div class="cd-item"><span id="cd-d">00</span><small>Days</small></div><div class="cd-item"><span id="cd-h">00</span><small>Hours</small></div><div class="cd-item"><span id="cd-m">00</span><small>Mins</small></div><div class="cd-item"><span id="cd-s">00</span><small>Secs</small></div></div>
         </div></div>
+        
+        <!-- ALL TICKET TYPES -->
         <div class="pricing">
-            <div class="pcard"><div style="font-size:3rem;">🎫</div><h3>Regular</h3><div class="price">KSH 500<small>/person</small></div><ul><li>General Admission</li><li>Main Arena</li><li>Standard Seat</li><li>Lanyard</li></ul><button class="btn-pick pick-ticket" data-name="Regular" data-price="500">Select Regular</button></div>
-            <div class="pcard hot"><div style="font-size:3rem;">👑</div><h3>VIP</h3><div class="price">KSH 1,000<small>/person</small></div><ul><li>Priority Entry</li><li>Premium Seat</li><li>2 Free Drinks</li><li>VIP Lounge</li><li>Celebrity Access</li></ul><button class="btn-pick pick-ticket" data-name="VIP" data-price="1000">Select VIP</button></div>
-            <div class="pcard"><div style="font-size:3rem;">💎</div><h3>VVIP</h3><div class="price">KSH 2,000<small>/person</small></div><ul><li>Red Carpet</li><li>Front Row</li><li>Unlimited Drinks</li><li>Backstage</li><li>Meet Mansango</li><li>Gift Bag</li></ul><button class="btn-pick pick-ticket" data-name="VVIP" data-price="2000">Select VVIP</button></div>
+            <!-- Regular -->
+            <div class="pcard">
+                <div style="font-size:3rem;">🎫</div>
+                <h3>Regular</h3>
+                <div class="price">KSH 500<small>/person</small></div>
+                <ul><li>General Admission</li><li>Main Arena</li><li>Standard Seat</li><li>Lanyard</li></ul>
+                <button class="btn-pick pick-ticket" data-name="Regular" data-price="500">Select Regular</button>
+            </div>
+            
+            <!-- VIP Single -->
+            <div class="pcard hot">
+                <div style="font-size:3rem;">👑</div>
+                <h3>VIP</h3>
+                <div class="price">KSH 1,000<small>/person</small></div>
+                <ul><li>Priority Entry</li><li>Premium Seat</li><li>2 Free Drinks</li><li>VIP Lounge</li><li>Celebrity Access</li></ul>
+                <button class="btn-pick pick-ticket" data-name="VIP" data-price="1000">Select VIP</button>
+            </div>
+            
+            <!-- VIP 5 People -->
+            <div class="pcard" style="border-color:#f59e0b;">
+                <div style="font-size:3rem;">👑👑</div>
+                <h3>VIP Group</h3>
+                <div class="price" style="color:#f59e0b;">KSH 4,000<small>/5 people</small></div>
+                <ul><li>Priority Entry for 5</li><li>Premium Seats</li><li>10 Free Drinks</li><li>VIP Lounge Access</li><li>Celebrity Meet & Greet</li></ul>
+                <button class="btn-pick pick-ticket" data-name="VIP Group (5 People)" data-price="4000" style="background:#f59e0b;">Select VIP Group</button>
+            </div>
+            
+            <!-- VVIP Single -->
+            <div class="pcard">
+                <div style="font-size:3rem;">💎</div>
+                <h3>VVIP</h3>
+                <div class="price">KSH 2,000<small>/person</small></div>
+                <ul><li>Red Carpet Entry</li><li>Front Row Seat</li><li>Unlimited Drinks</li><li>Backstage Access</li><li>Meet Mansango + Photo</li><li>Gift Bag</li></ul>
+                <button class="btn-pick pick-ticket" data-name="VVIP" data-price="2000">Select VVIP</button>
+            </div>
+            
+            <!-- VVIP 5 People -->
+            <div class="pcard featured">
+                <div style="font-size:3rem;">💎💎</div>
+                <h3>VVIP Group</h3>
+                <div class="price" style="color:#8b5cf6;">KSH 9,000<small>/5 people</small></div>
+                <ul><li>Red Carpet for 5</li><li>Front Row Seats</li><li>Unlimited Drinks</li><li>Backstage Access</li><li>Meet Mansango + Photo</li><li>Exclusive Gift Bags</li></ul>
+                <button class="btn-pick pick-ticket" data-name="VVIP Group (5 People)" data-price="9000" style="background:#8b5cf6;">Select VVIP Group</button>
+            </div>
         </div>
     </section>
 
@@ -105,8 +149,8 @@
                 <div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" placeholder="Enter your full name" required></div>
                 <div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone" placeholder="0712 345 678" required></div>
                 <div class="f-group"><label>📧 Email (for ticket)</label><input type="email" id="bEmail" placeholder="your@email.com" required></div>
-                <div class="f-row"><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|500">Regular - 500</option><option value="VIP|1000">VIP - 1,000</option><option value="VVIP|2000">VVIP - 2,000</option></select></div><div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty" min="1" max="20" value="1"></div></div>
-                <div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 8PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
+                <div class="f-row"><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VIP Group (5 People)|4000">VIP Group 5pax - KSH 4,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group 5pax - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty" min="1" max="20" value="1"></div></div>
+                <div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 6PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
                 <button type="submit" class="btn-pay" id="payBtn">📱 Pay Now via M-PESA</button>
                 <button type="button" class="btn-wa-pay" id="waPayBtn">💬 Reserve via WhatsApp</button>
             </form>
@@ -130,158 +174,70 @@
 
     <script>
         document.addEventListener('DOMContentLoaded',function(){
-            const supabase=window.supabase.createClient('https://zxforhokpsiqkceesalk.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm9yaG9rcHNpcWtjZWVzYWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MTYxMjksImV4cCI6MjA5NTM5MjEyOX0.-circeJO1eayDkn3jHDC53oBxoRgDLmr5Uk2XBPYglA');
             const STKPUSH_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/stkpush';
             const STATUS_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/payment-status';
+            
             let selName='',selPrice=0,currentRef='',pollTimer=null,pollTries=0,isPolling=false;
+            const MAX_POLLS=8;
 
             function goTo(p){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('on'));const sec=document.getElementById('page-'+p);if(sec)sec.classList.add('active');document.querySelectorAll('.nav-link[data-page="'+p+'"]').forEach(l=>l.classList.add('on'));window.scrollTo({top:0,behavior:'smooth'});}
             document.querySelectorAll('.nav-link').forEach(l=>{l.addEventListener('click',function(e){e.preventDefault();goTo(this.getAttribute('data-page'));});});
             document.getElementById('navGetTickets').addEventListener('click',function(e){e.preventDefault();goTo('book');});
             document.getElementById('homeGetTickets').addEventListener('click',function(){goTo('book');});
             document.getElementById('homeDonate').addEventListener('click',function(){goTo('donate');});
-            document.querySelectorAll('.pick-ticket').forEach(btn=>{btn.addEventListener('click',function(){selName=this.getAttribute('data-name');selPrice=parseInt(this.getAttribute('data-price'));document.getElementById('selName').textContent=selName+' Ticket';document.getElementById('selPrice').textContent='KSH '+selPrice.toLocaleString();document.getElementById('bTicket').value=selName+'|'+selPrice;updateSummary();goTo('book');});});
-            document.getElementById('bTicket').addEventListener('change',function(){if(this.value){const[n,p]=this.value.split('|');selName=n;selPrice=parseInt(p);document.getElementById('selName').textContent=n+' Ticket';document.getElementById('selPrice').textContent='KSH '+parseInt(p).toLocaleString();}updateSummary();});
+            
+            document.querySelectorAll('.pick-ticket').forEach(btn=>{btn.addEventListener('click',function(){
+                selName=this.getAttribute('data-name');selPrice=parseInt(this.getAttribute('data-price'));
+                document.getElementById('selName').textContent=selName;document.getElementById('selPrice').textContent='KSH '+selPrice.toLocaleString();
+                document.getElementById('bTicket').value=selName+'|'+selPrice;updateSummary();goTo('book');
+            });});
+            
+            document.getElementById('bTicket').addEventListener('change',function(){if(this.value){const[n,p]=this.value.split('|');selName=n;selPrice=parseInt(p);document.getElementById('selName').textContent=n;document.getElementById('selPrice').textContent='KSH '+parseInt(p).toLocaleString();}updateSummary();});
             document.getElementById('bQty').addEventListener('input',updateSummary);
+            
             function updateSummary(){const q=parseInt(document.getElementById('bQty').value)||1;document.getElementById('sumType').textContent=selName||'-';document.getElementById('sumQty').textContent=q;document.getElementById('sumTotal').textContent='KSH '+(selPrice*q).toLocaleString();}
-            setInterval(()=>{const d=new Date('October 10, 2026 20:00:00').getTime()-Date.now();if(d<0)return;document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');},1000);
+            
+            setInterval(()=>{const d=new Date('October 10, 2026 18:00:00').getTime()-Date.now();if(d<0)return;document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');},1000);
+            
             function fmtPhone(p){let x=p.replace(/[\s\-\(\)]/g,'').replace(/^0/,'254').replace(/^\+/,'');return x.startsWith('254')?x:'254'+x;}
-            function genRef(){return'CHG-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).substring(2,5).toUpperCase();}
             function stopPolling(){isPolling=false;if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
+            function resetForm(){stopPolling();const btn=document.getElementById('payBtn'),msg=document.getElementById('msgBox');msg.style.display='none';msg.className='msg-box';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;btn.style.display='block';currentRef='';}
 
-            function resetPaymentForm(btn,msg){
-                stopPolling();
-                msg.style.display='none';msg.className='msg-box';
-                btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-            }
-
-            function showRetryAndWA(msg,ref,title,subtitle,boxClass){
-                msg.className='msg-box show '+boxClass;
-                msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>'+title+'</h3><p>'+subtitle+'</p><div class="ref">'+ref+'</div><p>Pay via Till: <strong>3626261</strong> (Caleb Sangara)</p><button class="btn-retry" id="retryBtn">🔄 Try Again</button><a href="https://wa.me/254748840501?text=*CHING%27ENDE*%0ARef:%20'+ref+'" target="_blank" class="btn btn-wa" style="display:inline-flex;width:100%;justify-content:center;margin-top:0.3rem;">💬 WhatsApp Support</a>';
-                document.getElementById('retryBtn').addEventListener('click',function(){
-                    const btn=document.getElementById('payBtn'),msg=document.getElementById('msgBox');
-                    resetPaymentForm(btn,msg);
-                });
-            }
-
-            // BOOKING
             document.getElementById('bookingForm').addEventListener('submit',async function(e){
                 e.preventDefault();stopPolling();
                 const btn=document.getElementById('payBtn'),msg=document.getElementById('msgBox');
                 const name=document.getElementById('bName').value.trim(),phone=document.getElementById('bPhone').value.trim(),email=document.getElementById('bEmail').value.trim();
                 const qty=parseInt(document.getElementById('bQty').value),total=selPrice*qty;
-                if(!selName){alert('Select a ticket!');return;}
-                if(!name||!phone||!email){alert('Fill all fields!');return;}
+                
+                if(!selName){alert('Please select a ticket!');return;}
+                if(!name||!phone||!email){alert('Please fill all fields!');return;}
 
                 btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending STK Push...';
                 msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending M-PESA prompt...</h3>';
 
                 try{
                     const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount:total,name,email,ticketType:selName,quantity:qty,pricePerTicket:selPrice})});
-                    const data=await res.json();
-                    currentRef=data.reference||genRef();
-
+                    const data=await res.json();currentRef=data.reference||('CHG-'+Date.now().toString(36).toUpperCase());
+                    
                     if(data.success===true){
-                        msg.innerHTML='<div class="spinner"></div><h3>📱 STK Push Sent!</h3><p>Check your phone & enter M-PESA PIN</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p>';
+                        msg.innerHTML='<div class="spinner"></div><h3>📱 STK Push Sent!</h3><p>Check your phone & enter M-PESA PIN</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p><p style="font-size:0.8rem;color:#059669;">🟢 Waiting for payment...</p>';
                         btn.innerHTML='⏳ Waiting for payment...';
                         isPolling=true;pollTries=0;
-
-                        pollTimer=setInterval(async()=>{
-                            if(!isPolling)return;
-                            pollTries++;
-                            console.log('🔍 Poll #'+pollTries+' for:',currentRef);
-
-                            try{
-                                const r=await fetch(STATUS_URL+'?ref='+currentRef);
-                                const d=await r.json();
-                                console.log('📊 Payment Status:',d.status,'| isPaid:',d.isPaid,'| isFailed:',d.isFailed);
-
-                                // PAID
-                                if(d.isPaid){
-                                    stopPolling();
-                                    msg.className='msg-box show ok';
-                                    msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent to <strong>'+email+'</strong></p>':'<p>Ticket being processed</p>')+(d.ticketCode?'<p>🎫 Ticket: <strong>'+d.ticketCode+'</strong></p>':'')+'<div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p>';
-                                    btn.style.display='none';
-                                    return;
-                                }
-
-                                // FAILED
-                                if(d.isFailed || d.status==='failed'){
-                                    stopPolling();
-                                    showRetryAndWA(msg,currentRef,'Payment Failed','Your M-PESA payment was not completed.','err');
-                                    btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-                                    return;
-                                }
-
-                                // CANCELLED
-                                if(d.status==='cancelled'){
-                                    stopPolling();
-                                    showRetryAndWA(msg,currentRef,'Payment Cancelled','You cancelled the M-PESA prompt.','warn');
-                                    btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-                                    return;
-                                }
-
-                                // EXPIRED
-                                if(d.status==='expired'){
-                                    stopPolling();
-                                    showRetryAndWA(msg,currentRef,'Payment Request Expired','The M-PESA prompt timed out.','warn');
-                                    btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-                                    return;
-                                }
-
-                            }catch(e){console.error('Poll error:',e);}
-
-                            // TIMEOUT after 20 seconds (5 attempts × 4 seconds)
-                            if(pollTries>=5){
-                                stopPolling();
-                                // Final check
-                                try{
-                                    const fr=await fetch(STATUS_URL+'?ref='+currentRef);
-                                    const fd=await fr.json();
-                                    if(fd.isPaid){
-                                        msg.className='msg-box show ok';
-                                        msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3><div class="ref">'+currentRef+'</div>';
-                                        btn.style.display='none';
-                                        return;
-                                    }
-                                }catch(e){}
-                                showRetryAndWA(msg,currentRef,'Payment Not Detected','No payment was detected within the time limit.','err');
-                                btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-                            }
-                        },4000);
-
-                    }else{
-                        showRetryAndWA(msg,currentRef,'STK Push Failed',data.message||'Could not send M-PESA prompt.','err');
-                        btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-                    }
-                }catch(e){
-                    currentRef=genRef();
-                    showRetryAndWA(msg,currentRef,'Connection Error','Please check your internet connection.','err');
-                    btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;
-                }
+                        pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();
+                            if(d.isPaid){stopPolling();msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent!</p>':'<p>🎫 Ticket ready!</p>')+'<div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p>';btn.style.display='none';return;}
+                            if(d.isFailed||d.status==='failed'){stopPolling();msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Payment Failed</h3><div class="ref">'+currentRef+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm()">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
+                            if(d.status==='cancelled'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>Cancelled</h3><div class="ref">'+currentRef+'</div><button class="btn-retry" onclick="resetForm()">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
+                        }catch(e){}if(pollTries>=MAX_POLLS){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⏳</div><h3>No Response</h3><div class="ref">'+currentRef+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm()">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}},4000);
+                    }else{msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>STK Push Failed</h3><p>'+(data.message||'Try again')+'</p><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm()">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
+                }catch(e){msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Error</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm()">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
             });
 
-            document.getElementById('waPayBtn').addEventListener('click',function(){
-                const n=document.getElementById('bName').value.trim(),p=document.getElementById('bPhone').value.trim(),e=document.getElementById('bEmail').value.trim();
-                const q=parseInt(document.getElementById('bQty').value),t=selPrice*q;
-                window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(e)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');
-            });
+            document.getElementById('waPayBtn').addEventListener('click',function(){const n=document.getElementById('bName').value.trim(),p=document.getElementById('bPhone').value.trim(),e=document.getElementById('bEmail').value.trim();const q=parseInt(document.getElementById('bQty').value),t=selPrice*q;window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(e)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');});
 
-            // DONATION
-            document.getElementById('donateForm').addEventListener('submit',async function(e){
-                e.preventDefault();stopPolling();
-                const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');
-                const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);
-                if(!phone||amount<10){alert('Phone & min KSH 10!');return;}
-                btn.disabled=true;btn.innerHTML='<span class="spinner"></span>...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending...</h3>';
-                try{
-                    const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});
-                    const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());
-                    if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';isPolling=true;pollTries=0;pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH '+amount.toLocaleString()+' received!</p>';btn.style.display='none';}if(d.isFailed||d.status==='cancelled'||d.status==='expired'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>Payment Not Completed</h3><p>You can still donate via Till: <strong>3626261</strong></p><button class="btn-retry" id="dRetryBtn">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='💛 Donate Now';document.getElementById('dRetryBtn').addEventListener('click',function(){stopPolling();msg.style.display='none';btn.innerHTML='💛 Donate Now';btn.disabled=false;});}}catch(e){}if(pollTries>=5){stopPolling();msg.innerHTML='<p>Payment not detected. Till: <strong>3626261</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},4000);}else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3><p>Caleb Sangara</p>';btn.style.display='none';}
-                }catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}
-            });
+            document.getElementById('donateForm').addEventListener('submit',async function(e){e.preventDefault();stopPolling();const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);if(!phone||amount<10){alert('Phone & min KSH 10!');return;}btn.disabled=true;btn.innerHTML='<span class="spinner"></span>...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending...</h3>';try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';isPolling=true;pollTries=0;pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH '+amount.toLocaleString()+' received!</p>';btn.style.display='none';}if(d.isFailed||d.status==='cancelled'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>Not Completed</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm()">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}}catch(e){}if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<p>Till: <strong>3626261</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},4000);}else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}}catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}});
 
-            console.log('🫘 CHING\'ENDE Ready! | Felix Nyabuto 0716 625 790');
+            console.log('🫘 CHING\'ENDE Ready!');
+            console.log('🎫 Regular: 500 | VIP: 1,000 | VIP Group: 4,000 | VVIP: 2,000 | VVIP Group: 9,000');
         });
     </script>
 </body>
