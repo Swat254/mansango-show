@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHING'ENDE Album Launch - Mansango | Oct 10, 2026</title>
-    <meta name="description" content="Book tickets for CHING'ENDE Album Launch. Pay via M-PESA.">
+    <meta name="description" content="Book tickets for CHING'ENDE Album Launch. Pay via M-PESA. Instant ticket delivery.">
     <link rel="icon" href="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/Untitled%20folder/sano.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root{--p:#059669;--g:#f59e0b;--bg:#f0fdf4;--w:#fff;--t:#064e3b;--b:#d1fae5;--gr:linear-gradient(135deg,#059669,#34d399);--f:'Inter',sans-serif;--m:'JetBrains Mono',monospace}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -40,34 +41,25 @@
         .section-title{text-align:center;margin-bottom:1.5rem}
         .section-title h2{font-family:var(--m);font-size:1.8rem;color:var(--p)}
         .section-title p{color:#6b7280;font-size:0.9rem}
-        
-        /* 5 Column Grid */
         .pricing{display:grid;grid-template-columns:repeat(5,1fr);gap:0.8rem;max-width:1200px;margin:0 auto 2rem;padding:0 1%}
-        .pcard{background:white;border-radius:16px;padding:1.2rem 0.8rem;text-align:center;border:2px solid var(--b);transition:0.3s;position:relative;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;min-height:320px}
+        .pcard{background:white;border-radius:16px;padding:1.2rem 0.8rem;text-align:center;border:2px solid var(--b);transition:0.3s;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;min-height:320px}
         .pcard:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(5,150,105,0.2);border-color:var(--p)}
         .pcard.selected{border-color:var(--p)!important;background:#ecfdf5!important;box-shadow:0 0 0 3px rgba(5,150,105,0.3)}
         .pcard .ticket-icon{font-size:2.5rem;margin-bottom:0.3rem}
         .pcard .ticket-badge{display:inline-block;padding:0.2rem 0.8rem;border-radius:20px;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
-        .badge-regular{background:#d1fae5;color:#065f46}
-        .badge-vip{background:#fef3c7;color:#92400e}
-        .badge-group{background:#fce7f3;color:#9d174d}
-        .badge-vvip{background:#ede9fe;color:#5b21b6}
-        .pcard h3{font-family:var(--m);font-size:0.95rem;margin:0.3rem 0;line-height:1.2}
-        .pcard .price{font-family:var(--m);font-size:1.5rem;font-weight:800;margin:0.3rem 0}
+        .badge-regular{background:#d1fae5;color:#065f46}.badge-vip{background:#fef3c7;color:#92400e}
+        .badge-group{background:#fce7f3;color:#9d174d}.badge-vvip{background:#ede9fe;color:#5b21b6}
+        .pcard h3{font-family:var(--m);font-size:0.95rem;margin:0.3rem 0}.pcard .price{font-family:var(--m);font-size:1.5rem;font-weight:800;margin:0.3rem 0}
         .pcard .price small{font-size:0.6rem;display:block;color:#6b7280;font-weight:400}
         .pcard .per-person{font-size:0.7rem;color:#6b7280;margin-top:-0.2rem;margin-bottom:0.3rem}
         .pcard ul{list-style:none;text-align:left;margin:0.5rem 0;font-size:0.7rem;flex-grow:1}
         .pcard ul li{padding:0.2rem 0;line-height:1.3}.pcard ul li::before{content:'✓ ';color:var(--p);font-weight:700}
-        .pcard .btn-pick{width:100%;padding:0.6rem;border:none;border-radius:10px;font-weight:600;font-size:0.8rem;cursor:pointer;margin-top:0.5rem;color:white;transition:0.3s}
-        
-        /* Card Colors */
+        .pcard .btn-pick{width:100%;padding:0.6rem;border:none;border-radius:10px;font-weight:600;font-size:0.8rem;cursor:pointer;margin-top:0.5rem;color:white}
         .card-regular{border-color:#d1fae5}.card-regular .btn-pick{background:#059669}.card-regular .price{color:#059669}
         .card-vip{border-color:#fcd34d;background:linear-gradient(180deg,#fff 0%,#fffdf0 100%)}.card-vip .btn-pick{background:#f59e0b}.card-vip .price{color:#f59e0b}
         .card-vip-group{border-color:#fbbf24;background:linear-gradient(180deg,#fff 0%,#fffbeb 100%)}.card-vip-group .btn-pick{background:#d97706}.card-vip-group .price{color:#d97706}
         .card-vvip{border-color:#c4b5fd;background:linear-gradient(180deg,#fff 0%,#f5f3ff 100%)}.card-vvip .btn-pick{background:#7c3aed}.card-vvip .price{color:#7c3aed}
         .card-vvip-group{border-color:#a78bfa;background:linear-gradient(180deg,#fff 0%,#ede9fe 100%)}.card-vvip-group .btn-pick{background:#6d28d9}.card-vvip-group .price{color:#6d28d9}
-        
-        /* Form */
         .page-top{padding:7rem 5% 2rem;text-align:center;background:white;border-bottom:2px solid var(--b)}.page-top h2{font-family:var(--m);font-size:2rem}
         .form-wrap{max-width:500px;margin:2rem auto;padding:0 5%}
         .form-card{background:white;border-radius:20px;padding:2rem;border:2px solid var(--b);box-shadow:0 10px 40px rgba(5,150,105,0.1)}
@@ -94,6 +86,14 @@
         @keyframes spin2{to{transform:rotate(360deg)}}
         .dev-credit{text-align:center;padding:0.5rem;font-size:0.75rem;color:var(--t);opacity:0.6}
         footer{text-align:center;padding:1.5rem;background:white;border-top:2px solid var(--b);font-size:0.8rem;color:#6b7280}
+
+        /* Ticket Modal */
+        .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center}
+        .modal-overlay.show{display:flex}
+        .modal-box{background:white;border-radius:20px;padding:0;width:95%;max-width:450px;max-height:90vh;overflow-y:auto;text-align:center;position:relative}
+        .modal-close{position:absolute;top:15px;right:15px;font-size:1.5rem;cursor:pointer;color:#fff;background:rgba(0,0,0,0.3);width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;z-index:10}
+        .modal-close:hover{background:rgba(0,0,0,0.5)}
+
         @media(max-width:1100px){.pricing{grid-template-columns:repeat(3,1fr)}}
         @media(max-width:768px){.hero h1{font-size:1.8rem}.nav-links{display:none}.f-row{grid-template-columns:1fr}.pricing{grid-template-columns:repeat(2,1fr);gap:0.6rem}.pcard{padding:1rem 0.6rem;min-height:300px}}
         @media(max-width:480px){.pricing{grid-template-columns:1fr 1fr}.pcard h3{font-size:0.8rem}.pcard .price{font-size:1.2rem}}
@@ -136,125 +136,38 @@
                 <div class="section-title"><h2>🎫 Choose Your Ticket</h2><p>Click a ticket to select, then fill the form below</p></div>
                 
                 <div class="pricing">
-                    <!-- 1. REGULAR -->
                     <div class="pcard card-regular" data-ticket="Regular" data-price="500">
-                        <div>
-                            <div class="ticket-icon">🎫</div>
-                            <span class="ticket-badge badge-regular">Standard</span>
-                            <h3>Regular</h3>
-                            <div class="price">KSH 500<small>/person</small></div>
-                            <ul>
-                                <li>General Admission</li>
-                                <li>Main Arena Access</li>
-                                <li>Standard Seating</li>
-                                <li>Event Lanyard</li>
-                            </ul>
-                        </div>
-                        <button class="btn-pick pick-ticket" data-name="Regular" data-price="500">Select Regular</button>
+                        <div><div class="ticket-icon">🎫</div><span class="ticket-badge badge-regular">Standard</span><h3>Regular</h3><div class="price">KSH 500<small>/person</small></div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
+                        <button class="btn-pick">Select Regular</button>
                     </div>
-
-                    <!-- 2. VIP -->
                     <div class="pcard card-vip" data-ticket="VIP" data-price="1000">
-                        <div>
-                            <div class="ticket-icon">👑</div>
-                            <span class="ticket-badge badge-vip">Premium</span>
-                            <h3>VIP</h3>
-                            <div class="price">KSH 1,000<small>/person</small></div>
-                            <ul>
-                                <li>General Admission</li>
-                                <li>Main Arena Access</li>
-                                <li>Standard Seating</li>
-                                <li>Event Lanyard</li>
-                            </ul>
-                        </div>
-                        <button class="btn-pick pick-ticket" data-name="VIP" data-price="1000">Select VIP</button>
+                        <div><div class="ticket-icon">👑</div><span class="ticket-badge badge-vip">Premium</span><h3>VIP</h3><div class="price">KSH 1,000<small>/person</small></div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
+                        <button class="btn-pick">Select VIP</button>
                     </div>
-
-                    <!-- 3. VIP GROUP 5 -->
                     <div class="pcard card-vip-group" data-ticket="VIP Group (5 People)" data-price="4000">
-                        <div>
-                            <div class="ticket-icon">👑👑</div>
-                            <span class="ticket-badge badge-group">GROUP DEAL</span>
-                            <h3>VIP Group</h3>
-                            <div class="price">KSH 4,000<small>/5 people</small></div>
-                            <div class="per-person">(KSH 800 per person)</div>
-                            <ul>
-                                <li>General Admission</li>
-                                <li>Main Arena Access</li>
-                                <li>Standard Seating</li>
-                                <li>Event Lanyard</li>
-                            </ul>
-                        </div>
-                        <button class="btn-pick pick-ticket" data-name="VIP Group (5 People)" data-price="4000">Select VIP Group</button>
+                        <div><div class="ticket-icon">👑👑</div><span class="ticket-badge badge-group">GROUP DEAL</span><h3>VIP Group</h3><div class="price">KSH 4,000<small>/5 people</small></div><div class="per-person">(KSH 800 per person)</div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
+                        <button class="btn-pick">Select VIP Group</button>
                     </div>
-
-                    <!-- 4. VVIP -->
                     <div class="pcard card-vvip" data-ticket="VVIP" data-price="2000">
-                        <div>
-                            <div class="ticket-icon">💎</div>
-                            <span class="ticket-badge badge-vvip">Exclusive</span>
-                            <h3>VVIP</h3>
-                            <div class="price">KSH 2,000<small>/person</small></div>
-                            <ul>
-                                <li>General Admission</li>
-                                <li>Main Arena Access</li>
-                                <li>Standard Seating</li>
-                                <li>Event Lanyard</li>
-                            </ul>
-                        </div>
-                        <button class="btn-pick pick-ticket" data-name="VVIP" data-price="2000">Select VVIP</button>
+                        <div><div class="ticket-icon">💎</div><span class="ticket-badge badge-vvip">Exclusive</span><h3>VVIP</h3><div class="price">KSH 2,000<small>/person</small></div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
+                        <button class="btn-pick">Select VVIP</button>
                     </div>
-
-                    <!-- 5. VVIP GROUP 5 -->
                     <div class="pcard card-vvip-group" data-ticket="VVIP Group (5 People)" data-price="9000">
-                        <div>
-                            <div class="ticket-icon">💎💎</div>
-                            <span class="ticket-badge badge-group">BEST VALUE</span>
-                            <h3>VVIP Group</h3>
-                            <div class="price">KSH 9,000<small>/5 people</small></div>
-                            <div class="per-person">(KSH 1,800 per person)</div>
-                            <ul>
-                                <li>General Admission</li>
-                                <li>Main Arena Access</li>
-                                <li>Standard Seating</li>
-                                <li>Event Lanyard</li>
-                            </ul>
-                        </div>
-                        <button class="btn-pick pick-ticket" data-name="VVIP Group (5 People)" data-price="9000">Select VVIP Group</button>
+                        <div><div class="ticket-icon">💎💎</div><span class="ticket-badge badge-group">BEST VALUE</span><h3>VVIP Group</h3><div class="price">KSH 9,000<small>/5 people</small></div><div class="per-person">(KSH 1,800 per person)</div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
+                        <button class="btn-pick">Select VVIP Group</button>
                     </div>
                 </div>
 
-                <!-- Booking Form -->
                 <div class="form-wrap" id="bookingFormSection" style="display:none;">
                     <div class="form-card">
                         <h3 style="font-family:var(--m);text-align:center;margin-bottom:0.8rem;">📝 Complete Your Booking</h3>
-                        <div class="sel-box">
-                            <div style="font-size:2rem;">🎫</div>
-                            <div><strong id="selName">Select a ticket above</strong><br><span id="selPrice" style="font-family:var(--m);color:var(--p);font-weight:700;">KSH 0</span></div>
-                        </div>
+                        <div class="sel-box"><div style="font-size:2rem;">🎫</div><div><strong id="selName">Select a ticket above</strong><br><span id="selPrice" style="font-family:var(--m);color:var(--p);font-weight:700;">KSH 0</span></div></div>
                         <form id="bookingForm">
                             <div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" placeholder="Enter your full name" required></div>
                             <div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone" placeholder="0712 345 678" required></div>
                             <div class="f-group"><label>📧 Email (for ticket)</label><input type="email" id="bEmail" placeholder="your@email.com" required></div>
-                            <div class="f-row">
-                                <div class="f-group"><label>🎟️ Ticket</label><select id="bTicket">
-                                    <option value="">Select...</option>
-                                    <option value="Regular|500">Regular - KSH 500</option>
-                                    <option value="VIP|1000">VIP - KSH 1,000</option>
-                                    <option value="VIP Group (5 People)|4000">VIP Group 5pax - KSH 4,000</option>
-                                    <option value="VVIP|2000">VVIP - KSH 2,000</option>
-                                    <option value="VVIP Group (5 People)|9000">VVIP Group 5pax - KSH 9,000</option>
-                                </select></div>
-                                <div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div>
-                            </div>
-                            <div class="sum-box">
-                                <strong>📋 Summary</strong>
-                                <div class="s-row"><span>Event:</span><span>CHING'ENDE Album Launch</span></div>
-                                <div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 6PM</span></div>
-                                <div class="s-row"><span>Ticket:</span><span id="sumType">-</span></div>
-                                <div class="s-row"><span>Qty:</span><span id="sumQty">1</span></div>
-                                <div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div>
-                            </div>
+                            <div class="f-row"><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VIP Group (5 People)|4000">VIP Group 5pax - KSH 4,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group 5pax - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div></div>
+                            <div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE Album Launch</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 6PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
                             <button type="submit" class="btn-pay" id="payBtn">📱 Pay Now via M-PESA</button>
                         </form>
                         <button type="button" class="btn-wa-pay" id="waPayBtn" style="margin-top:0.3rem;">💬 Reserve via WhatsApp</button>
@@ -270,29 +183,20 @@
         <div class="form-wrap"><div class="form-card">
             <h3>🎫 Ticket Reservation</h3>
             <div class="sel-box"><div style="font-size:2.5rem;">🎫</div><div><strong id="selName2">Select a ticket</strong><br><span id="selPrice2" style="font-family:var(--m);color:var(--p);font-weight:700;">KSH 0</span></div></div>
-            <form id="bookingForm2">
-                <div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" placeholder="Enter your full name" required></div>
-                <div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone2" placeholder="0712 345 678" required></div>
-                <div class="f-group"><label>📧 Email (for ticket)</label><input type="email" id="bEmail2" placeholder="your@email.com" required></div>
-                <div class="f-row"><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VIP Group (5 People)|4000">VIP Group 5pax - KSH 4,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group 5pax - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty2" min="1" max="20" value="1"></div></div>
-                <div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 6PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType2">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty2">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div>
-                <button type="submit" class="btn-pay" id="payBtn2">📱 Pay Now via M-PESA</button>
-            </form>
-            <button type="button" class="btn-wa-pay" id="waPayBtn2" style="margin-top:0.3rem;">💬 Reserve via WhatsApp</button>
-            <div class="msg-box" id="msgBox2"></div>
-        </div></div>
+            <form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" placeholder="Enter your full name" required></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone2" placeholder="0712 345 678" required></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail2" placeholder="your@email.com" required></div><div class="f-row"><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VIP Group (5 People)|4000">VIP Group 5pax - KSH 4,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group 5pax - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty2" min="1" max="20" value="1"></div></div><div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 6PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType2">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty2">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div><button type="submit" class="btn-pay" id="payBtn2">📱 Pay Now via M-PESA</button></form><button type="button" class="btn-wa-pay" id="waPayBtn2" style="margin-top:0.3rem;">💬 Reserve via WhatsApp</button><div class="msg-box" id="msgBox2"></div></div></div>
     </section>
 
-    <section class="section" id="page-donate">
-        <div class="page-top"><h2>💛 Support CHING'ENDE</h2></div>
-        <div class="form-wrap"><div class="form-card" style="border-color:var(--g);"><h3>💛 Make a Donation</h3>
-            <form id="donateForm"><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" placeholder="0712 345 678" required></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div>
-                <button type="submit" class="btn-pay" id="donateBtn" style="background:var(--g);color:#000;">💛 Donate Now</button></form><div class="msg-box" id="donateMsg"></div>
-        </div></div>
-    </section>
-
+    <section class="section" id="page-donate"><div class="page-top"><h2>💛 Support CHING'ENDE</h2></div><div class="form-wrap"><div class="form-card" style="border-color:var(--g);"><h3>💛 Make a Donation</h3><form id="donateForm"><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" placeholder="0712 345 678" required></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div><button type="submit" class="btn-pay" id="donateBtn" style="background:var(--g);color:#000;">💛 Donate Now</button></form><div class="msg-box" id="donateMsg"></div></div></div></section>
     <section class="section" id="page-about"><div class="page-top"><h2>About</h2></div><div style="max-width:900px;margin:2rem auto;padding:0 5%;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;"><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">🎯</div><h3>Mission</h3><p>Unforgettable experiences.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">👁️</div><h3>Vision</h3><p>Kenya's most sought-after event.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">📅</div><h3>Big Night</h3><p>Oct 10, 2026. Gates 6PM.</p></div></div></section>
     <section class="section" id="page-contact"><div class="page-top"><h2>Contact</h2></div><div style="max-width:450px;margin:2rem auto;text-align:center;background:white;padding:2.5rem;border-radius:20px;border:2px solid var(--b);"><div style="font-size:4rem;">💬</div><h3>WhatsApp</h3><p style="font-family:var(--m);font-size:1.5rem;color:var(--p);">📱 0748 840 501</p><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;">💬 Start Chat</a><p style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--b);color:var(--g);">🏦 Till: 3626261 (Caleb Sangara)</p></div></section>
+
+    <!-- Ticket Modal -->
+    <div class="modal-overlay" id="ticketModal">
+        <div class="modal-box">
+            <button class="modal-close" id="closeTicketModal">✕</button>
+            <div id="ticketContent"></div>
+        </div>
+    </div>
 
     <div class="dev-credit">Developed by <a href="https://wa.me/254716625790" target="_blank">Felix Nyabuto</a> | 📞 0716 625 790</div>
     <footer><p>🫘 CHING'ENDE LAUNCH • Oct 10, 2026 • 💬 0748 840 501 • 🏦 Till: 3626261</p></footer>
@@ -302,7 +206,7 @@
             const STKPUSH_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/stkpush';
             const STATUS_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/payment-status';
             let selName='',selPrice=0,currentRef='',pollTimer=null,pollTries=0,isPolling=false;
-            const MAX_POLLS=8;
+            const MAX_POLLS=15,POLL_INTERVAL=3000;
 
             function goTo(p){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('on'));const sec=document.getElementById('page-'+p);if(sec)sec.classList.add('active');document.querySelectorAll('.nav-link[data-page="'+p+'"]').forEach(l=>l.classList.add('on'));window.scrollTo({top:0,behavior:'smooth'});}
             document.querySelectorAll('.nav-link').forEach(l=>{l.addEventListener('click',function(e){e.preventDefault();goTo(this.getAttribute('data-page'));});});
@@ -317,41 +221,86 @@
             document.getElementById('bTicket2').addEventListener('change',function(){if(this.value){const[n,p]=this.value.split('|');selName=n;selPrice=parseInt(p);document.getElementById('selName2').textContent=n;document.getElementById('selPrice2').textContent='KSH '+parseInt(p).toLocaleString();document.getElementById('selName').textContent=n;document.getElementById('selPrice').textContent='KSH '+parseInt(p).toLocaleString();}updateSummary2();});
             document.getElementById('bQty').addEventListener('input',updateSummary);
             document.getElementById('bQty2').addEventListener('input',updateSummary2);
-            
             setInterval(()=>{const d=new Date('October 10, 2026 18:00:00').getTime()-Date.now();if(d<0)return;document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');},1000);
             
             function fmtPhone(p){let x=p.replace(/[\s\-\(\)]/g,'').replace(/^0/,'254').replace(/^\+/,'');return x.startsWith('254')?x:'254'+x;}
             function stopPolling(){isPolling=false;if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
             function resetForm(btn,msg){stopPolling();msg.style.display='none';msg.className='msg-box';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;btn.style.display='block';currentRef='';}
 
+            // ==================== AUTO DOWNLOAD TICKET ====================
+            function generateTicketHTML(ref,name,ticket,phone,email,qty,total){
+                const qrData=JSON.stringify({ref,name,ticket,phone,event:"CHINGENDE",date:"2026-10-10"});
+                const qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(qrData)+'&color=059669&bgcolor=ffffff&margin=10';
+                return '<div style="background:white;text-align:center;font-family:Arial,sans-serif" id="ticketPrint">'+
+                    '<div style="background:linear-gradient(135deg,#059669,#34d399);padding:25px 20px;text-align:center">'+
+                    '<div style="font-size:40px">🫘</div><h1 style="color:white;font-family:Courier New,monospace;font-size:22px;margin:8px 0;letter-spacing:2px">CHING\'ENDE</h1>'+
+                    '<p style="color:rgba(255,255,255,0.9);font-size:13px;margin:3px 0">Album Launch • Mansango</p>'+
+                    '<p style="color:rgba(255,255,255,0.85);font-size:12px;margin:3px 0">📅 October 10, 2026 • 🕕 6:00 PM</p></div>'+
+                    '<div style="padding:20px">'+
+                    '<div style="text-align:center;margin-bottom:15px;padding:10px;background:#f0fdf4;border-radius:10px"><span style="font-size:10px;color:#6b7280;text-transform:uppercase">Booking Reference</span><br><span style="font-family:Courier New,monospace;font-size:16px;font-weight:700;color:#059669">'+ref+'</span></div>'+
+                    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:15px">'+
+                    '<div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">NAME</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+name+'</span></div>'+
+                    '<div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">PHONE</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+phone+'</span></div>'+
+                    '<div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">TICKET</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+ticket+'</span></div>'+
+                    '<div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">QTY</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+qty+'</span></div></div>'+
+                    '<div style="text-align:center;padding:15px 0;border-top:2px dashed #d1fae5;border-bottom:2px dashed #d1fae5;margin:15px 0"><p style="font-size:11px;color:#6b7280;margin-bottom:10px">📱 Scan at the gate</p><img src="'+qrUrl+'" alt="QR" style="width:140px;height:140px;border:3px solid #059669;border-radius:12px;padding:8px;background:white" crossorigin="anonymous"></div>'+
+                    '<div style="display:flex;justify-content:space-between;padding:10px;background:#ecfdf5;border-radius:10px"><span style="font-weight:600;color:#064e3b">Total Paid</span><span style="font-family:Courier New,monospace;font-size:18px;font-weight:700;color:#059669">KSH '+total.toLocaleString()+'</span></div>'+
+                    '<div style="text-align:center;padding:10px;background:#eff6ff;border-radius:10px;margin-top:10px;font-size:11px;color:#1e40af">📍 Mansango | Gates: 4PM | Show: 6PM<br>📞 0748 840 501 | 🏦 Till: 3626261</div>'+
+                    '<p style="text-align:center;font-size:9px;color:#9ca3af;margin-top:10px">Official CHING\'ENDE Ticket • Presented at gate for entry</p></div></div>';
+            }
+
+            async function autoDownloadTicket(ref,name,ticket,phone,email,qty,total){
+                // Show ticket modal
+                document.getElementById('ticketContent').innerHTML=generateTicketHTML(ref,name,ticket,phone,email,qty,total);
+                document.getElementById('ticketModal').classList.add('show');
+                
+                // Auto download after 1 second
+                setTimeout(async()=>{
+                    try{
+                        const el=document.getElementById('ticketPrint');
+                        const canvas=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',logging:false});
+                        const link=document.createElement('a');
+                        link.download='CHINGENDE-Ticket-'+ref+'.png';
+                        link.href=canvas.toDataURL('image/png');
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        console.log('✅ Ticket downloaded!');
+                    }catch(e){console.log('Download error:',e);}
+                },1000);
+            }
+
+            function startPolling(ref,btn,msg,name,email,qty,total){
+                stopPolling();isPolling=true;pollTries=0;
+                pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+ref);const d=await r.json();
+                    if(d.isPaid||d.status==='paid'){stopPolling();msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent to <strong>'+email+'</strong></p>':'<p>🎫 Ticket ready!</p>')+'<div class="ref">'+ref+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p><p style="color:#059669;font-size:0.8rem;">📥 Downloading ticket...</p>';btn.style.display='none';autoDownloadTicket(ref,name,selName,phone,email,qty,total);return;}
+                    if(d.isFailed||d.status==='failed'){stopPolling();msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Payment Failed</h3><div class="ref">'+ref+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
+                    if(d.isCancelled||d.status==='cancelled'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>Cancelled</h3><div class="ref">'+ref+'</div><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
+                    if(d.isTimeout||d.status==='timeout'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⏳</div><h3>Timed Out</h3><div class="ref">'+ref+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
+                    if(pollTries>=MAX_POLLS){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⏳</div><h3>Still Waiting</h3><div class="ref">'+ref+'</div><p>If paid, ticket will be sent to <strong>'+email+'</strong></p><p>Till: <strong>3626261</strong></p>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
+                }catch(e){if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<h3>Connection Issue</h3><p>Till: <strong>3626261</strong></p>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}}},POLL_INTERVAL);
+            }
+
             async function handleSubmit(btn,msg,name,phone,email,qty,total){
-                if(!selName){alert('Please select a ticket!');return;}
-                if(!name||!phone||!email){alert('Please fill all fields!');return;}
-                btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending...';
-                msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending M-PESA prompt...</h3>';
-                try{
-                    const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount:total,name,email,ticketType:selName,quantity:qty,pricePerTicket:selPrice})});
-                    const data=await res.json();currentRef=data.reference||('CHG-'+Date.now().toString(36).toUpperCase());
-                    if(data.success===true){
-                        msg.innerHTML='<div class="spinner"></div><h3>📱 STK Push Sent!</h3><p>Check your phone & enter M-PESA PIN</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p><p style="font-size:0.8rem;color:#059669;">🟢 Waiting for payment...</p>';
-                        btn.innerHTML='⏳ Waiting for payment...';isPolling=true;pollTries=0;
-                        pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();
-                            if(d.isPaid){stopPolling();msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent!</p>':'<p>🎫 Ticket ready!</p>')+'<div class="ref">'+currentRef+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p>';btn.style.display='none';return;}
-                            if(d.isFailed||d.status==='failed'){stopPolling();msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Payment Failed</h3><div class="ref">'+currentRef+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
-                            if(d.status==='cancelled'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>Cancelled</h3><div class="ref">'+currentRef+'</div><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
-                        }catch(e){}if(pollTries>=MAX_POLLS){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⏳</div><h3>No Response</h3><div class="ref">'+currentRef+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}},4000);
-                    }else{msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>STK Push Failed</h3><p>'+(data.message||'Try again')+'</p><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
+                if(!selName){alert('Select a ticket!');return;}if(!name||!phone||!email){alert('Fill all fields!');return;}
+                stopPolling();btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending M-PESA prompt...</h3>';
+                try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount:total,name,email,ticketType:selName,quantity:qty,pricePerTicket:selPrice})});const data=await res.json();currentRef=data.reference||('CHG-'+Date.now().toString(36).toUpperCase());
+                    if(data.success===true){msg.innerHTML='<h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN to complete</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p><p style="font-size:0.75rem;color:#059669;">🟢 Auto-checking every 3s...</p>';btn.innerHTML='⏳ Waiting...';startPolling(currentRef,btn,msg,name,email,qty,total);}
+                    else{msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>STK Push Failed</h3><p>'+(data.message||'Try again')+'</p><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
                 }catch(e){msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Error</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
             }
 
-            document.getElementById('bookingForm').addEventListener('submit',function(e){e.preventDefault();stopPolling();handleSubmit(document.getElementById('payBtn'),document.getElementById('msgBox'),document.getElementById('bName').value.trim(),document.getElementById('bPhone').value.trim(),document.getElementById('bEmail').value.trim(),parseInt(document.getElementById('bQty').value),selPrice*parseInt(document.getElementById('bQty').value));});
+            document.getElementById('bookingForm').addEventListener('submit',function(e){e.preventDefault();handleSubmit(document.getElementById('payBtn'),document.getElementById('msgBox'),document.getElementById('bName').value.trim(),document.getElementById('bPhone').value.trim(),document.getElementById('bEmail').value.trim(),parseInt(document.getElementById('bQty').value),selPrice*parseInt(document.getElementById('bQty').value));});
             document.getElementById('waPayBtn').addEventListener('click',function(){const n=document.getElementById('bName').value.trim(),p=document.getElementById('bPhone').value.trim(),em=document.getElementById('bEmail').value.trim(),q=parseInt(document.getElementById('bQty').value),t=selPrice*q;window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(em)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');});
-            document.getElementById('bookingForm2').addEventListener('submit',function(e){e.preventDefault();stopPolling();handleSubmit(document.getElementById('payBtn2'),document.getElementById('msgBox2'),document.getElementById('bName2').value.trim(),document.getElementById('bPhone2').value.trim(),document.getElementById('bEmail2').value.trim(),parseInt(document.getElementById('bQty2').value),selPrice*parseInt(document.getElementById('bQty2').value));});
+            document.getElementById('bookingForm2').addEventListener('submit',function(e){e.preventDefault();handleSubmit(document.getElementById('payBtn2'),document.getElementById('msgBox2'),document.getElementById('bName2').value.trim(),document.getElementById('bPhone2').value.trim(),document.getElementById('bEmail2').value.trim(),parseInt(document.getElementById('bQty2').value),selPrice*parseInt(document.getElementById('bQty2').value));});
             document.getElementById('waPayBtn2').addEventListener('click',function(){const n=document.getElementById('bName2').value.trim(),p=document.getElementById('bPhone2').value.trim(),em=document.getElementById('bEmail2').value.trim(),q=parseInt(document.getElementById('bQty2').value),t=selPrice*q;window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(em)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');});
-            document.getElementById('donateForm').addEventListener('submit',async function(e){e.preventDefault();stopPolling();const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);if(!phone||amount<10){alert('Phone & min KSH 10!');return;}btn.disabled=true;btn.innerHTML='<span class="spinner"></span>...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending...</h3>';try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';isPolling=true;pollTries=0;pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH '+amount.toLocaleString()+' received!</p>';btn.style.display='none';}if(d.isFailed||d.status==='cancelled'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<h3>Not Completed</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}}catch(e){}if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<p>Till: <strong>3626261</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},4000);}else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}}catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}});
+            document.getElementById('donateForm').addEventListener('submit',async function(e){e.preventDefault();const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);if(!phone||amount<10){alert('Phone & min KSH 10!');return;}btn.disabled=true;btn.innerHTML='<span class="spinner"></span>...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending...</h3>';try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';isPolling=true;pollTries=0;pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH '+amount.toLocaleString()+' received!</p>';btn.style.display='none';}if(d.isFailed||d.status==='cancelled'||d.isTimeout){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<h3>Not Completed</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}}catch(e){}if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<p>Till: <strong>3626261</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},POLL_INTERVAL);}else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}}catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}});
+
+            document.getElementById('closeTicketModal').addEventListener('click',()=>document.getElementById('ticketModal').classList.remove('show'));
+            document.getElementById('ticketModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
 
             updateSummary();updateSummary2();
-            console.log('🫘 CHING\'ENDE Ready! | 5 Ticket Types | Uniform Privileges');
+            console.log('🫘 CHING\'ENDE Ready! | Auto-download ticket on payment!');
         });
     </script>
 </body>
