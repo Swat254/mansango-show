@@ -86,14 +86,11 @@
         @keyframes spin2{to{transform:rotate(360deg)}}
         .dev-credit{text-align:center;padding:0.5rem;font-size:0.75rem;color:var(--t);opacity:0.6}
         footer{text-align:center;padding:1.5rem;background:white;border-top:2px solid var(--b);font-size:0.8rem;color:#6b7280}
-
-        /* Ticket Modal */
         .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center}
         .modal-overlay.show{display:flex}
         .modal-box{background:white;border-radius:20px;padding:0;width:95%;max-width:450px;max-height:90vh;overflow-y:auto;text-align:center;position:relative}
         .modal-close{position:absolute;top:15px;right:15px;font-size:1.5rem;cursor:pointer;color:#fff;background:rgba(0,0,0,0.3);width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;z-index:10}
         .modal-close:hover{background:rgba(0,0,0,0.5)}
-
         @media(max-width:1100px){.pricing{grid-template-columns:repeat(3,1fr)}}
         @media(max-width:768px){.hero h1{font-size:1.8rem}.nav-links{display:none}.f-row{grid-template-columns:1fr}.pricing{grid-template-columns:repeat(2,1fr);gap:0.6rem}.pcard{padding:1rem 0.6rem;min-height:300px}}
         @media(max-width:480px){.pricing{grid-template-columns:1fr 1fr}.pcard h3{font-size:0.8rem}.pcard .price{font-size:1.2rem}}
@@ -186,11 +183,17 @@
             <form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" placeholder="Enter your full name" required></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone2" placeholder="0712 345 678" required></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail2" placeholder="your@email.com" required></div><div class="f-row"><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VIP Group (5 People)|4000">VIP Group 5pax - KSH 4,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group 5pax - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty2" min="1" max="20" value="1"></div></div><div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 6PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType2">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty2">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div><button type="submit" class="btn-pay" id="payBtn2">📱 Pay Now via M-PESA</button></form><button type="button" class="btn-wa-pay" id="waPayBtn2" style="margin-top:0.3rem;">💬 Reserve via WhatsApp</button><div class="msg-box" id="msgBox2"></div></div></div>
     </section>
 
-    <section class="section" id="page-donate"><div class="page-top"><h2>💛 Support CHING'ENDE</h2></div><div class="form-wrap"><div class="form-card" style="border-color:var(--g);"><h3>💛 Make a Donation</h3><form id="donateForm"><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" placeholder="0712 345 678" required></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div><button type="submit" class="btn-pay" id="donateBtn" style="background:var(--g);color:#000;">💛 Donate Now</button></form><div class="msg-box" id="donateMsg"></div></div></div></section>
+    <section class="section" id="page-donate">
+        <div class="page-top"><h2>💛 Support CHING'ENDE</h2></div>
+        <div class="form-wrap"><div class="form-card" style="border-color:var(--g);"><h3>💛 Make a Donation</h3>
+            <form id="donateForm"><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" placeholder="0712 345 678" required></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div>
+                <button type="submit" class="btn-pay" id="donateBtn" style="background:var(--g);color:#000;">💛 Donate Now</button></form><div class="msg-box" id="donateMsg"></div>
+        </div></div>
+    </section>
+
     <section class="section" id="page-about"><div class="page-top"><h2>About</h2></div><div style="max-width:900px;margin:2rem auto;padding:0 5%;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;"><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">🎯</div><h3>Mission</h3><p>Unforgettable experiences.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">👁️</div><h3>Vision</h3><p>Kenya's most sought-after event.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">📅</div><h3>Big Night</h3><p>Oct 10, 2026. Gates 6PM.</p></div></div></section>
     <section class="section" id="page-contact"><div class="page-top"><h2>Contact</h2></div><div style="max-width:450px;margin:2rem auto;text-align:center;background:white;padding:2.5rem;border-radius:20px;border:2px solid var(--b);"><div style="font-size:4rem;">💬</div><h3>WhatsApp</h3><p style="font-family:var(--m);font-size:1.5rem;color:var(--p);">📱 0748 840 501</p><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;">💬 Start Chat</a><p style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--b);color:var(--g);">🏦 Till: 3626261 (Caleb Sangara)</p></div></section>
 
-    <!-- Ticket Modal -->
     <div class="modal-overlay" id="ticketModal">
         <div class="modal-box">
             <button class="modal-close" id="closeTicketModal">✕</button>
@@ -227,53 +230,28 @@
             function stopPolling(){isPolling=false;if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
             function resetForm(btn,msg){stopPolling();msg.style.display='none';msg.className='msg-box';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;btn.style.display='block';currentRef='';}
 
-            // ==================== AUTO DOWNLOAD TICKET ====================
             function generateTicketHTML(ref,name,ticket,phone,email,qty,total){
                 const qrData=JSON.stringify({ref,name,ticket,phone,event:"CHINGENDE",date:"2026-10-10"});
                 const qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(qrData)+'&color=059669&bgcolor=ffffff&margin=10';
                 return '<div style="background:white;text-align:center;font-family:Arial,sans-serif" id="ticketPrint">'+
-                    '<div style="background:linear-gradient(135deg,#059669,#34d399);padding:25px 20px;text-align:center">'+
-                    '<div style="font-size:40px">🫘</div><h1 style="color:white;font-family:Courier New,monospace;font-size:22px;margin:8px 0;letter-spacing:2px">CHING\'ENDE</h1>'+
-                    '<p style="color:rgba(255,255,255,0.9);font-size:13px;margin:3px 0">Album Launch • Mansango</p>'+
-                    '<p style="color:rgba(255,255,255,0.85);font-size:12px;margin:3px 0">📅 October 10, 2026 • 🕕 6:00 PM</p></div>'+
-                    '<div style="padding:20px">'+
-                    '<div style="text-align:center;margin-bottom:15px;padding:10px;background:#f0fdf4;border-radius:10px"><span style="font-size:10px;color:#6b7280;text-transform:uppercase">Booking Reference</span><br><span style="font-family:Courier New,monospace;font-size:16px;font-weight:700;color:#059669">'+ref+'</span></div>'+
-                    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:15px">'+
-                    '<div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">NAME</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+name+'</span></div>'+
-                    '<div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">PHONE</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+phone+'</span></div>'+
-                    '<div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">TICKET</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+ticket+'</span></div>'+
-                    '<div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">QTY</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+qty+'</span></div></div>'+
+                    '<div style="background:linear-gradient(135deg,#059669,#34d399);padding:25px 20px;text-align:center"><div style="font-size:40px">🫘</div><h1 style="color:white;font-family:Courier New,monospace;font-size:22px;margin:8px 0;letter-spacing:2px">CHING\'ENDE</h1><p style="color:rgba(255,255,255,0.9);font-size:13px;margin:3px 0">Album Launch • Mansango</p><p style="color:rgba(255,255,255,0.85);font-size:12px;margin:3px 0">📅 October 10, 2026 • 🕕 6:00 PM</p></div>'+
+                    '<div style="padding:20px"><div style="text-align:center;margin-bottom:15px;padding:10px;background:#f0fdf4;border-radius:10px"><span style="font-size:10px;color:#6b7280">BOOKING REFERENCE</span><br><span style="font-family:Courier New,monospace;font-size:16px;font-weight:700;color:#059669">'+ref+'</span></div>'+
+                    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:15px"><div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">NAME</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+name+'</span></div><div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">PHONE</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+phone+'</span></div><div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">TICKET</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+ticket+'</span></div><div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">QTY</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+qty+'</span></div></div>'+
                     '<div style="text-align:center;padding:15px 0;border-top:2px dashed #d1fae5;border-bottom:2px dashed #d1fae5;margin:15px 0"><p style="font-size:11px;color:#6b7280;margin-bottom:10px">📱 Scan at the gate</p><img src="'+qrUrl+'" alt="QR" style="width:140px;height:140px;border:3px solid #059669;border-radius:12px;padding:8px;background:white" crossorigin="anonymous"></div>'+
                     '<div style="display:flex;justify-content:space-between;padding:10px;background:#ecfdf5;border-radius:10px"><span style="font-weight:600;color:#064e3b">Total Paid</span><span style="font-family:Courier New,monospace;font-size:18px;font-weight:700;color:#059669">KSH '+total.toLocaleString()+'</span></div>'+
-                    '<div style="text-align:center;padding:10px;background:#eff6ff;border-radius:10px;margin-top:10px;font-size:11px;color:#1e40af">📍 Mansango | Gates: 4PM | Show: 6PM<br>📞 0748 840 501 | 🏦 Till: 3626261</div>'+
-                    '<p style="text-align:center;font-size:9px;color:#9ca3af;margin-top:10px">Official CHING\'ENDE Ticket • Presented at gate for entry</p></div></div>';
+                    '<div style="text-align:center;padding:10px;background:#eff6ff;border-radius:10px;margin-top:10px;font-size:11px;color:#1e40af">📍 Mansango | Gates: 4PM | Show: 6PM<br>📞 0748 840 501 | 🏦 Till: 3626261</div><p style="text-align:center;font-size:9px;color:#9ca3af;margin-top:10px">Official CHING\'ENDE Ticket • Present at gate for entry</p></div></div>';
             }
 
             async function autoDownloadTicket(ref,name,ticket,phone,email,qty,total){
-                // Show ticket modal
                 document.getElementById('ticketContent').innerHTML=generateTicketHTML(ref,name,ticket,phone,email,qty,total);
                 document.getElementById('ticketModal').classList.add('show');
-                
-                // Auto download after 1 second
-                setTimeout(async()=>{
-                    try{
-                        const el=document.getElementById('ticketPrint');
-                        const canvas=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',logging:false});
-                        const link=document.createElement('a');
-                        link.download='CHINGENDE-Ticket-'+ref+'.png';
-                        link.href=canvas.toDataURL('image/png');
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        console.log('✅ Ticket downloaded!');
-                    }catch(e){console.log('Download error:',e);}
-                },1000);
+                setTimeout(async()=>{try{const el=document.getElementById('ticketPrint');const canvas=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',logging:false});const link=document.createElement('a');link.download='CHINGENDE-Ticket-'+ref+'.png';link.href=canvas.toDataURL('image/png');document.body.appendChild(link);link.click();document.body.removeChild(link);}catch(e){console.log('Download error:',e);}},1000);
             }
 
             function startPolling(ref,btn,msg,name,email,qty,total){
                 stopPolling();isPolling=true;pollTries=0;
                 pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+ref);const d=await r.json();
-                    if(d.isPaid||d.status==='paid'){stopPolling();msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent to <strong>'+email+'</strong></p>':'<p>🎫 Ticket ready!</p>')+'<div class="ref">'+ref+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p><p style="color:#059669;font-size:0.8rem;">📥 Downloading ticket...</p>';btn.style.display='none';autoDownloadTicket(ref,name,selName,phone,email,qty,total);return;}
+                    if(d.isPaid||d.status==='paid'){stopPolling();msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent to <strong>'+email+'</strong></p>':'<p>🎫 Ticket ready!</p>')+'<div class="ref">'+ref+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p>';btn.style.display='none';autoDownloadTicket(ref,name,selName,phone,email,qty,total);return;}
                     if(d.isFailed||d.status==='failed'){stopPolling();msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Payment Failed</h3><div class="ref">'+ref+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
                     if(d.isCancelled||d.status==='cancelled'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>Cancelled</h3><div class="ref">'+ref+'</div><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
                     if(d.isTimeout||d.status==='timeout'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⏳</div><h3>Timed Out</h3><div class="ref">'+ref+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
@@ -285,7 +263,7 @@
                 if(!selName){alert('Select a ticket!');return;}if(!name||!phone||!email){alert('Fill all fields!');return;}
                 stopPolling();btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending M-PESA prompt...</h3>';
                 try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount:total,name,email,ticketType:selName,quantity:qty,pricePerTicket:selPrice})});const data=await res.json();currentRef=data.reference||('CHG-'+Date.now().toString(36).toUpperCase());
-                    if(data.success===true){msg.innerHTML='<h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN to complete</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p><p style="font-size:0.75rem;color:#059669;">🟢 Auto-checking every 3s...</p>';btn.innerHTML='⏳ Waiting...';startPolling(currentRef,btn,msg,name,email,qty,total);}
+                    if(data.success===true){msg.innerHTML='<h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN to complete payment</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p>';btn.innerHTML='⏳ Waiting for payment...';startPolling(currentRef,btn,msg,name,email,qty,total);}
                     else{msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>STK Push Failed</h3><p>'+(data.message||'Try again')+'</p><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
                 }catch(e){msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Error</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
             }
@@ -294,13 +272,27 @@
             document.getElementById('waPayBtn').addEventListener('click',function(){const n=document.getElementById('bName').value.trim(),p=document.getElementById('bPhone').value.trim(),em=document.getElementById('bEmail').value.trim(),q=parseInt(document.getElementById('bQty').value),t=selPrice*q;window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(em)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');});
             document.getElementById('bookingForm2').addEventListener('submit',function(e){e.preventDefault();handleSubmit(document.getElementById('payBtn2'),document.getElementById('msgBox2'),document.getElementById('bName2').value.trim(),document.getElementById('bPhone2').value.trim(),document.getElementById('bEmail2').value.trim(),parseInt(document.getElementById('bQty2').value),selPrice*parseInt(document.getElementById('bQty2').value));});
             document.getElementById('waPayBtn2').addEventListener('click',function(){const n=document.getElementById('bName2').value.trim(),p=document.getElementById('bPhone2').value.trim(),em=document.getElementById('bEmail2').value.trim(),q=parseInt(document.getElementById('bQty2').value),t=selPrice*q;window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(em)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');});
-            document.getElementById('donateForm').addEventListener('submit',async function(e){e.preventDefault();const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);if(!phone||amount<10){alert('Phone & min KSH 10!');return;}btn.disabled=true;btn.innerHTML='<span class="spinner"></span>...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending...</h3>';try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';isPolling=true;pollTries=0;pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante!</h3><p>KSH '+amount.toLocaleString()+' received!</p>';btn.style.display='none';}if(d.isFailed||d.status==='cancelled'||d.isTimeout){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<h3>Not Completed</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}}catch(e){}if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<p>Till: <strong>3626261</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},POLL_INTERVAL);}else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}}catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3>';btn.style.display='none';}});
+            
+            // DONATION
+            document.getElementById('donateForm').addEventListener('submit',async function(e){
+                e.preventDefault();const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');
+                const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);
+                if(!phone||amount<10){alert('Phone & min KSH 10!');return;}
+                btn.disabled=true;btn.innerHTML='<span class="spinner"></span>...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending...</h3>';
+                try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());
+                    if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';isPolling=true;pollTries=0;pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();
+                        if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante Goika Ebe Ebuse!</h3><p>KSH '+amount.toLocaleString()+' received! God bless you abundantly! 🫘</p>';btn.style.display='none';}
+                        if(d.isFailed||d.status==='cancelled'||d.isTimeout){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<h3>Not Completed</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}
+                    }catch(e){}if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<p>Till: <strong>3626261</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},POLL_INTERVAL);}
+                    else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante Goika Ebe Ebuse!</h3><p>Till: 3626261 (Caleb Sangara)</p>';btn.style.display='none';}
+                }catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante Goika Ebe Ebuse!</h3><p>Till: 3626261</p>';btn.style.display='none';}
+            });
 
             document.getElementById('closeTicketModal').addEventListener('click',()=>document.getElementById('ticketModal').classList.remove('show'));
             document.getElementById('ticketModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
 
             updateSummary();updateSummary2();
-            console.log('🫘 CHING\'ENDE Ready! | Auto-download ticket on payment!');
+            console.log('🫘 CHING\'ENDE Ready!');
         });
     </script>
 </body>
