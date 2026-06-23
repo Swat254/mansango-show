@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CHING'ENDE Album Launch - Mansango | Oct 10, 2026</title>
-    <meta name="description" content="Book tickets for CHING'ENDE Album Launch. Pay via M-PESA. Instant ticket delivery.">
     <link rel="icon" href="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/Untitled%20folder/sano.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <style>
         :root{--p:#059669;--g:#f59e0b;--bg:#f0fdf4;--w:#fff;--t:#064e3b;--b:#d1fae5;--gr:linear-gradient(135deg,#059669,#34d399);--f:'Inter',sans-serif;--m:'JetBrains Mono',monospace}
         *{margin:0;padding:0;box-sizing:border-box}
@@ -18,282 +18,235 @@
         .logo-icon{width:35px;height:35px;border-radius:50%;animation:bounce 1.5s infinite;object-fit:cover}
         @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         .logo-text{font-family:var(--m);font-size:1.1rem;font-weight:700;background:var(--gr);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .nav-links{display:flex;list-style:none;gap:1.5rem}
-        .nav-links a{text-decoration:none;color:var(--t);font-weight:500;font-size:0.9rem}.nav-links a:hover,.nav-links a.on{color:var(--p)}
+        .nav-links{display:flex;list-style:none;gap:1.5rem}.nav-links a{text-decoration:none;color:var(--t);font-weight:500;font-size:0.9rem}.nav-links a:hover,.nav-links a.on{color:var(--p)}
         .btn-glow{background:var(--gr);color:white;padding:0.6rem 1.5rem;border-radius:50px;border:none;font-weight:600;font-size:0.85rem;text-decoration:none;display:inline-block}
         .section{display:none}.section.active{display:block}
         .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2% 3rem;background:linear-gradient(180deg,#fff 0%,#f0fdf4 100%)}
         .hero-inner{max-width:1200px;width:100%}
         .badge{display:inline-block;background:rgba(5,150,105,0.08);color:var(--t);padding:0.5rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;margin:0.3rem;border:1px solid var(--b)}
-        .badge .dot{display:inline-block;width:8px;height:8px;background:#10b981;border-radius:50%;margin-right:6px;animation:pulse 1.5s infinite}
-        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.3;transform:scale(2.5)}}
         .hero h1{font-family:var(--m);font-size:2.5rem;line-height:1.2;margin:0.5rem 0}
         .hero h1 .g{color:var(--p)}.hero h1 .gd{color:var(--g)}
-        .hero p.sub{color:var(--t);opacity:0.8;margin-bottom:1rem;font-size:1rem}
         .btns{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
         .btn{padding:0.8rem 1.5rem;border-radius:50px;font-weight:600;font-size:0.9rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;border:none;transition:0.3s}
-        .btn-green{background:var(--gr);color:white}.btn-green:hover{transform:translateY(-2px)}
-        .btn-wa{background:#25D366;color:white}.btn-wa:hover{transform:translateY(-2px)}
-        .btn-donate{background:var(--g);color:#000;font-weight:700}
+        .btn-green{background:var(--gr);color:white}.btn-wa{background:#25D366;color:white}.btn-donate{background:var(--g);color:#000;font-weight:700}.btn-mdogo{background:#7c3aed;color:white}
         .countdown{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
         .cd-item{background:white;padding:0.8rem 1rem;border-radius:14px;border:2px solid var(--b);text-align:center;min-width:70px}
         .cd-item span{display:block;font-family:var(--m);font-size:1.5rem;font-weight:700;color:var(--p)}.cd-item small{font-size:0.65rem}
-        .section-title{text-align:center;margin-bottom:1.5rem}
-        .section-title h2{font-family:var(--m);font-size:1.8rem;color:var(--p)}
-        .section-title p{color:#6b7280;font-size:0.9rem}
+        .section-title{text-align:center;margin-bottom:1.5rem}.section-title h2{font-family:var(--m);font-size:1.8rem;color:var(--p)}
         .pricing{display:grid;grid-template-columns:repeat(5,1fr);gap:0.8rem;max-width:1200px;margin:0 auto 2rem;padding:0 1%}
-        .pcard{background:white;border-radius:16px;padding:1.2rem 0.8rem;text-align:center;border:2px solid var(--b);transition:0.3s;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;min-height:320px}
+        .pcard{background:white;border-radius:16px;padding:1.2rem 0.8rem;text-align:center;border:2px solid var(--b);transition:0.3s;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;min-height:240px}
         .pcard:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(5,150,105,0.2);border-color:var(--p)}
-        .pcard.selected{border-color:var(--p)!important;background:#ecfdf5!important;box-shadow:0 0 0 3px rgba(5,150,105,0.3)}
+        .pcard.selected{border-color:var(--p)!important;background:#ecfdf5!important}
         .pcard .ticket-icon{font-size:2.5rem;margin-bottom:0.3rem}
-        .pcard .ticket-badge{display:inline-block;padding:0.2rem 0.8rem;border-radius:20px;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.3rem}
-        .badge-regular{background:#d1fae5;color:#065f46}.badge-vip{background:#fef3c7;color:#92400e}
-        .badge-group{background:#fce7f3;color:#9d174d}.badge-vvip{background:#ede9fe;color:#5b21b6}
-        .pcard h3{font-family:var(--m);font-size:0.95rem;margin:0.3rem 0}.pcard .price{font-family:var(--m);font-size:1.5rem;font-weight:800;margin:0.3rem 0}
-        .pcard .price small{font-size:0.6rem;display:block;color:#6b7280;font-weight:400}
-        .pcard .per-person{font-size:0.7rem;color:#6b7280;margin-top:-0.2rem;margin-bottom:0.3rem}
+        .pcard h3{font-family:var(--m);font-size:0.95rem}.pcard .price{font-family:var(--m);font-size:1.5rem;font-weight:800;margin:0.3rem 0}
         .pcard ul{list-style:none;text-align:left;margin:0.5rem 0;font-size:0.7rem;flex-grow:1}
-        .pcard ul li{padding:0.2rem 0;line-height:1.3}.pcard ul li::before{content:'✓ ';color:var(--p);font-weight:700}
+        .pcard ul li{padding:0.2rem 0}.pcard ul li::before{content:'✓ ';color:var(--p);font-weight:700}
         .pcard .btn-pick{width:100%;padding:0.6rem;border:none;border-radius:10px;font-weight:600;font-size:0.8rem;cursor:pointer;margin-top:0.5rem;color:white}
-        .card-regular{border-color:#d1fae5}.card-regular .btn-pick{background:#059669}.card-regular .price{color:#059669}
-        .card-vip{border-color:#fcd34d;background:linear-gradient(180deg,#fff 0%,#fffdf0 100%)}.card-vip .btn-pick{background:#f59e0b}.card-vip .price{color:#f59e0b}
-        .card-vip-group{border-color:#fbbf24;background:linear-gradient(180deg,#fff 0%,#fffbeb 100%)}.card-vip-group .btn-pick{background:#d97706}.card-vip-group .price{color:#d97706}
-        .card-vvip{border-color:#c4b5fd;background:linear-gradient(180deg,#fff 0%,#f5f3ff 100%)}.card-vvip .btn-pick{background:#7c3aed}.card-vvip .price{color:#7c3aed}
-        .card-vvip-group{border-color:#a78bfa;background:linear-gradient(180deg,#fff 0%,#ede9fe 100%)}.card-vvip-group .btn-pick{background:#6d28d9}.card-vvip-group .price{color:#6d28d9}
-        .page-top{padding:7rem 5% 2rem;text-align:center;background:white;border-bottom:2px solid var(--b)}.page-top h2{font-family:var(--m);font-size:2rem}
-        .form-wrap{max-width:500px;margin:2rem auto;padding:0 5%}
-        .form-card{background:white;border-radius:20px;padding:2rem;border:2px solid var(--b);box-shadow:0 10px 40px rgba(5,150,105,0.1)}
-        .sel-box{background:var(--bg);border-radius:14px;padding:1rem;margin:1rem 0;border:2px solid var(--b);display:flex;align-items:center;gap:1rem}
+        .card-regular .btn-pick{background:#059669}.card-vip .btn-pick{background:#f59e0b}.card-vip-group .btn-pick{background:#d97706}.card-vvip .btn-pick{background:#7c3aed}.card-vvip-group .btn-pick{background:#6d28d9}
+        .form-card{background:white;border-radius:20px;padding:2rem;border:2px solid var(--b);box-shadow:0 10px 40px rgba(5,150,105,0.1);margin-bottom:1.5rem;max-width:500px;margin-left:auto;margin-right:auto}
         .f-group{margin-bottom:0.8rem}.f-group label{display:block;margin-bottom:0.2rem;font-weight:500;font-size:0.85rem}
         .f-group input,.f-group select{width:100%;padding:0.7rem 0.9rem;border:2px solid var(--b);border-radius:10px;font-size:0.9rem;background:var(--bg);outline:none}
-        .f-row{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem}
         .sum-box{background:var(--bg);border-radius:14px;padding:1rem;margin-bottom:1rem;border:2px solid var(--b)}
         .s-row{display:flex;justify-content:space-between;padding:0.2rem 0;font-size:0.85rem}
         .s-row.bold{border-top:1px solid var(--b);margin-top:0.3rem;padding-top:0.5rem;font-weight:700;color:var(--p);font-size:1rem;font-family:var(--m)}
         .btn-pay{width:100%;padding:0.9rem;background:var(--gr);color:white;border:none;border-radius:14px;font-weight:600;font-size:1rem;cursor:pointer;margin:0.3rem 0}
         .btn-pay:disabled{background:#9ca3af;cursor:not-allowed}
-        .btn-wa-pay{width:100%;padding:0.9rem;background:#25D366;color:white;border:none;border-radius:14px;font-weight:600;font-size:0.95rem;cursor:pointer}
-        .btn-retry{width:100%;padding:0.8rem;background:var(--g);color:#000;border:none;border-radius:12px;font-weight:600;font-size:0.95rem;cursor:pointer;margin-top:0.3rem}
-        .msg-box{display:none;padding:1rem;border-radius:14px;margin-top:1rem;text-align:center;animation:fadeIn 0.4s ease-out}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-        .msg-box.show{display:block}.msg-box.ok{background:#ecfdf5;border:2px solid #6ee7b7;color:#065f46}
-        .msg-box.err{background:#fef2f2;border:2px solid #fca5a5;color:#991b1b}
-        .msg-box.info{background:#eff6ff;border:2px solid #93c5fd;color:#1e40af}
-        .msg-box.warn{background:#fffbeb;border:2px solid #fcd34d;color:#92400e}
-        .msg-box.love{background:#fef3c7;border:2px solid #fcd34d;color:#92400e}
-        .ref{font-family:var(--m);font-size:1.1rem;font-weight:700;color:var(--p);letter-spacing:1px;word-break:break-all}
+        .btn-mdogo-pay{width:100%;padding:0.9rem;background:#7c3aed;color:white;border:none;border-radius:14px;font-weight:600;font-size:1rem;cursor:pointer}
+        .btn-retry{width:100%;padding:0.8rem;background:var(--g);color:#000;border:none;border-radius:12px;font-weight:600;cursor:pointer;margin-top:0.3rem}
+        .msg-box{display:none;padding:1rem;border-radius:14px;margin-top:1rem;text-align:center}
+        .msg-box.show{display:block}.msg-box.ok{background:#ecfdf5;border:2px solid #6ee7b7}.msg-box.err{background:#fef2f2;border:2px solid #fca5a5}.msg-box.info{background:#eff6ff;border:2px solid #93c5fd}.msg-box.warn{background:#fffbeb;border:2px solid #fcd34d}.msg-box.love{background:#fef3c7;border:2px solid #fcd34d}
+        .ref{font-family:var(--m);font-size:1.1rem;font-weight:700;color:var(--p);word-break:break-all}
         .spinner{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin2 0.7s linear infinite;vertical-align:middle;margin-right:6px}
         @keyframes spin2{to{transform:rotate(360deg)}}
-        .dev-credit{text-align:center;padding:0.5rem;font-size:0.75rem;color:var(--t);opacity:0.6}
+        .hidden{display:none!important}
         footer{text-align:center;padding:1.5rem;background:white;border-top:2px solid var(--b);font-size:0.8rem;color:#6b7280}
-        .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center}
-        .modal-overlay.show{display:flex}
-        .modal-box{background:white;border-radius:20px;padding:0;width:95%;max-width:450px;max-height:90vh;overflow-y:auto;text-align:center;position:relative}
-        .modal-close{position:absolute;top:15px;right:15px;font-size:1.5rem;cursor:pointer;color:#fff;background:rgba(0,0,0,0.3);width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;z-index:10}
-        .modal-close:hover{background:rgba(0,0,0,0.5)}
+        .dev-section{text-align:center;padding:1.5rem;background:#064e3b;color:white;font-size:0.85rem}
+        .dev-section a{color:#34d399;text-decoration:none;font-weight:600}
+        .dev-section .wa-btn{display:inline-flex;align-items:center;gap:0.3rem;background:#25D366;color:white;padding:0.5rem 1.2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.85rem;margin:0.5rem}
+        .balance-card{background:#f5f3ff;padding:1.5rem;border-radius:16px;text-align:center;margin:1rem 0;border:2px solid #c4b5fd}
+        .balance-card .big{font-family:var(--m);font-size:2rem;font-weight:800;color:#7c3aed}
+        .progress-bar{background:#e2e8f0;border-radius:10px;height:24px;margin:1rem 0;overflow:hidden}
+        .progress-fill{background:#7c3aed;height:100%;border-radius:10px;transition:width 0.6s;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:700;min-width:35px}
+        .payment-history{max-height:300px;overflow-y:auto;border-radius:10px;border:1px solid #e2e8f0;margin-top:1rem}
+        .payment-row{display:flex;justify-content:space-between;align-items:center;padding:0.7rem 1rem;border-bottom:1px solid #e2e8f0;font-size:0.85rem;background:white}
+        .payment-row:nth-child(even){background:#f9fafb}
+        .badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:12px;font-size:0.65rem;font-weight:600}
+        .badge.paid{background:#d1fae5;color:#065f46}.badge.pending{background:#fef3c7;color:#92400e}.badge.failed{background:#fee2e2;color:#991b1b}
+        .ticket-ready{text-align:center;padding:1.5rem;background:#ecfdf5;border-radius:12px;border:2px solid #6ee7b7;margin-top:1rem}
+        .ticket-display{background:white;border-radius:16px;padding:1.5rem;margin:1rem 0;border:3px dashed #059669;text-align:center}
+        .ticket-display .ticket-header{background:linear-gradient(135deg,#059669,#34d399);color:white;padding:20px;border-radius:12px;margin-bottom:15px}
+        .ticket-display .ticket-header h2{font-family:'Courier New',monospace;font-size:1.3rem;margin:5px 0}
+        .ticket-display .qr-box{padding:10px;background:white;display:inline-block;border-radius:10px;border:2px solid #059669}
+        .btn-download-ticket{display:inline-block;background:#059669;color:white;padding:0.8rem 2rem;border-radius:10px;font-weight:600;cursor:pointer;margin:0.5rem;border:none;font-size:0.9rem}
         @media(max-width:1100px){.pricing{grid-template-columns:repeat(3,1fr)}}
-        @media(max-width:768px){.hero h1{font-size:1.8rem}.nav-links{display:none}.f-row{grid-template-columns:1fr}.pricing{grid-template-columns:repeat(2,1fr);gap:0.6rem}.pcard{padding:1rem 0.6rem;min-height:300px}}
-        @media(max-width:480px){.pricing{grid-template-columns:1fr 1fr}.pcard h3{font-size:0.8rem}.pcard .price{font-size:1.2rem}}
+        @media(max-width:768px){.hero h1{font-size:1.8rem}.nav-links{display:none}.pricing{grid-template-columns:repeat(2,1fr)}}
     </style>
 </head>
 <body>
     <nav>
-        <a href="/" class="logo">
-            <img src="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/Untitled%20folder/sano.jpg" alt="CHING'ENDE" class="logo-icon">
-            <span class="logo-text">CHING'ENDE LAUNCH</span>
-        </a>
-        <ul class="nav-links">
-            <li><a class="nav-link on" data-page="home">Home</a></li>
-            <li><a class="nav-link" data-page="book">Book Now</a></li>
-            <li><a class="nav-link" data-page="donate">💛 Donate</a></li>
-            <li><a class="nav-link" data-page="about">About</a></li>
-            <li><a class="nav-link" data-page="contact">Contact</a></li>
-        </ul>
+        <a href="/" class="logo"><img src="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/Untitled%20folder/sano.jpg" alt="CHING'ENDE" class="logo-icon"><span class="logo-text">CHING'ENDE LAUNCH</span></a>
+        <ul class="nav-links"><li><a class="nav-link on" data-page="home">Home</a></li><li><a class="nav-link" data-page="book">Book Now</a></li><li><a class="nav-link" data-page="mdogo">🎫 Pata Tiketi</a></li><li><a class="nav-link" data-page="donate">💛 Donate</a></li><li><a class="nav-link" data-page="about">About</a></li><li><a class="nav-link" data-page="contact">Contact</a></li></ul>
         <a class="btn-glow" id="navGetTickets">Get Tickets</a>
     </nav>
 
-    <section class="section active" id="page-home">
-        <div class="hero">
-            <div class="hero-inner">
-                <div class="badge"><span class="dot"></span>🎵 ALBUM LAUNCH • MANSANGO</div>
-                <div class="badge">📅 SATURDAY • OCT 10, 2026 • 6PM</div>
-                <h1><span class="g">CHING</span><span class="gd">'ENDE</span><br>Album Launch</h1>
-                <p class="sub">🫘 The biggest album launch of 2026! Select your ticket below</p>
-                <div class="btns">
-                    <a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa">💬 WhatsApp</a>
-                    <button class="btn btn-donate" id="homeDonate">💛 Donate</button>
-                </div>
-                <div class="countdown" id="countdown">
-                    <div class="cd-item"><span id="cd-d">00</span><small>Days</small></div>
-                    <div class="cd-item"><span id="cd-h">00</span><small>Hours</small></div>
-                    <div class="cd-item"><span id="cd-m">00</span><small>Mins</small></div>
-                    <div class="cd-item"><span id="cd-s">00</span><small>Secs</small></div>
-                </div>
-
-                <div class="section-title"><h2>🎫 Choose Your Ticket</h2><p>Click a ticket to select, then fill the form below</p></div>
-                
-                <div class="pricing">
-                    <div class="pcard card-regular" data-ticket="Regular" data-price="500">
-                        <div><div class="ticket-icon">🎫</div><span class="ticket-badge badge-regular">Standard</span><h3>Regular</h3><div class="price">KSH 500<small>/person</small></div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
-                        <button class="btn-pick">Select Regular</button>
-                    </div>
-                    <div class="pcard card-vip" data-ticket="VIP" data-price="1000">
-                        <div><div class="ticket-icon">👑</div><span class="ticket-badge badge-vip">Premium</span><h3>VIP</h3><div class="price">KSH 1,000<small>/person</small></div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
-                        <button class="btn-pick">Select VIP</button>
-                    </div>
-                    <div class="pcard card-vip-group" data-ticket="VIP Group (5 People)" data-price="4000">
-                        <div><div class="ticket-icon">👑👑</div><span class="ticket-badge badge-group">GROUP DEAL</span><h3>VIP Group</h3><div class="price">KSH 4,000<small>/5 people</small></div><div class="per-person">(KSH 800 per person)</div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
-                        <button class="btn-pick">Select VIP Group</button>
-                    </div>
-                    <div class="pcard card-vvip" data-ticket="VVIP" data-price="2000">
-                        <div><div class="ticket-icon">💎</div><span class="ticket-badge badge-vvip">Exclusive</span><h3>VVIP</h3><div class="price">KSH 2,000<small>/person</small></div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
-                        <button class="btn-pick">Select VVIP</button>
-                    </div>
-                    <div class="pcard card-vvip-group" data-ticket="VVIP Group (5 People)" data-price="9000">
-                        <div><div class="ticket-icon">💎💎</div><span class="ticket-badge badge-group">BEST VALUE</span><h3>VVIP Group</h3><div class="price">KSH 9,000<small>/5 people</small></div><div class="per-person">(KSH 1,800 per person)</div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li><li>Event Lanyard</li></ul></div>
-                        <button class="btn-pick">Select VVIP Group</button>
-                    </div>
-                </div>
-
-                <div class="form-wrap" id="bookingFormSection" style="display:none;">
-                    <div class="form-card">
-                        <h3 style="font-family:var(--m);text-align:center;margin-bottom:0.8rem;">📝 Complete Your Booking</h3>
-                        <div class="sel-box"><div style="font-size:2rem;">🎫</div><div><strong id="selName">Select a ticket above</strong><br><span id="selPrice" style="font-family:var(--m);color:var(--p);font-weight:700;">KSH 0</span></div></div>
-                        <form id="bookingForm">
-                            <div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" placeholder="Enter your full name" required></div>
-                            <div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone" placeholder="0712 345 678" required></div>
-                            <div class="f-group"><label>📧 Email (for ticket)</label><input type="email" id="bEmail" placeholder="your@email.com" required></div>
-                            <div class="f-row"><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VIP Group (5 People)|4000">VIP Group 5pax - KSH 4,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group 5pax - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div></div>
-                            <div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE Album Launch</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 6PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
-                            <button type="submit" class="btn-pay" id="payBtn">📱 Pay Now via M-PESA</button>
-                        </form>
-                        <button type="button" class="btn-wa-pay" id="waPayBtn" style="margin-top:0.3rem;">💬 Reserve via WhatsApp</button>
-                        <div class="msg-box" id="msgBox"></div>
-                    </div>
-                </div>
-            </div>
+    <section class="section active" id="page-home"><div class="hero"><div class="hero-inner">
+        <div class="badge">🎵 ALBUM LAUNCH • MANSANGO | 📅 OCT 10, 2026 • 6PM</div>
+        <h1><span class="g">CHING</span><span class="gd">'ENDE</span><br>Album Launch</h1>
+        <p style="margin-bottom:1rem">🫘 The biggest album launch of 2026!</p>
+        <div class="btns"><button class="btn btn-green" id="homeGetTickets">🎫 Get Tickets</button><button class="btn btn-mdogo" id="homeMdogo">🎫 Pata Tiketi Mdogo Mdogo</button><button class="btn btn-donate" id="homeDonate">💛 Donate</button><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa">💬 WhatsApp</a></div>
+        <div class="countdown" id="countdown"><div class="cd-item"><span id="cd-d">00</span><small>Days</small></div><div class="cd-item"><span id="cd-h">00</span><small>Hours</small></div><div class="cd-item"><span id="cd-m">00</span><small>Mins</small></div><div class="cd-item"><span id="cd-s">00</span><small>Secs</small></div></div>
+        <div class="section-title"><h2>🎫 Choose Your Ticket</h2></div>
+        <div class="pricing">
+            <div class="pcard card-regular" data-ticket="Regular" data-price="500"><div><div class="ticket-icon">🎫</div><h3>Regular</h3><div class="price">KSH 500</div><ul><li>General Admission</li><li>Main Arena</li><li>Standard Seat</li></ul></div><button class="btn-pick">Select</button></div>
+            <div class="pcard card-vip" data-ticket="VIP" data-price="1000"><div><div class="ticket-icon">👑</div><h3>VIP</h3><div class="price">KSH 1,000</div><ul><li>General Admission</li><li>Main Arena</li><li>Standard Seat</li></ul></div><button class="btn-pick">Select</button></div>
+            <div class="pcard card-vip-group" data-ticket="VIP Group (5 People)" data-price="4000"><div><div class="ticket-icon">👑👑</div><h3>VIP Group</h3><div class="price">KSH 4,000</div><ul><li>General Admission</li><li>Main Arena</li><li>Standard Seat</li></ul></div><button class="btn-pick">Select</button></div>
+            <div class="pcard card-vvip" data-ticket="VVIP" data-price="2000"><div><div class="ticket-icon">💎</div><h3>VVIP</h3><div class="price">KSH 2,000</div><ul><li>General Admission</li><li>Main Arena</li><li>Standard Seat</li></ul></div><button class="btn-pick">Select</button></div>
+            <div class="pcard card-vvip-group" data-ticket="VVIP Group (5 People)" data-price="9000"><div><div class="ticket-icon">💎💎</div><h3>VVIP Group</h3><div class="price">KSH 9,000</div><ul><li>General Admission</li><li>Main Arena</li><li>Standard Seat</li></ul></div><button class="btn-pick">Select</button></div>
         </div>
-    </section>
+        <div id="bookingFormSection" style="display:none;max-width:500px;margin:0 auto;"><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">📝 Complete Booking</h3><form id="bookingForm"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" required></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone" required></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail" required></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|500">Regular - 500</option><option value="VIP|1000">VIP - 1,000</option><option value="VIP Group (5 People)|4000">VIP Group - 4,000</option><option value="VVIP|2000">VVIP - 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group - 9,000</option></select></div><div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div><button type="submit" class="btn-pay" id="payBtn">📱 Pay Now via M-PESA</button><button type="button" class="btn-mdogo-pay" id="mdogoPayBtnForm">🎫 Pata Tiketi Mdogo Mdogo</button></form><div class="msg-box" id="msgBox"></div></div></div>
+    </div></div></section>
 
-    <section class="section" id="page-book">
-        <div class="page-top"><h2>Reserve Your Spot</h2><p>Fill form → M-PESA → Ticket via Email</p></div>
-        <div class="form-wrap"><div class="form-card">
-            <h3>🎫 Ticket Reservation</h3>
-            <div class="sel-box"><div style="font-size:2.5rem;">🎫</div><div><strong id="selName2">Select a ticket</strong><br><span id="selPrice2" style="font-family:var(--m);color:var(--p);font-weight:700;">KSH 0</span></div></div>
-            <form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" placeholder="Enter your full name" required></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone2" placeholder="0712 345 678" required></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail2" placeholder="your@email.com" required></div><div class="f-row"><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VIP Group (5 People)|4000">VIP Group 5pax - KSH 4,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group 5pax - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty2" min="1" max="20" value="1"></div></div><div class="sum-box"><strong>📋 Summary</strong><div class="s-row"><span>Event:</span><span>CHING'ENDE</span></div><div class="s-row"><span>Date:</span><span>Oct 10, 2026 • 6PM</span></div><div class="s-row"><span>Ticket:</span><span id="sumType2">-</span></div><div class="s-row"><span>Qty:</span><span id="sumQty2">1</span></div><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div><button type="submit" class="btn-pay" id="payBtn2">📱 Pay Now via M-PESA</button></form><button type="button" class="btn-wa-pay" id="waPayBtn2" style="margin-top:0.3rem;">💬 Reserve via WhatsApp</button><div class="msg-box" id="msgBox2"></div></div></div>
-    </section>
+    <section class="section" id="page-book"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">Reserve Your Spot</h2></div><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">🎫 Ticket Reservation</h3><form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" required></div><div class="f-group"><label>📱 Phone</label><input type="tel" id="bPhone2" required></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail2" required></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|500">Regular - 500</option><option value="VIP|1000">VIP - 1,000</option><option value="VIP Group (5 People)|4000">VIP Group - 4,000</option><option value="VVIP|2000">VVIP - 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group - 9,000</option></select></div><div class="f-group"><label>🔢 Qty</label><input type="number" id="bQty2" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div><button type="submit" class="btn-pay" id="payBtn2">📱 Pay Now</button><button type="button" class="btn-mdogo-pay" id="mdogoPayBtnForm2">🎫 Pata Tiketi</button></form><div class="msg-box" id="msgBox2"></div></div></section>
 
-    <section class="section" id="page-donate">
-        <div class="page-top"><h2>💛 Support CHING'ENDE</h2></div>
-        <div class="form-wrap"><div class="form-card" style="border-color:var(--g);"><h3>💛 Make a Donation</h3>
-            <form id="donateForm"><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" placeholder="0712 345 678" required></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div>
-                <button type="submit" class="btn-pay" id="donateBtn" style="background:var(--g);color:#000;">💛 Donate Now</button></form><div class="msg-box" id="donateMsg"></div>
-        </div></div>
-    </section>
-
-    <section class="section" id="page-about"><div class="page-top"><h2>About</h2></div><div style="max-width:900px;margin:2rem auto;padding:0 5%;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;"><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">🎯</div><h3>Mission</h3><p>Unforgettable experiences.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">👁️</div><h3>Vision</h3><p>Kenya's most sought-after event.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b);"><div style="font-size:3rem;">📅</div><h3>Big Night</h3><p>Oct 10, 2026. Gates 6PM.</p></div></div></section>
-    <section class="section" id="page-contact"><div class="page-top"><h2>Contact</h2></div><div style="max-width:450px;margin:2rem auto;text-align:center;background:white;padding:2.5rem;border-radius:20px;border:2px solid var(--b);"><div style="font-size:4rem;">💬</div><h3>WhatsApp</h3><p style="font-family:var(--m);font-size:1.5rem;color:var(--p);">📱 0748 840 501</p><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;">💬 Start Chat</a><p style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--b);color:var(--g);">🏦 Till: 3626261 (Caleb Sangara)</p></div></section>
-
-    <div class="modal-overlay" id="ticketModal">
-        <div class="modal-box">
-            <button class="modal-close" id="closeTicketModal">✕</button>
-            <div id="ticketContent"></div>
+    <section class="section" id="page-mdogo"><div style="max-width:550px;margin:100px auto 2rem;padding:0 1rem">
+        <div class="form-card" id="mdogoLogin"><div style="font-size:3rem;text-align:center;">🎫</div><h1 style="font-family:var(--m);color:#7c3aed;text-align:center">Pata Tiketi Mdogo Mdogo</h1><p style="text-align:center;color:#6b7280;margin-bottom:1.5rem">Save little by little until you reach your ticket goal!</p><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="mdogoPhone" placeholder="0712 345 678"></div><button id="mdogoLoginBtn" style="width:100%;padding:1rem;background:#7c3aed;color:white;border:none;border-radius:12px;font-weight:600;font-size:1rem">🔑 Login / Register</button><div class="msg-box" id="mdogoLoginMsg"></div></div>
+        <div class="form-card hidden" id="mdogoRegister"><h2 style="font-family:var(--m);text-align:center;color:#7c3aed">Register</h2><div class="f-group"><label>👤 Full Name</label><input type="text" id="mdogoFullName"></div><div class="f-group"><label>📧 Email</label><input type="email" id="mdogoEmail"></div><button id="mdogoRegisterBtn" style="width:100%;padding:1rem;background:#7c3aed;color:white;border:none;border-radius:12px;font-weight:600">✅ Save & Continue</button><div class="msg-box" id="mdogoRegMsg"></div></div>
+        <div class="form-card hidden" id="mdogoChoose"><h2 style="font-family:var(--m);text-align:center">🎫 Choose Target Ticket</h2><div class="f-group"><label>Ticket Type</label><select id="mdogoTicket"><option value="Regular|500">Regular - KSH 500</option><option value="VIP|1000">VIP - KSH 1,000</option><option value="VIP Group (5 People)|4000">VIP Group - KSH 4,000</option><option value="VVIP|2000">VVIP - KSH 2,000</option><option value="VVIP Group (5 People)|9000">VVIP Group - KSH 9,000</option></select></div><div class="balance-card"><div style="font-size:0.8rem;color:#6b7280">Target Amount</div><div id="mdogoTargetDisplay" style="font-family:var(--m);font-size:2rem;font-weight:700;color:#7c3aed">KSH 500</div></div><button id="mdogoCreateBtn" style="width:100%;padding:1rem;background:#7c3aed;color:white;border:none;border-radius:12px;font-weight:600">✅ Start Saving</button></div>
+        <div class="form-card hidden" id="mdogoDashboard"><h2 style="font-family:var(--m);text-align:center;color:#7c3aed">My Pata Tiketi</h2>
+            <div style="background:#f5f3ff;padding:15px;border-radius:12px;margin-bottom:1rem;text-align:center"><div style="font-weight:700;color:#5b21b6" id="mdogoDispName">-</div><div style="font-size:0.8rem;color:#6b7280">📱 <span id="mdogoDispPhone">-</span> | 📧 <span id="mdogoDispEmail">-</span></div></div>
+            <div class="balance-card"><div style="font-size:0.8rem;color:#6b7280">Remaining Balance</div><div class="big" id="mdogoRemaining">KSH 0</div></div>
+            <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.3rem"><span>Saved: <strong>KSH <span id="mdogoTotalPaid">0</span></strong></span><span>Target: <strong>KSH <span id="mdogoTarget">0</span></strong></span></div>
+            <div class="progress-bar"><div class="progress-fill" id="mdogoProgressFill" style="width:0%"><span id="mdogoPercent">0%</span></div></div>
+            <div class="f-group" style="margin-top:1rem"><label>💰 Amount to Pay</label><input type="number" id="mdogoPayAmount" value="50" min="10"></div>
+            <button id="mdogoPayBtn" style="width:100%;padding:1rem;background:#7c3aed;color:white;border:none;border-radius:12px;font-weight:600">📱 Pay via M-PESA</button>
+            <div class="msg-box" id="mdogoPayMsg"></div>
+            <div style="margin-top:1.5rem"><h3 style="font-size:0.9rem">📋 Transaction History</h3><div class="payment-history" id="mdogoHistory"><p style="text-align:center;color:#6b7280;padding:1rem">No transactions yet</p></div></div>
+            <div class="ticket-ready hidden" id="mdogoTicketReady"><div style="font-size:3rem;">🎉</div><h3>🎫 Ticket Ready!</h3><p>Target reached! Ticket sent to your email.</p></div>
+            <button id="mdogoLogoutBtn" style="width:100%;padding:0.8rem;background:white;color:#7c3aed;border:2px solid #7c3aed;border-radius:12px;font-weight:600;margin-top:0.8rem">🚪 Logout</button>
         </div>
+    </div></section>
+
+    <section class="section" id="page-donate"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">💛 Donate</h2></div><div class="form-card"><h3>💛 Make a Donation</h3><form id="donateForm"><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" required></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div><button type="submit" class="btn-pay" id="donateBtn" style="background:var(--g);color:#000">💛 Donate Now</button></form><div class="msg-box" id="donateMsg"></div></div></section>
+    <section class="section" id="page-about"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">About</h2></div><div style="max-width:900px;margin:2rem auto;padding:0 1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem"><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b)"><div style="font-size:3rem;">🎯</div><h3>Mission</h3><p>Unforgettable experiences.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b)"><div style="font-size:3rem;">👁️</div><h3>Vision</h3><p>Kenya's most sought-after event.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b)"><div style="font-size:3rem;">📅</div><h3>Big Night</h3><p>Oct 10, 2026. Gates 6PM.</p></div></div></section>
+    <section class="section" id="page-contact"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">Contact</h2></div><div style="max-width:450px;margin:2rem auto;text-align:center;background:white;padding:2.5rem;border-radius:20px;border:2px solid var(--b)"><div style="font-size:4rem;">💬</div><h3>WhatsApp</h3><p style="font-family:var(--m);font-size:1.5rem;color:var(--p);">📱 0748 840 501</p><a href="https://wa.me/254748840501" target="_blank" class="btn btn-wa" style="display:inline-flex;">💬 Chat on WhatsApp</a><p style="margin-top:1.5rem;color:var(--g);">🏦 Till: 3626261 (Caleb Sangara)</p></div></section>
+
+    <div class="dev-section">
+        <p style="margin:0;font-size:1rem;font-weight:600;">Developed by <strong style="color:#34d399;">Felix Nyabuto</strong></p>
+        <p style="margin:3px 0;font-size:0.85rem;">📞 Call/WhatsApp: <strong>0716 625 790</strong></p>
+        <a href="https://wa.me/254716625790?text=Hello%20Felix,%20I%20need%20help%20with%20CHING'ENDE%20tickets" target="_blank" class="wa-btn">💬 Chat with Developer</a>
+        <a href="https://wa.me/254748840501?text=Hello%20CHING'ENDE%20Team" target="_blank" class="wa-btn">💬 Chat with CHING'ENDE Team</a>
+        <p style="margin:8px 0 0;font-size:0.7rem;opacity:0.7;">© 2026 CHING'ENDE. All rights reserved.</p>
     </div>
-
-    <div class="dev-credit">Developed by <a href="https://wa.me/254716625790" target="_blank">Felix Nyabuto</a> | 📞 0716 625 790</div>
     <footer><p>🫘 CHING'ENDE LAUNCH • Oct 10, 2026 • 💬 0748 840 501 • 🏦 Till: 3626261</p></footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded',function(){
-            const STKPUSH_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/stkpush';
-            const STATUS_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/payment-status';
-            let selName='',selPrice=0,currentRef='',pollTimer=null,pollTries=0,isPolling=false;
-            const MAX_POLLS=15,POLL_INTERVAL=3000;
+        const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm9yaG9rcHNpcWtjZWVzYWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MTYxMjksImV4cCI6MjA5NTM5MjEyOX0.-circeJO1eayDkn3jHDC53oBxoRgDLmr5Uk2XBPYglA';
+        const STKPUSH_URL='https://zxforhokpsiqkceesalk.supabase.co/functions/v1/stkpush';
+        const REST_URL='https://zxforhokpsiqkceesalk.supabase.co/rest/v1';
+        const H={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'return=representation'};
+        let selName='',selPrice=0,currentRef='',pollTimer=null,isPolling=false,mdogoAccount=null,pollTries=0;
+        const MAX_POLLS=20,POLL_INTERVAL=3000;
 
-            function goTo(p){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('on'));const sec=document.getElementById('page-'+p);if(sec)sec.classList.add('active');document.querySelectorAll('.nav-link[data-page="'+p+'"]').forEach(l=>l.classList.add('on'));window.scrollTo({top:0,behavior:'smooth'});}
-            document.querySelectorAll('.nav-link').forEach(l=>{l.addEventListener('click',function(e){e.preventDefault();goTo(this.getAttribute('data-page'));});});
-            document.getElementById('navGetTickets').addEventListener('click',function(e){e.preventDefault();goTo('book');});
-            document.getElementById('homeDonate').addEventListener('click',function(){goTo('donate');});
-            
-            document.querySelectorAll('.pcard').forEach(card=>{card.addEventListener('click',function(){document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('selected'));this.classList.add('selected');selName=this.getAttribute('data-ticket');selPrice=parseInt(this.getAttribute('data-price'));document.getElementById('selName').textContent=selName;document.getElementById('selPrice').textContent='KSH '+selPrice.toLocaleString();document.getElementById('selName2').textContent=selName;document.getElementById('selPrice2').textContent='KSH '+selPrice.toLocaleString();document.getElementById('bTicket').value=selName+'|'+selPrice;document.getElementById('bTicket2').value=selName+'|'+selPrice;updateSummary();updateSummary2();document.getElementById('bookingFormSection').style.display='block';document.getElementById('bookingFormSection').scrollIntoView({behavior:'smooth'});});});
-            
-            function updateSummary(){const q=parseInt(document.getElementById('bQty').value)||1;document.getElementById('sumType').textContent=selName||'-';document.getElementById('sumQty').textContent=q;document.getElementById('sumTotal').textContent='KSH '+(selPrice*q).toLocaleString();}
-            function updateSummary2(){const q=parseInt(document.getElementById('bQty2').value)||1;document.getElementById('sumType2').textContent=selName||'-';document.getElementById('sumQty2').textContent=q;document.getElementById('sumTotal2').textContent='KSH '+(selPrice*q).toLocaleString();}
-            document.getElementById('bTicket').addEventListener('change',function(){if(this.value){const[n,p]=this.value.split('|');selName=n;selPrice=parseInt(p);document.getElementById('selName').textContent=n;document.getElementById('selPrice').textContent='KSH '+parseInt(p).toLocaleString();document.getElementById('selName2').textContent=n;document.getElementById('selPrice2').textContent='KSH '+parseInt(p).toLocaleString();}updateSummary();});
-            document.getElementById('bTicket2').addEventListener('change',function(){if(this.value){const[n,p]=this.value.split('|');selName=n;selPrice=parseInt(p);document.getElementById('selName2').textContent=n;document.getElementById('selPrice2').textContent='KSH '+parseInt(p).toLocaleString();document.getElementById('selName').textContent=n;document.getElementById('selPrice').textContent='KSH '+parseInt(p).toLocaleString();}updateSummary2();});
-            document.getElementById('bQty').addEventListener('input',updateSummary);
-            document.getElementById('bQty2').addEventListener('input',updateSummary2);
-            setInterval(()=>{const d=new Date('October 10, 2026 18:00:00').getTime()-Date.now();if(d<0)return;document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');},1000);
-            
-            function fmtPhone(p){let x=p.replace(/[\s\-\(\)]/g,'').replace(/^0/,'254').replace(/^\+/,'');return x.startsWith('254')?x:'254'+x;}
-            function stopPolling(){isPolling=false;if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
-            function resetForm(btn,msg){stopPolling();msg.style.display='none';msg.className='msg-box';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;btn.style.display='block';currentRef='';}
+        function goTo(p){sessionStorage.setItem('chingende_page',p);document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('on'));const sec=document.getElementById('page-'+p);if(sec)sec.classList.add('active');document.querySelectorAll('.nav-link[data-page="'+p+'"]').forEach(l=>l.classList.add('on'));window.scrollTo({top:0,behavior:'smooth'});if(p==='mdogo'){document.getElementById('mdogoLogin').classList.remove('hidden');document.getElementById('mdogoRegister').classList.add('hidden');document.getElementById('mdogoChoose').classList.add('hidden');document.getElementById('mdogoDashboard').classList.add('hidden');}}
+        const savedPage=sessionStorage.getItem('chingende_page');if(savedPage&&savedPage!=='home'){setTimeout(()=>goTo(savedPage),200);}
+        document.querySelectorAll('.nav-link').forEach(l=>l.addEventListener('click',function(e){e.preventDefault();goTo(this.getAttribute('data-page'));}));
+        document.getElementById('navGetTickets').addEventListener('click',function(e){e.preventDefault();goTo('book');});
+        document.getElementById('homeGetTickets').addEventListener('click',()=>goTo('book'));document.getElementById('homeMdogo').addEventListener('click',()=>goTo('mdogo'));document.getElementById('homeDonate').addEventListener('click',()=>goTo('donate'));
+        document.querySelectorAll('.pcard').forEach(card=>card.addEventListener('click',function(){document.querySelectorAll('.pcard').forEach(c=>c.classList.remove('selected'));this.classList.add('selected');selName=this.getAttribute('data-ticket');selPrice=parseInt(this.getAttribute('data-price'));document.getElementById('bTicket').value=selName+'|'+selPrice;document.getElementById('bTicket2').value=selName+'|'+selPrice;updateS();updateS2();document.getElementById('bookingFormSection').style.display='block';document.getElementById('bookingFormSection').scrollIntoView({behavior:'smooth'});}));
+        function updateS(){document.getElementById('sumTotal').textContent='KSH '+((parseInt(document.getElementById('bQty').value)||1)*selPrice).toLocaleString();}
+        function updateS2(){document.getElementById('sumTotal2').textContent='KSH '+((parseInt(document.getElementById('bQty2').value)||1)*selPrice).toLocaleString();}
+        document.getElementById('bTicket').addEventListener('change',function(){if(this.value){const[n,p]=this.value.split('|');selName=n;selPrice=parseInt(p);}updateS();});
+        document.getElementById('bTicket2').addEventListener('change',function(){if(this.value){const[n,p]=this.value.split('|');selName=n;selPrice=parseInt(p);}updateS2();});
+        document.getElementById('bQty').addEventListener('input',updateS);document.getElementById('bQty2').addEventListener('input',updateS2);
+        setInterval(()=>{const d=new Date('October 10, 2026 18:00:00').getTime()-Date.now();if(d<0)return;document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(2,'0');document.getElementById('cd-h').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');document.getElementById('cd-m').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');},1000);
+        function fmtPhone(p){let x=p.replace(/[\s\-\(\)]/g,'').replace(/^0/,'254').replace(/^\+/,'');return x.startsWith('254')?x:'254'+x;}
+        function stopPolling(){isPolling=false;if(pollTimer){clearInterval(pollTimer);pollTimer=null;}pollTries=0;}
 
-            function generateTicketHTML(ref,name,ticket,phone,email,qty,total){
-                const qrData=JSON.stringify({ref,name,ticket,phone,event:"CHINGENDE",date:"2026-10-10"});
-                const qrUrl='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data='+encodeURIComponent(qrData)+'&color=059669&bgcolor=ffffff&margin=10';
-                return '<div style="background:white;text-align:center;font-family:Arial,sans-serif" id="ticketPrint">'+
-                    '<div style="background:linear-gradient(135deg,#059669,#34d399);padding:25px 20px;text-align:center"><div style="font-size:40px">🫘</div><h1 style="color:white;font-family:Courier New,monospace;font-size:22px;margin:8px 0;letter-spacing:2px">CHING\'ENDE</h1><p style="color:rgba(255,255,255,0.9);font-size:13px;margin:3px 0">Album Launch • Mansango</p><p style="color:rgba(255,255,255,0.85);font-size:12px;margin:3px 0">📅 October 10, 2026 • 🕕 6:00 PM</p></div>'+
-                    '<div style="padding:20px"><div style="text-align:center;margin-bottom:15px;padding:10px;background:#f0fdf4;border-radius:10px"><span style="font-size:10px;color:#6b7280">BOOKING REFERENCE</span><br><span style="font-family:Courier New,monospace;font-size:16px;font-weight:700;color:#059669">'+ref+'</span></div>'+
-                    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:15px"><div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">NAME</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+name+'</span></div><div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">PHONE</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+phone+'</span></div><div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">TICKET</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+ticket+'</span></div><div style="background:#f9fafb;padding:10px;border-radius:8px"><span style="font-size:9px;color:#6b7280">QTY</span><br><span style="font-weight:600;color:#064e3b;font-size:13px">'+qty+'</span></div></div>'+
-                    '<div style="text-align:center;padding:15px 0;border-top:2px dashed #d1fae5;border-bottom:2px dashed #d1fae5;margin:15px 0"><p style="font-size:11px;color:#6b7280;margin-bottom:10px">📱 Scan at the gate</p><img src="'+qrUrl+'" alt="QR" style="width:140px;height:140px;border:3px solid #059669;border-radius:12px;padding:8px;background:white" crossorigin="anonymous"></div>'+
-                    '<div style="display:flex;justify-content:space-between;padding:10px;background:#ecfdf5;border-radius:10px"><span style="font-weight:600;color:#064e3b">Total Paid</span><span style="font-family:Courier New,monospace;font-size:18px;font-weight:700;color:#059669">KSH '+total.toLocaleString()+'</span></div>'+
-                    '<div style="text-align:center;padding:10px;background:#eff6ff;border-radius:10px;margin-top:10px;font-size:11px;color:#1e40af">📍 Mansango | Gates: 4PM | Show: 6PM<br>📞 0748 840 501 | 🏦 Till: 3626261</div><p style="text-align:center;font-size:9px;color:#9ca3af;margin-top:10px">Official CHING\'ENDE Ticket • Present at gate for entry</p></div></div>';
-            }
+        // ==================== TICKET DISPLAY ====================
+        function showTicketInline(ref,name,ticket,phone,email,qty,total){
+            const qrData=JSON.stringify({ref,name,ticket,phone,event:"CHINGENDE",date:"2026-10-10"});
+            const qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrData)}&color=059669&bgcolor=ffffff&margin=10`;
+            return `<div class="ticket-display" id="ticketPrint">
+                <div class="ticket-header"><div style="font-size:30px">🫘</div><h2>CHING'ENDE</h2><p style="font-size:12px">Album Launch • Mansango | Oct 10, 2026 • 6PM</p></div>
+                <div style="padding:10px"><div style="background:#f0fdf4;padding:8px;border-radius:8px;margin-bottom:10px"><span style="font-size:10px;color:#6b7280">REFERENCE</span><br><span style="font-family:Courier New,monospace;font-weight:700;color:#059669">${ref}</span></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;margin-bottom:10px"><div><span style="color:#6b7280">Name</span><br><strong>${name}</strong></div><div><span style="color:#6b7280">Phone</span><br><strong>${phone}</strong></div><div><span style="color:#6b7280">Ticket</span><br><strong>${ticket}</strong></div><div><span style="color:#6b7280">Qty</span><br><strong>${qty}</strong></div></div>
+                <div class="qr-box"><img src="${qrUrl}" width="140" height="140" alt="QR" style="display:block" crossorigin="anonymous"></div>
+                <p style="font-weight:700;color:#059669;font-size:1.1rem;margin-top:8px">Total: KSH ${total.toLocaleString()}</p>
+                <button class="btn-download-ticket" onclick="downloadTicket('${ref}')">📥 Download Ticket</button></div></div>`;
+        }
 
-            async function autoDownloadTicket(ref,name,ticket,phone,email,qty,total){
-                document.getElementById('ticketContent').innerHTML=generateTicketHTML(ref,name,ticket,phone,email,qty,total);
-                document.getElementById('ticketModal').classList.add('show');
-                setTimeout(async()=>{try{const el=document.getElementById('ticketPrint');const canvas=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',logging:false});const link=document.createElement('a');link.download='CHINGENDE-Ticket-'+ref+'.png';link.href=canvas.toDataURL('image/png');document.body.appendChild(link);link.click();document.body.removeChild(link);}catch(e){console.log('Download error:',e);}},1000);
-            }
+        window.downloadTicket=async function(ref){
+            const el=document.getElementById('ticketPrint');if(!el)return;
+            try{const c=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',logging:false});const a=document.createElement('a');a.download='CHINGENDE-Ticket-'+ref+'.png';a.href=c.toDataURL('image/png');document.body.appendChild(a);a.click();document.body.removeChild(a);}catch(e){}
+        };
 
-            function startPolling(ref,btn,msg,name,email,qty,total){
-                stopPolling();isPolling=true;pollTries=0;
-                pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+ref);const d=await r.json();
-                    if(d.isPaid||d.status==='paid'){stopPolling();msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Confirmed!</h3>'+(d.emailSent?'<p>📧 Ticket sent to <strong>'+email+'</strong></p>':'<p>🎫 Ticket ready!</p>')+'<div class="ref">'+ref+'</div><p>'+selName+' x'+qty+' = KSH '+total.toLocaleString()+'</p>';btn.style.display='none';autoDownloadTicket(ref,name,selName,phone,email,qty,total);return;}
-                    if(d.isFailed||d.status==='failed'){stopPolling();msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Payment Failed</h3><div class="ref">'+ref+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
-                    if(d.isCancelled||d.status==='cancelled'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>Cancelled</h3><div class="ref">'+ref+'</div><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
-                    if(d.isTimeout||d.status==='timeout'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⏳</div><h3>Timed Out</h3><div class="ref">'+ref+'</div><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;return;}
-                    if(pollTries>=MAX_POLLS){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⏳</div><h3>Still Waiting</h3><div class="ref">'+ref+'</div><p>If paid, ticket will be sent to <strong>'+email+'</strong></p><p>Till: <strong>3626261</strong></p>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
-                }catch(e){if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<h3>Connection Issue</h3><p>Till: <strong>3626261</strong></p>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}}},POLL_INTERVAL);
-            }
+        // ==================== CHECK DATABASE ====================
+        async function checkDB(ref,btn,msg,isDonation,name,email,qty,total){
+            try{
+                const res=await fetch(`${REST_URL}/bookings?booking_reference=eq.${ref}&select=*`,{headers:H});
+                const bookings=await res.json();
+                if(bookings&&bookings.length>0){const b=bookings[0];
+                    if(b.payment_status==='completed'||b.mpesa_status==='completed'||b.status==='paid'){stopPolling();
+                        if(isDonation){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante Goika Ebe Ebuse!</h3><p>Donation received! God bless you! 🫘</p>';}
+                        else{const ticketHTML=showTicketInline(ref,name||b.full_name,selName||b.ticket_type,b.phone||phone,b.email||email,qty||b.quantity,total||b.total_amount);msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">✅</div><h3>Payment Successful!</h3><p>You should receive an email with your ticket shortly.</p>'+ticketHTML;}
+                        btn.style.display='none';return true;}
+                    if(b.payment_status==='failed'||b.payment_status==='cancelled'){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<h3>Payment '+(b.payment_status==='cancelled'?'Cancelled':'Failed')+'</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="location.reload()">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='📱 Pay Now';return true;}}
+                return false;
+            }catch(e){return false;}
+        }
 
-            async function handleSubmit(btn,msg,name,phone,email,qty,total){
-                if(!selName){alert('Select a ticket!');return;}if(!name||!phone||!email){alert('Fill all fields!');return;}
-                stopPolling();btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending M-PESA prompt...</h3>';
-                try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount:total,name,email,ticketType:selName,quantity:qty,pricePerTicket:selPrice})});const data=await res.json();currentRef=data.reference||('CHG-'+Date.now().toString(36).toUpperCase());
-                    if(data.success===true){msg.innerHTML='<h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN to complete payment</p><div class="ref">'+currentRef+'</div><p>Amount: <strong>KSH '+total.toLocaleString()+'</strong></p>';btn.innerHTML='⏳ Waiting for payment...';startPolling(currentRef,btn,msg,name,email,qty,total);}
-                    else{msg.className='msg-box show warn';msg.innerHTML='<div style="font-size:2rem;">⚠️</div><h3>STK Push Failed</h3><p>'+(data.message||'Try again')+'</p><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
-                }catch(e){msg.className='msg-box show err';msg.innerHTML='<div style="font-size:2rem;">❌</div><h3>Error</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.innerHTML='📱 Pay Now via M-PESA';btn.disabled=false;}
-            }
+        function startPoll(ref,btn,msg,isDonation,name,email,qty,total){isPolling=true;pollTries=0;checkDB(ref,btn,msg,isDonation,name,email,qty,total);pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;const done=await checkDB(ref,btn,msg,isDonation,name,email,qty,total);if(!done&&pollTries>=MAX_POLLS){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<h3>Still Waiting...</h3><p>If you paid, ticket will be sent to email.</p><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="location.reload()">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='📱 Pay Now';}},POLL_INTERVAL);}
 
-            document.getElementById('bookingForm').addEventListener('submit',function(e){e.preventDefault();handleSubmit(document.getElementById('payBtn'),document.getElementById('msgBox'),document.getElementById('bName').value.trim(),document.getElementById('bPhone').value.trim(),document.getElementById('bEmail').value.trim(),parseInt(document.getElementById('bQty').value),selPrice*parseInt(document.getElementById('bQty').value));});
-            document.getElementById('waPayBtn').addEventListener('click',function(){const n=document.getElementById('bName').value.trim(),p=document.getElementById('bPhone').value.trim(),em=document.getElementById('bEmail').value.trim(),q=parseInt(document.getElementById('bQty').value),t=selPrice*q;window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(em)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');});
-            document.getElementById('bookingForm2').addEventListener('submit',function(e){e.preventDefault();handleSubmit(document.getElementById('payBtn2'),document.getElementById('msgBox2'),document.getElementById('bName2').value.trim(),document.getElementById('bPhone2').value.trim(),document.getElementById('bEmail2').value.trim(),parseInt(document.getElementById('bQty2').value),selPrice*parseInt(document.getElementById('bQty2').value));});
-            document.getElementById('waPayBtn2').addEventListener('click',function(){const n=document.getElementById('bName2').value.trim(),p=document.getElementById('bPhone2').value.trim(),em=document.getElementById('bEmail2').value.trim(),q=parseInt(document.getElementById('bQty2').value),t=selPrice*q;window.open('https://wa.me/254748840501?text=*CHING%27ENDE*%0A👤%20'+encodeURIComponent(n)+'%0A📱%20'+encodeURIComponent(p)+'%0A📧%20'+encodeURIComponent(em)+'%0A🎟%20'+encodeURIComponent(selName)+'%20x'+q+'%0A💰%20KSH%20'+t.toLocaleString()+'%0A%0APay%20Till:%203626261','_blank');});
-            
-            // DONATION
-            document.getElementById('donateForm').addEventListener('submit',async function(e){
-                e.preventDefault();const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');
-                const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);
-                if(!phone||amount<10){alert('Phone & min KSH 10!');return;}
-                btn.disabled=true;btn.innerHTML='<span class="spinner"></span>...';msg.className='msg-box show info';msg.innerHTML='<div class="spinner"></div><h3>⏳ Sending...</h3>';
-                try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());
-                    if(data.success===true){msg.innerHTML='<div class="spinner"></div><h3>📱 Check Phone</h3><div class="ref">'+currentRef+'</div><p>KSH '+amount.toLocaleString()+'</p>';isPolling=true;pollTries=0;pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{const r=await fetch(STATUS_URL+'?ref='+currentRef);const d=await r.json();
-                        if(d.isPaid){stopPolling();msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante Goika Ebe Ebuse!</h3><p>KSH '+amount.toLocaleString()+' received! God bless you abundantly! 🫘</p>';btn.style.display='none';}
-                        if(d.isFailed||d.status==='cancelled'||d.isTimeout){stopPolling();msg.className='msg-box show warn';msg.innerHTML='<h3>Not Completed</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="resetForm(btn,msg)">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}
-                    }catch(e){}if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<p>Till: <strong>3626261</strong></p>';btn.disabled=false;btn.innerHTML='💛 Donate Now';}},POLL_INTERVAL);}
-                    else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante Goika Ebe Ebuse!</h3><p>Till: 3626261 (Caleb Sangara)</p>';btn.style.display='none';}
-                }catch(e){msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Asante Goika Ebe Ebuse!</h3><p>Till: 3626261</p>';btn.style.display='none';}
-            });
+        async function handleBooking(btn,msg,name,phone,email,qty,total){
+            if(!selName){alert('Select a ticket!');return;}if(!name||!phone||!email){alert('Fill all fields!');return;}
+            stopPolling();btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending...';msg.className='msg-box show info';msg.innerHTML='<span class="spinner"></span> Sending M-PESA prompt...';
+            try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount:total,name,email,ticketType:selName,quantity:qty,pricePerTicket:selPrice})});const data=await res.json();currentRef=data.reference||('CHG-'+Date.now().toString(36).toUpperCase());
+                if(data.success){msg.innerHTML='<h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN for <strong>KSH '+total.toLocaleString()+'</strong></p><div class="ref">'+currentRef+'</div>';btn.innerHTML='⏳ Waiting...';startPoll(currentRef,btn,msg,false,name,email,qty,total);}
+                else{msg.className='msg-box show warn';msg.innerHTML='<h3>STK Push Failed</h3><p>'+(data.message||'Try again')+'</p><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="location.reload()">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='📱 Pay Now';}
+            }catch(e){msg.className='msg-box show err';msg.innerHTML='<h3>Connection Error</h3><p>Till: <strong>3626261</strong></p><button class="btn-retry" onclick="location.reload()">🔄 Try Again</button>';btn.disabled=false;btn.innerHTML='📱 Pay Now';}
+        }
 
-            document.getElementById('closeTicketModal').addEventListener('click',()=>document.getElementById('ticketModal').classList.remove('show'));
-            document.getElementById('ticketModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
+        document.getElementById('bookingForm').addEventListener('submit',function(e){e.preventDefault();handleBooking(document.getElementById('payBtn'),document.getElementById('msgBox'),document.getElementById('bName').value.trim(),document.getElementById('bPhone').value.trim(),document.getElementById('bEmail').value.trim(),parseInt(document.getElementById('bQty').value),selPrice*parseInt(document.getElementById('bQty').value));});
+        document.getElementById('bookingForm2').addEventListener('submit',function(e){e.preventDefault();handleBooking(document.getElementById('payBtn2'),document.getElementById('msgBox2'),document.getElementById('bName2').value.trim(),document.getElementById('bPhone2').value.trim(),document.getElementById('bEmail2').value.trim(),parseInt(document.getElementById('bQty2').value),selPrice*parseInt(document.getElementById('bQty2').value));});
+        document.getElementById('mdogoPayBtnForm').addEventListener('click',()=>goTo('mdogo'));document.getElementById('mdogoPayBtnForm2').addEventListener('click',()=>goTo('mdogo'));
 
-            updateSummary();updateSummary2();
-            console.log('🫘 CHING\'ENDE Ready!');
+        // DONATION
+        document.getElementById('donateForm').addEventListener('submit',async function(e){e.preventDefault();const btn=document.getElementById('donateBtn'),msg=document.getElementById('donateMsg');const phone=document.getElementById('dPhone').value.trim(),amount=parseInt(document.getElementById('dAmount').value);if(!phone||amount<10){alert('Phone & min KSH 10!');return;}stopPolling();btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Sending...';msg.className='msg-box show info';msg.innerHTML='<span class="spinner"></span> Sending...';try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:fmtPhone(phone),amount,isDonation:true})});const data=await res.json();currentRef=data.reference||('DON-'+Date.now().toString(36).toUpperCase());if(data.success){msg.innerHTML='<h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN for <strong>KSH '+amount.toLocaleString()+'</strong></p><div class="ref">'+currentRef+'</div>';btn.innerHTML='⏳ Waiting...';startPoll(currentRef,btn,msg,true);}else{msg.className='msg-box show love';msg.innerHTML='<div style="font-size:3rem;">💛</div><h3>Till: 3626261</h3><p>Caleb Sangara</p>';btn.style.display='none';}}catch(e){msg.className='msg-box show love';msg.innerHTML='<h3>Till: 3626261</h3>';btn.style.display='none';}});
+
+        // PATA TIKETI
+        document.getElementById('mdogoLoginBtn').addEventListener('click',async function(){const phone=document.getElementById('mdogoPhone').value.trim();if(!phone){alert('Enter phone!');return;}const fPhone=fmtPhone(phone);const msg=document.getElementById('mdogoLoginMsg');msg.className='msg-box show info';msg.innerHTML='<span class="spinner"></span> Checking...';try{const res=await fetch(`${REST_URL}/lipa_mdogo_accounts?phone=eq.${fPhone}&select=*`,{headers:H});const accounts=await res.json();if(accounts&&accounts.length>0){mdogoAccount=accounts[0];if(mdogoAccount.target_ticket){loadMdogoDashboard();}else{document.getElementById('mdogoLogin').classList.add('hidden');document.getElementById('mdogoChoose').classList.remove('hidden');}}else{mdogoAccount={phone:fPhone};document.getElementById('mdogoLogin').classList.add('hidden');document.getElementById('mdogoRegister').classList.remove('hidden');}}catch(e){msg.className='msg-box show err';msg.innerHTML='Connection error';}});
+        document.getElementById('mdogoRegisterBtn').addEventListener('click',async function(){const name=document.getElementById('mdogoFullName').value.trim(),email=document.getElementById('mdogoEmail').value.trim();if(!name||!email){alert('Fill all fields!');return;}const an='LMM-'+Date.now().toString(36).toUpperCase();try{const res=await fetch(`${REST_URL}/lipa_mdogo_accounts`,{method:'POST',headers:H,body:JSON.stringify({account_number:an,phone:mdogoAccount.phone,full_name:name,email:email,status:'active',target_amount:0,total_paid:0})});const created=await res.json();mdogoAccount=Array.isArray(created)?created[0]:created;document.getElementById('mdogoRegister').classList.add('hidden');document.getElementById('mdogoChoose').classList.remove('hidden');}catch(e){}});
+        document.getElementById('mdogoTicket').addEventListener('change',function(){document.getElementById('mdogoTargetDisplay').textContent='KSH '+parseInt(this.value.split('|')[1]).toLocaleString();});
+        document.getElementById('mdogoCreateBtn').addEventListener('click',async function(){if(!mdogoAccount||!mdogoAccount.account_number)return;const v=document.getElementById('mdogoTicket').value;const[n,p]=v.split('|');await fetch(`${REST_URL}/lipa_mdogo_accounts?account_number=eq.${mdogoAccount.account_number}`,{method:'PATCH',headers:H,body:JSON.stringify({target_ticket:n,target_amount:parseInt(p),total_paid:0})});mdogoAccount.target_ticket=n;mdogoAccount.target_amount=parseInt(p);mdogoAccount.total_paid=0;document.getElementById('mdogoChoose').classList.add('hidden');loadMdogoDashboard();});
+
+        // LMM PAY
+        document.getElementById('mdogoPayBtn').addEventListener('click',async function(){
+            const amount=parseInt(document.getElementById('mdogoPayAmount').value)||50;const msg=document.getElementById('mdogoPayMsg');if(!mdogoAccount||!mdogoAccount.phone)return;
+            stopPolling();msg.className='msg-box show info';msg.innerHTML='<span class="spinner"></span> Sending STK Push...';
+            try{const res=await fetch(STKPUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:mdogoAccount.phone,amount:amount,name:mdogoAccount.full_name||'Customer',email:mdogoAccount.email||'',ticketType:mdogoAccount.target_ticket||'Regular',quantity:1,pricePerTicket:amount})});const data=await res.json();
+                if(data.success){const txnId=data.checkoutRequestId||data.transactionId||('TXN-'+Date.now());const balanceBefore=mdogoAccount.total_paid||0;
+                    try{await fetch(`${REST_URL}/lipa_mdogo_payments`,{method:'POST',headers:H,body:JSON.stringify({account_id:mdogoAccount.id,account_number:mdogoAccount.account_number,phone:mdogoAccount.phone.startsWith('254')?mdogoAccount.phone:'254'+mdogoAccount.phone.replace(/^0+/,''),amount_paid:amount,transaction_id:txnId,balance_before:balanceBefore,balance_after:balanceBefore+amount,status:'pending',mpesa_status:'pending'})});}catch(e){}
+                    msg.innerHTML='<h3>📱 Check Your Phone!</h3><p>Enter M-PESA PIN for <strong>KSH '+amount.toLocaleString()+'</strong></p>';isPolling=true;pollTries=0;
+                    pollTimer=setInterval(async()=>{if(!isPolling)return;pollTries++;try{
+                        const payRes=await fetch(`${REST_URL}/lipa_mdogo_payments?account_number=eq.${mdogoAccount.account_number}&order=created_at.desc&limit=1`,{headers:H});const payments=await payRes.json();
+                        if(payments&&payments.length>0){const last=payments[0];
+                            if((last.status==='paid'||last.mpesa_status==='completed')&&last.balance_before===balanceBefore){stopPolling();
+                                // Check if target reached
+                                const accRes=await fetch(`${REST_URL}/lipa_mdogo_accounts?account_number=eq.${mdogoAccount.account_number}&select=*`,{headers:H});const accounts=await accRes.json();
+                                if(accounts&&accounts.length>0&&accounts[0].status==='completed'){msg.className='msg-box show ok';msg.innerHTML='<div style="font-size:3rem;">🎉</div><h3>Payment Received! Target Reached!</h3><p>Your ticket has been sent to your email.</p>';setTimeout(()=>loadMdogoDashboard(),1500);}
+                                else{msg.className='msg-box show ok';msg.innerHTML='✅ Payment of KSH '+amount.toLocaleString()+' received!<br><p style="margin-top:0.5rem">Keep going! You\'re getting closer to your target.</p>';setTimeout(()=>loadMdogoDashboard(),1000);}
+                                return;}
+                            if(last.status==='failed'||last.status==='cancelled'){stopPolling();msg.innerHTML='<p>Payment '+last.status+'</p><p>Till: <strong>3626261</strong></p>';return;}}
+                        if(pollTries>=MAX_POLLS){stopPolling();msg.innerHTML='<p>Payment being processed. Balance will update shortly.</p><p>Till: <strong>3626261</strong></p>';}
+                    }catch(e){if(pollTries>=MAX_POLLS)stopPolling();}},POLL_INTERVAL);
+                }else{msg.className='msg-box show err';msg.innerHTML='❌ '+(data.message||'Failed');}
+            }catch(e){msg.className='msg-box show err';msg.innerHTML='❌ Connection error';}
         });
+
+        document.getElementById('mdogoLogoutBtn').addEventListener('click',function(){mdogoAccount=null;stopPolling();document.getElementById('mdogoDashboard').classList.add('hidden');document.getElementById('mdogoLogin').classList.remove('hidden');sessionStorage.removeItem('chingende_page');});
+        async function loadMdogoDashboard(){if(!mdogoAccount||!mdogoAccount.account_number)return;document.getElementById('mdogoLogin').classList.add('hidden');document.getElementById('mdogoRegister').classList.add('hidden');document.getElementById('mdogoChoose').classList.add('hidden');document.getElementById('mdogoDashboard').classList.remove('hidden');try{const accRes=await fetch(`${REST_URL}/lipa_mdogo_accounts?account_number=eq.${mdogoAccount.account_number}&select=*`,{headers:H});const accounts=await accRes.json();if(!accounts||!accounts.length)return;const a=accounts[0];mdogoAccount=a;document.getElementById('mdogoDispName').textContent=a.full_name||'User';document.getElementById('mdogoDispPhone').textContent=a.phone||'-';document.getElementById('mdogoDispEmail').textContent=a.email||'-';const rem=Math.max(0,(a.remaining_balance||0));const pct=a.target_amount>0?Math.min(100,Math.round(((a.total_paid||0)/(a.target_amount||1))*100)):0;document.getElementById('mdogoRemaining').textContent='KSH '+rem.toLocaleString();document.getElementById('mdogoTotalPaid').textContent=(a.total_paid||0).toLocaleString();document.getElementById('mdogoTarget').textContent=(a.target_amount||0).toLocaleString();document.getElementById('mdogoProgressFill').style.width=pct+'%';document.getElementById('mdogoPercent').textContent=pct+'%';const payRes=await fetch(`${REST_URL}/lipa_mdogo_payments?account_number=eq.${a.account_number}&order=created_at.desc&limit=50`,{headers:H});if(payRes.ok){const payments=await payRes.json();if(payments&&payments.length>0){document.getElementById('mdogoHistory').innerHTML=payments.map(p=>`<div class="payment-row"><div><div style="font-weight:600">+KSH ${(p.amount_paid||0).toLocaleString()}</div><div style="font-size:0.75rem;color:#6b7280">${new Date(p.created_at).toLocaleString()}</div></div><div><span class="badge ${p.status==='paid'?'paid':p.status==='failed'?'failed':'pending'}">${p.status||'pending'}</span></div></div>`).join('');}}if(a.status==='completed'){document.getElementById('mdogoTicketReady').classList.remove('hidden');}}catch(e){console.error(e);}}
+        updateS();updateS2();document.getElementById('mdogoTicket').dispatchEvent(new Event('change'));
+        console.log('🫘 CHING\'ENDE Ready! | Felix Nyabuto 0716 625 790');
     </script>
 </body>
 </html>
