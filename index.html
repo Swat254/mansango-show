@@ -47,48 +47,84 @@
         .sum-box{background:var(--bg);border-radius:14px;padding:1rem;margin-bottom:1rem;border:2px solid var(--b)}
         .s-row{display:flex;justify-content:space-between;padding:0.2rem 0;font-size:0.85rem}
         .s-row.bold{border-top:1px solid var(--b);margin-top:0.3rem;padding-top:0.5rem;font-weight:700;color:var(--p);font-size:1rem;font-family:var(--m)}
+        .btn-paystack{width:100%;padding:0.9rem;background:#0c4a6e;color:white;border:none;border-radius:14px;font-weight:600;font-size:1rem;cursor:pointer;margin:0.3rem 0;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;transition:0.3s}
+        .btn-paystack:hover{background:#083344}
+        .btn-paystack:disabled{background:#64748b;cursor:not-allowed;opacity:0.7}
         .btn-wa-pay{width:100%;padding:0.9rem;background:#25D366;color:white;border:none;border-radius:14px;font-weight:600;font-size:1rem;cursor:pointer;margin:0.3rem 0;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem}
         .btn-wa-pay:hover{background:#1da851}
         .msg-box{display:none;padding:1rem;border-radius:14px;margin-top:1rem;text-align:center}
-        .msg-box.show{display:block}.msg-box.ok{background:#ecfdf5;border:2px solid #6ee7b7}.msg-box.err{background:#fef2f2;border:2px solid #fca5a5}
-        .hidden{display:none!important}
+        .msg-box.show{display:block}.msg-box.ok{background:#ecfdf5;border:2px solid #6ee7b7}.msg-box.err{background:#fef2f2;border:2px solid #fca5a5}.msg-box.info{background:#eff6ff;border:2px solid #93c5fd}.msg-box.pending{background:#fffbeb;border:2px solid #fcd34d}.msg-box.warn{background:#fffbeb;border:2px solid #fcd34d}
         .till-box{background:#fef3c7;padding:1rem;border-radius:12px;border:2px solid #f59e0b;text-align:center;margin:1rem 0}
         .till-box .big{font-family:var(--m);font-size:2rem;font-weight:800;color:#d97706}
+        .loading-spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-right:8px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .success-animation{font-size:4rem;animation:pop 0.5s ease}
+        @keyframes pop{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+        .payment-options{display:flex;flex-direction:column;gap:0.5rem;margin:0.5rem 0}
+        .payment-options .or{text-align:center;color:#6b7280;font-size:0.8rem;margin:0.2rem 0;position:relative}
+        .payment-options .or::before,.payment-options .or::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:var(--b)}
+        .payment-options .or::before{left:0}.payment-options .or::after{right:0}
         footer{text-align:center;padding:1.5rem;background:white;border-top:2px solid var(--b);font-size:0.8rem;color:#6b7280}
         .dev-section{text-align:center;padding:1.5rem;background:#064e3b;color:white;font-size:0.85rem}
         .dev-section a{color:#34d399;text-decoration:none;font-weight:600}
         .dev-section .wa-btn{display:inline-flex;align-items:center;gap:0.3rem;background:#25D366;color:white;padding:0.5rem 1.2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.85rem;margin:0.5rem}
         
-        /* Mobile Responsive */
+        /* Paystack Loading Overlay - HIDDEN */
+        .paystack-overlay {
+            display: none !important;
+        }
+        
+        /* Hide any Paystack loading indicators */
+        .paystack-loading,
+        .paystack-loader,
+        .paystack-spinner {
+            display: none !important;
+        }
+
+        /* Custom loading overlay */
+        .custom-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+        }
+        .custom-loading.active {
+            display: flex;
+        }
+        .custom-loading .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #d1fae5;
+            border-top-color: #059669;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .custom-loading p {
+            margin-top: 20px;
+            color: #064e3b;
+            font-weight: 600;
+            font-family: var(--m);
+        }
+
         @media(max-width:1024px){.pricing{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){
-            .hero h1{font-size:1.8rem}
-            .nav-links{display:none}
-            .pricing{grid-template-columns:1fr 1fr;gap:0.8rem}
-            .pcard{min-height:240px;padding:1rem 0.8rem}
-            .pcard .ticket-icon{font-size:2.2rem}
-            .pcard h3{font-size:0.9rem}
-            .pcard .price{font-size:1.3rem}
-            .pcard ul{font-size:0.7rem}
-            .pcard ul li{padding:0.2rem 0}
-            .pcard .btn-pick{font-size:0.75rem;padding:0.5rem}
-            .form-card{padding:1.2rem;margin:0 0.5rem}
-            .till-box .big{font-size:1.5rem}
-            .btn-wa-pay{font-size:0.85rem;padding:0.7rem}
-        }
-        @media(max-width:480px){
-            .pricing{grid-template-columns:1fr 1fr;gap:0.5rem}
-            .pcard{min-height:200px;padding:0.8rem 0.5rem}
-            .pcard .ticket-icon{font-size:1.8rem}
-            .pcard h3{font-size:0.8rem}
-            .pcard .price{font-size:1.1rem}
-            .pcard ul{font-size:0.65rem;padding-left:0.3rem}
-            .pcard ul li{padding:0.15rem 0}
-            .pcard .btn-pick{font-size:0.65rem;padding:0.4rem}
-        }
+        @media(max-width:768px){.hero h1{font-size:1.8rem}.nav-links{display:none}.pricing{grid-template-columns:1fr 1fr;gap:0.8rem}.pcard{min-height:240px;padding:1rem 0.8rem}.pcard .ticket-icon{font-size:2.2rem}.pcard h3{font-size:0.9rem}.pcard .price{font-size:1.3rem}.pcard ul{font-size:0.7rem}.pcard ul li{padding:0.2rem 0}.pcard .btn-pick{font-size:0.75rem;padding:0.5rem}.form-card{padding:1.2rem;margin:0 0.5rem}}
+        @media(max-width:480px){.pricing{grid-template-columns:1fr 1fr;gap:0.5rem}.pcard{min-height:200px;padding:0.8rem 0.5rem}.pcard .ticket-icon{font-size:1.8rem}.pcard h3{font-size:0.8rem}.pcard .price{font-size:1.1rem}.pcard ul{font-size:0.65rem;padding-left:0.3rem}.pcard ul li{padding:0.15rem 0}.pcard .btn-pick{font-size:0.65rem;padding:0.4rem}}
     </style>
 </head>
 <body>
+    <!-- Custom Loading Overlay -->
+    <div class="custom-loading" id="customLoading">
+        <div class="spinner"></div>
+        <p>Processing your payment...</p>
+    </div>
+
     <nav>
         <a href="/" class="logo"><img src="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/Untitled%20folder/sano.jpg" alt="CHING'ENDE" class="logo-icon"><span class="logo-text">CHING'ENDE LAUNCH</span></a>
         <ul class="nav-links"><li><a class="nav-link on" data-page="home">Home</a></li><li><a class="nav-link" data-page="book">Book Now</a></li><li><a class="nav-link" data-page="donate">💛 Donate</a></li><li><a class="nav-link" data-page="about">About</a></li><li><a class="nav-link" data-page="contact">Contact</a></li></ul>
@@ -104,27 +140,42 @@
         <div class="section-title"><h2>🎫 Choose Your Ticket</h2></div>
         <div class="pricing">
             <div class="pcard" data-ticket="Regular" data-price="1000"><div><div class="ticket-icon">🎫</div><h3>Regular</h3><div class="price">KSH 1,000</div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li></ul></div><button class="btn-pick">Select</button></div>
-            
             <div class="pcard" data-ticket="VIP" data-price="2000"><div><div class="ticket-icon">👑</div><h3>VIP</h3><div class="price">KSH 2,000</div><ul><li>VIP Entrance</li><li>Premium Seating</li><li>Priority Access</li></ul></div><button class="btn-pick">Select</button></div>
-            
             <div class="pcard" data-ticket="VVIP" data-price="5000"><div><div class="ticket-icon">💎</div><h3>VVIP</h3><div class="price">KSH 5,000</div><ul><li>VVIP Entrance</li><li>Front Row Seating</li><li>Meet & Greet</li><li>Priority Access</li></ul></div><button class="btn-pick">Select</button></div>
-            
             <div class="pcard" data-ticket="VIP Group (5 People)" data-price="9000"><div><div class="ticket-icon">👥</div><h3>VIP Group</h3><div class="price">KSH 9,000</div><ul><li>5 VIP Tickets</li><li>Group Seating</li><li>Save KSH 1,000</li></ul></div><button class="btn-pick">Select</button></div>
         </div>
-        <div id="bookingFormSection" style="display:none;max-width:500px;margin:0 auto;"><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">📝 Complete Booking</h3><form id="bookingForm"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" required></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail" required></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
-            <div class="till-box"><p style="font-size:0.8rem;color:#92400e">💳 Pay via M-PESA Till</p><div class="big">4674059</div><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
-            <button type="submit" class="btn-wa-pay">💬 Pay via WhatsApp</button>
+        <div id="bookingFormSection" style="display:none;max-width:500px;margin:0 auto;"><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">📝 Complete Booking</h3><form id="bookingForm"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" required placeholder="Enter your full name"></div><div class="f-group"><label>📱 Phone Number</label><input type="tel" id="bPhone" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email Address</label><input type="email" id="bEmail" required placeholder="your@email.com"></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
+            
+            <div class="payment-options">
+                <button type="button" class="btn-paystack" id="payBtn">💳 Pay Now</button>
+                <div class="or">OR</div>
+                <button type="button" class="btn-wa-pay" id="waPayBtn">💬 Pay via M-PESA Till</button>
+            </div>
+            
+            <div class="till-box" style="margin-top:0.5rem;"><p style="font-size:0.8rem;color:#92400e">💳 M-PESA Till: <strong>4674059</strong></p><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
         </form><div class="msg-box" id="msgBox"></div></div></div>
     </div></div></section>
 
-    <section class="section" id="page-book"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">Reserve Your Spot</h2></div><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">🎫 Ticket Reservation</h3><form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" required></div><div class="f-group"><label>📱 Phone</label><input type="tel" id="bPhone2" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail2" required></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty2" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div>
-        <div class="till-box"><p style="font-size:0.8rem;color:#92400e">💳 Pay via M-PESA Till</p><div class="big">4674059</div><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
-        <button type="submit" class="btn-wa-pay">💬 Pay via WhatsApp</button>
+    <section class="section" id="page-book"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">Reserve Your Spot</h2></div><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">🎫 Ticket Reservation</h3><form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" required placeholder="Enter your full name"></div><div class="f-group"><label>📱 Phone Number</label><input type="tel" id="bPhone2" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email Address</label><input type="email" id="bEmail2" required placeholder="your@email.com"></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty2" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div>
+        
+        <div class="payment-options">
+            <button type="button" class="btn-paystack" id="payBtn2">💳 Pay Now</button>
+            <div class="or">OR</div>
+            <button type="button" class="btn-wa-pay" id="waPayBtn2">💬 Pay via M-PESA Till</button>
+        </div>
+        
+        <div class="till-box" style="margin-top:0.5rem;"><p style="font-size:0.8rem;color:#92400e">💳 M-PESA Till: <strong>4674059</strong></p><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
     </form><div class="msg-box" id="msgBox2"></div></div></section>
 
-    <section class="section" id="page-donate"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">💛 Donate</h2></div><div class="form-card"><h3>💛 Make a Donation</h3><form id="donateForm"><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" required placeholder="0712 345 678"></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div>
+    <section class="section" id="page-donate"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">💛 Donate</h2></div><div class="form-card"><h3>💛 Make a Donation</h3><form id="donateForm"><div class="f-group"><label>👤 Full Name</label><input type="text" id="dName" required placeholder="Enter your full name"></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email</label><input type="email" id="dEmail" required placeholder="your@email.com"></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div>
+        
+        <div class="payment-options">
+            <button type="button" class="btn-paystack" id="donatePayBtn">💛 Donate with Paystack</button>
+            <div class="or">OR</div>
+            <button type="button" class="btn-wa-pay" id="donateWaBtn">💬 Donate via M-PESA Till</button>
+        </div>
+        
         <div class="till-box"><p style="font-size:0.8rem;color:#92400e">💳 Donate via M-PESA Till</p><div class="big">4674059</div><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
-        <a href="https://wa.me/254748840501?text=Hello%20CHING'ENDE%20Team,%20I%20want%20to%20donate%20KSH%20[amount]" target="_blank" class="btn-wa-pay" style="text-decoration:none;">💬 Donate via WhatsApp</a>
     </form><div class="msg-box" id="donateMsg"></div></div></section>
 
     <section class="section" id="page-about"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">About</h2></div><div style="max-width:900px;margin:2rem auto;padding:0 1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem"><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b)"><div style="font-size:3rem;">🎯</div><h3>Mission</h3><p>Unforgettable experiences.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b)"><div style="font-size:3rem;">👁️</div><h3>Vision</h3><p>Kenya's most sought-after event.</p></div><div style="background:white;padding:2rem;border-radius:16px;text-align:center;border:2px solid var(--b)"><div style="font-size:3rem;">📅</div><h3>Big Night</h3><p>Oct 10, 2026. Gates 6PM.</p></div></div></section>
@@ -140,7 +191,37 @@
     </div>
     <footer><p>🫘 CHING'ENDE LAUNCH • Oct 10, 2026 • 💬 0748 840 501 • 🏦 Till: 4674059</p></footer>
 
+    <!-- ==================== PAYSTACK V2 SDK ==================== -->
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+    
     <script>
+        // ==================== CONFIGURATION ====================
+        const PAYSTACK_PUBLIC_KEY = 'pk_live_d6b855fdc0f696978818694e852e3fc5f4a1617b';
+        const SUPABASE_FUNCTION_URL = 'https://zxforhokpsiqkceesalk.supabase.co/functions/v1/paystack';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm9yaG9rcHNpcWtjZWVzYWxrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MTYxMjksImV4cCI6MjA5NTM5MjEyOX0.-circeJO1eayDkn3jHDC53oBxoRgDLmr5Uk2XBPYglA';
+
+        // ==================== CHECK PAYSTACK V2 ====================
+        function isPaystackLoaded() {
+            return typeof PaystackPop === 'function';
+        }
+
+        if (isPaystackLoaded()) {
+            console.log('✅ Paystack V2 SDK loaded successfully');
+        } else {
+            console.error('❌ Paystack V2 SDK failed to load');
+        }
+
+        // ==================== CUSTOM LOADING OVERLAY ====================
+        function showLoading(message) {
+            const overlay = document.getElementById('customLoading');
+            overlay.querySelector('p').textContent = message || 'Processing your payment...';
+            overlay.classList.add('active');
+        }
+
+        function hideLoading() {
+            document.getElementById('customLoading').classList.remove('active');
+        }
+
         // ==================== NAVIGATION ====================
         function goTo(p){sessionStorage.setItem('chingende_page',p);document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('on'));const sec=document.getElementById('page-'+p);if(sec)sec.classList.add('active');document.querySelectorAll('.nav-link[data-page="'+p+'"]').forEach(l=>l.classList.add('on'));window.scrollTo({top:0,behavior:'smooth'});}
         const savedPage=sessionStorage.getItem('chingende_page');if(savedPage&&savedPage!=='home'){setTimeout(()=>goTo(savedPage),200);}
@@ -195,7 +276,7 @@
             document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');
         },1000);
 
-        // ==================== WHATSAPP PAYMENT ====================
+        // ==================== WHATSAPP PAYMENT (M-PESA) ====================
         function sendToWhatsApp(name, phone, email, ticket, qty, total, msgBox) {
             const till = '4674059';
             const tillName = 'MANSANGO ENTERTAINMENT';
@@ -247,8 +328,456 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
             window.open(waUrl, '_blank');
         }
 
+        // ==================== PAYSTACK PAYMENT (Tickets) - HIDDEN LOADING ====================
+        async function processPaystackPayment(name, phone, email, ticket, qty, total, msgBox, payBtn) {
+            if (payBtn) {
+                payBtn.disabled = true;
+                payBtn.innerHTML = '<span class="loading-spinner"></span> Processing...';
+            }
+            
+            // Show custom loading overlay
+            showLoading('Initializing payment...');
+            
+            msgBox.className = 'msg-box show info';
+            msgBox.innerHTML = '<span class="loading-spinner"></span> Initializing payment...';
+
+            try {
+                if (!isPaystackLoaded()) {
+                    throw new Error('Paystack V2 SDK not loaded. Please refresh the page.');
+                }
+
+                // 1. Initialize payment via Supabase Edge Function
+                const response = await fetch(`${SUPABASE_FUNCTION_URL}/initialize`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        amount: total,
+                        name: name,
+                        phone: phone,
+                        ticketType: ticket,
+                        quantity: qty
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.error || 'Payment initialization failed');
+                }
+
+                // Hide loading before opening popup
+                hideLoading();
+
+                // 2. Open Paystack popup - HIDDEN LOADING
+                const popup = new PaystackPop();
+                
+                const paystackConfig = {
+                    key: PAYSTACK_PUBLIC_KEY,
+                    reference: data.reference,
+                    email: email,
+                    amount: total * 100,
+                    phone: phone,
+                    currency: 'KES',
+                    firstName: name,
+                    // Hide loading indicators
+                    hideLoading: true,
+                    // Custom loading message
+                    loadingMessage: 'Please wait...',
+                    // Close popup automatically on success
+                    closeOnSuccess: true,
+                    // Custom colors
+                    color: '#059669',
+                    metadata: {
+                        custom_fields: [
+                            {
+                                display_name: "Full Name",
+                                variable_name: "full_name",
+                                value: name
+                            },
+                            {
+                                display_name: "Phone Number",
+                                variable_name: "phone_number",
+                                value: phone
+                            },
+                            {
+                                display_name: "Ticket Type",
+                                variable_name: "ticket_type",
+                                value: ticket
+                            },
+                            {
+                                display_name: "Quantity",
+                                variable_name: "quantity",
+                                value: qty.toString()
+                            }
+                        ]
+                    },
+                    onSuccess: async function(transaction) {
+                        // Show loading while verifying
+                        showLoading('Verifying payment...');
+                        
+                        try {
+                            const verifyRes = await fetch(`${SUPABASE_FUNCTION_URL}/verify?reference=${transaction.reference}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                                }
+                            });
+                            const verifyData = await verifyRes.json();
+
+                            hideLoading();
+
+                            if (verifyData.success && verifyData.status === 'completed') {
+                                msgBox.className = 'msg-box show ok';
+                                msgBox.innerHTML = `
+                                    <div class="success-animation">🎉</div>
+                                    <h3 style="color:#059669;">Payment Successful!</h3>
+                                    <p>Your ticket has been confirmed.</p>
+                                    <div style="background:#f0fdf4;padding:15px;border-radius:10px;margin:10px 0;text-align:left;">
+                                        <p style="margin:3px 0;"><strong>📌 Reference:</strong> ${transaction.reference}</p>
+                                        <p style="margin:3px 0;"><strong>🎟️ Ticket:</strong> ${ticket}</p>
+                                        <p style="margin:3px 0;"><strong>💰 Amount:</strong> KSH ${total.toLocaleString()}</p>
+                                        <p style="margin:3px 0;"><strong>📧 Email:</strong> ${email}</p>
+                                    </div>
+                                    <p style="font-size:0.85rem;color:#6b7280;">
+                                        A confirmation email with your ticket has been sent to ${email}
+                                    </p>
+                                    <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                                        ✅ Done
+                                    </button>
+                                `;
+                                
+                                sendWhatsAppConfirmation(name, phone, email, ticket, qty, total, transaction.reference);
+                            } else {
+                                msgBox.className = 'msg-box show err';
+                                msgBox.innerHTML = `
+                                    <div style="font-size:3rem;">❌</div>
+                                    <h3>Payment Verification Failed</h3>
+                                    <p>Please contact support with your reference number.</p>
+                                    <p style="font-size:0.85rem;color:#6b7280;">
+                                        Reference: <strong>${transaction.reference}</strong>
+                                    </p>
+                                    <a href="https://wa.me/254748840501?text=Payment%20verification%20failed%20-%20${transaction.reference}" target="_blank" class="btn-wa-pay" style="text-decoration:none;display:inline-flex;width:auto;padding:0.6rem 1.5rem;margin-top:0.5rem;">
+                                        💬 Contact Support
+                                    </a>
+                                `;
+                            }
+                        } catch (verifyError) {
+                            hideLoading();
+                            msgBox.className = 'msg-box show err';
+                            msgBox.innerHTML = `
+                                <div style="font-size:3rem;">❌</div>
+                                <h3>Verification Error</h3>
+                                <p>Please contact support with your reference number.</p>
+                                <p style="font-size:0.85rem;color:#6b7280;">
+                                    Reference: <strong>${transaction.reference}</strong>
+                                </p>
+                                <a href="https://wa.me/254748840501?text=Verification%20error%20-%20${transaction.reference}" target="_blank" class="btn-wa-pay" style="text-decoration:none;display:inline-flex;width:auto;padding:0.6rem 1.5rem;margin-top:0.5rem;">
+                                    💬 Contact Support
+                                </a>
+                            `;
+                        }
+                    },
+                    onCancel: function() {
+                        hideLoading();
+                        msgBox.className = 'msg-box show warn';
+                        msgBox.innerHTML = `
+                            <div style="font-size:3rem;">⚠️</div>
+                            <h3>Payment Cancelled</h3>
+                            <p>You cancelled the payment. You can try again anytime.</p>
+                            <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                                🔄 Try Again
+                            </button>
+                        `;
+                    },
+                    onError: function(error) {
+                        hideLoading();
+                        console.error('Paystack error:', error);
+                        msgBox.className = 'msg-box show err';
+                        msgBox.innerHTML = `
+                            <div style="font-size:3rem;">❌</div>
+                            <h3>Payment Error</h3>
+                            <p>${error.message || 'Something went wrong. Please try again.'}</p>
+                            <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                                🔄 Try Again
+                            </button>
+                            <br>
+                            <a href="https://wa.me/254748840501" target="_blank" class="btn-wa-pay" style="text-decoration:none;display:inline-flex;width:auto;padding:0.6rem 1.5rem;margin-top:0.5rem;">
+                                💬 Contact Support
+                            </a>
+                        `;
+                    }
+                };
+
+                // Use resumeTransaction if access_code is returned
+                if (data.access_code) {
+                    popup.resumeTransaction(data.access_code);
+                } else {
+                    popup.newTransaction(paystackConfig);
+                }
+
+                if (payBtn) {
+                    payBtn.disabled = false;
+                    payBtn.innerHTML = '💳 Pay Now';
+                }
+
+            } catch (error) {
+                hideLoading();
+                console.error('Payment error:', error);
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = `
+                    <div style="font-size:3rem;">❌</div>
+                    <h3>Error</h3>
+                    <p>${error.message || 'Something went wrong. Please try again.'}</p>
+                    <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                        🔄 Try Again
+                    </button>
+                `;
+                if (payBtn) {
+                    payBtn.disabled = false;
+                    payBtn.innerHTML = '💳 Pay Now';
+                }
+            }
+        }
+
+        // ==================== PAYMENT HANDLERS ====================
+        function handlePaymentSuccess(transaction, name, phone, email, ticket, qty, total, msgBox) {
+            showLoading('Verifying payment...');
+            
+            // ... rest of the success handler
+        }
+
+        function handlePaymentCancel(msgBox) {
+            hideLoading();
+            msgBox.className = 'msg-box show warn';
+            msgBox.innerHTML = `
+                <div style="font-size:3rem;">⚠️</div>
+                <h3>Payment Cancelled</h3>
+                <p>You cancelled the payment. You can try again anytime.</p>
+                <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                    🔄 Try Again
+                </button>
+            `;
+        }
+
+        function handlePaymentError(error, msgBox) {
+            hideLoading();
+            console.error('Paystack error:', error);
+            msgBox.className = 'msg-box show err';
+            msgBox.innerHTML = `
+                <div style="font-size:3rem;">❌</div>
+                <h3>Payment Error</h3>
+                <p>${error.message || 'Something went wrong. Please try again.'}</p>
+                <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                    🔄 Try Again
+                </button>
+                <br>
+                <a href="https://wa.me/254748840501" target="_blank" class="btn-wa-pay" style="text-decoration:none;display:inline-flex;width:auto;padding:0.6rem 1.5rem;margin-top:0.5rem;">
+                    💬 Contact Support
+                </a>
+            `;
+        }
+
+        // ==================== PAYSTACK DONATION ====================
+        function processPaystackDonation(amount, email, phone, name, msgBox, payBtn) {
+            try {
+                if (!isPaystackLoaded()) {
+                    msgBox.className = 'msg-box show err';
+                    msgBox.innerHTML = `
+                        <div style="font-size:3rem;">⚠️</div>
+                        <h3>Paystack V2 Not Loaded</h3>
+                        <p>Please refresh the page and try again.</p>
+                        <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                            🔄 Refresh Page
+                        </button>
+                    `;
+                    if (payBtn) {
+                        payBtn.disabled = false;
+                        payBtn.innerHTML = '💛 Donate with Paystack';
+                    }
+                    return;
+                }
+
+                if (payBtn) {
+                    payBtn.disabled = true;
+                    payBtn.innerHTML = '<span class="loading-spinner"></span> Processing...';
+                }
+
+                showLoading('Opening Paystack...');
+
+                const popup = new PaystackPop();
+
+                popup.newTransaction({
+                    key: PAYSTACK_PUBLIC_KEY,
+                    email: email,
+                    amount: Math.round(amount * 100),
+                    currency: 'KES',
+                    firstName: name,
+                    phone: phone,
+                    hideLoading: true,
+                    closeOnSuccess: true,
+                    color: '#059669',
+                    metadata: {
+                        custom_fields: [
+                            {
+                                display_name: "Full Name",
+                                variable_name: "full_name",
+                                value: name
+                            },
+                            {
+                                display_name: "Phone Number",
+                                variable_name: "phone_number",
+                                value: phone
+                            },
+                            {
+                                display_name: "Donation Type",
+                                variable_name: "donation_type",
+                                value: "CHING'ENDE Donation"
+                            }
+                        ]
+                    },
+                    onSuccess: function(transaction) {
+                        hideLoading();
+                        console.log('Donation successful:', transaction.reference);
+                        msgBox.className = 'msg-box show ok';
+                        msgBox.innerHTML = `
+                            <div class="success-animation">💛</div>
+                            <h3 style="color:#059669;">Donation Successful!</h3>
+                            <p>Thank you for your generous donation!</p>
+                            <div style="background:#f0fdf4;padding:15px;border-radius:10px;margin:10px 0;text-align:left;">
+                                <p style="margin:3px 0;"><strong>📌 Reference:</strong> ${transaction.reference}</p>
+                                <p style="margin:3px 0;"><strong>💰 Amount:</strong> KSH ${amount.toLocaleString()}</p>
+                                <p style="margin:3px 0;"><strong>📧 Email:</strong> ${email}</p>
+                            </div>
+                            <p style="font-size:0.85rem;color:#6b7280;">
+                                God bless you! 🙏
+                            </p>
+                            <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                                ✅ Done
+                            </button>
+                        `;
+                        if (payBtn) {
+                            payBtn.disabled = false;
+                            payBtn.innerHTML = '💛 Donate with Paystack';
+                        }
+                    },
+                    onCancel: function() {
+                        hideLoading();
+                        console.log('Donation cancelled');
+                        msgBox.className = 'msg-box show warn';
+                        msgBox.innerHTML = `
+                            <div style="font-size:3rem;">⚠️</div>
+                            <h3>Donation Cancelled</h3>
+                            <p>You cancelled the donation. You can try again anytime.</p>
+                            <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                                🔄 Try Again
+                            </button>
+                        `;
+                        if (payBtn) {
+                            payBtn.disabled = false;
+                            payBtn.innerHTML = '💛 Donate with Paystack';
+                        }
+                    },
+                    onError: function(error) {
+                        hideLoading();
+                        console.error('Paystack error:', error);
+                        msgBox.className = 'msg-box show err';
+                        msgBox.innerHTML = `
+                            <div style="font-size:3rem;">❌</div>
+                            <h3>Donation Error</h3>
+                            <p>${error.message || 'Something went wrong. Please try again.'}</p>
+                            <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                                🔄 Try Again
+                            </button>
+                        `;
+                        if (payBtn) {
+                            payBtn.disabled = false;
+                            payBtn.innerHTML = '💛 Donate with Paystack';
+                        }
+                    }
+                });
+
+            } catch (error) {
+                hideLoading();
+                console.error('Donation error:', error);
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = `
+                    <div style="font-size:3rem;">❌</div>
+                    <h3>Donation Error</h3>
+                    <p>${error.message || 'Something went wrong. Please try again.'}</p>
+                    <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
+                        🔄 Try Again
+                    </button>
+                `;
+                if (payBtn) {
+                    payBtn.disabled = false;
+                    payBtn.innerHTML = '💛 Donate with Paystack';
+                }
+            }
+        }
+
+        function sendWhatsAppConfirmation(name, phone, email, ticket, qty, total, ref) {
+            const message = `🎫 *CHING'ENDE PAYMENT CONFIRMATION*
+─────────────────────
+✅ Payment Successful via Paystack
+👤 Name: ${name}
+📱 Phone: ${phone}
+📧 Email: ${email}
+🎟️ Ticket: ${ticket}
+🔢 Quantity: ${qty}
+💰 Total: KSH ${total.toLocaleString()}
+🆔 Reference: ${ref}
+
+Thank you for booking! 🫘
+─────────────────────
+CHING'ENDE Album Launch • Oct 10, 2026`;
+
+            const encoded = encodeURIComponent(message);
+            const waUrl = `https://wa.me/254748840501?text=${encoded}`;
+            
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+            }, 1500);
+        }
+
         // ==================== BOOKING FORM 1 ====================
-        document.getElementById('bookingForm').addEventListener('submit', function(e){
+        document.getElementById('payBtn').addEventListener('click', function(e){
+            e.preventDefault();
+            const name = document.getElementById('bName').value.trim();
+            const phone = document.getElementById('bPhone').value.trim();
+            const email = document.getElementById('bEmail').value.trim();
+            const qty = parseInt(document.getElementById('bQty').value) || 1;
+            const total = selPrice * qty;
+            const msgBox = document.getElementById('msgBox');
+            const payBtn = this;
+
+            if(!name || !phone || !email){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please fill in all fields</h3><p>Name, Phone, and Email are required.</p>';
+                return;
+            }
+            if(!selName || selPrice === 0){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please select a ticket</h3><p>Click on a ticket card above to select.</p>';
+                return;
+            }
+            if(phone.length < 10){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Phone Number</h3><p>Please enter a valid 10-digit phone number (e.g., 0712345678).</p>';
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Email</h3><p>Please enter a valid email address.</p>';
+                return;
+            }
+
+            processPaystackPayment(name, phone, email, selName, qty, total, msgBox, payBtn);
+        });
+
+        document.getElementById('waPayBtn').addEventListener('click', function(e){
             e.preventDefault();
             const name = document.getElementById('bName').value.trim();
             const phone = document.getElementById('bPhone').value.trim();
@@ -257,15 +786,66 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
             const total = selPrice * qty;
             const msgBox = document.getElementById('msgBox');
 
-            if(!name || !phone || !email){alert('Please fill in all fields');return;}
-            if(!selName || selPrice === 0){alert('Please select a ticket');return;}
-            if(phone.length < 10){alert('Please enter a valid phone number');return;}
+            if(!name || !phone || !email){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please fill in all fields</h3><p>Name, Phone, and Email are required.</p>';
+                return;
+            }
+            if(!selName || selPrice === 0){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please select a ticket</h3><p>Click on a ticket card above to select.</p>';
+                return;
+            }
+            if(phone.length < 10){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Phone Number</h3><p>Please enter a valid 10-digit phone number (e.g., 0712345678).</p>';
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Email</h3><p>Please enter a valid email address.</p>';
+                return;
+            }
 
             sendToWhatsApp(name, phone, email, selName, qty, total, msgBox);
         });
 
         // ==================== BOOKING FORM 2 ====================
-        document.getElementById('bookingForm2').addEventListener('submit', function(e){
+        document.getElementById('payBtn2').addEventListener('click', function(e){
+            e.preventDefault();
+            const name = document.getElementById('bName2').value.trim();
+            const phone = document.getElementById('bPhone2').value.trim();
+            const email = document.getElementById('bEmail2').value.trim();
+            const qty = parseInt(document.getElementById('bQty2').value) || 1;
+            const total = selPrice * qty;
+            const msgBox = document.getElementById('msgBox2');
+            const payBtn = this;
+
+            if(!name || !phone || !email){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please fill in all fields</h3><p>Name, Phone, and Email are required.</p>';
+                return;
+            }
+            if(!selName || selPrice === 0){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please select a ticket</h3><p>Click on a ticket card above to select.</p>';
+                return;
+            }
+            if(phone.length < 10){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Phone Number</h3><p>Please enter a valid 10-digit phone number (e.g., 0712345678).</p>';
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Email</h3><p>Please enter a valid email address.</p>';
+                return;
+            }
+
+            processPaystackPayment(name, phone, email, selName, qty, total, msgBox, payBtn);
+        });
+
+        document.getElementById('waPayBtn2').addEventListener('click', function(e){
             e.preventDefault();
             const name = document.getElementById('bName2').value.trim();
             const phone = document.getElementById('bPhone2').value.trim();
@@ -274,28 +854,95 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
             const total = selPrice * qty;
             const msgBox = document.getElementById('msgBox2');
 
-            if(!name || !phone || !email){alert('Please fill in all fields');return;}
-            if(!selName || selPrice === 0){alert('Please select a ticket');return;}
-            if(phone.length < 10){alert('Please enter a valid phone number');return;}
+            if(!name || !phone || !email){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please fill in all fields</h3><p>Name, Phone, and Email are required.</p>';
+                return;
+            }
+            if(!selName || selPrice === 0){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please select a ticket</h3><p>Click on a ticket card above to select.</p>';
+                return;
+            }
+            if(phone.length < 10){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Phone Number</h3><p>Please enter a valid 10-digit phone number (e.g., 0712345678).</p>';
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Email</h3><p>Please enter a valid email address.</p>';
+                return;
+            }
 
             sendToWhatsApp(name, phone, email, selName, qty, total, msgBox);
         });
 
         // ==================== DONATE ====================
-        document.getElementById('donateForm').addEventListener('submit', function(e){
+        document.getElementById('donatePayBtn').addEventListener('click', function(e){
             e.preventDefault();
+            const name = document.getElementById('dName').value.trim();
             const phone = document.getElementById('dPhone').value.trim();
+            const email = document.getElementById('dEmail').value.trim();
+            const amount = parseInt(document.getElementById('dAmount').value) || 0;
+            const msgBox = document.getElementById('donateMsg');
+            const payBtn = this;
+
+            if(!name || !phone || !email){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please fill in all fields</h3><p>Name, Phone, and Email are required for donation.</p>';
+                return;
+            }
+            if(amount < 10){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Minimum donation is KSH 10</h3><p>Please enter a valid donation amount.</p>';
+                return;
+            }
+            if(phone.length < 10){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Phone Number</h3><p>Please enter a valid 10-digit phone number.</p>';
+                return;
+            }
+            if(!email.includes('@') || !email.includes('.')){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Email</h3><p>Please enter a valid email address.</p>';
+                return;
+            }
+
+            processPaystackDonation(amount, email, phone, name, msgBox, payBtn);
+        });
+
+        document.getElementById('donateWaBtn').addEventListener('click', function(e){
+            e.preventDefault();
+            const name = document.getElementById('dName').value.trim();
+            const phone = document.getElementById('dPhone').value.trim();
+            const email = document.getElementById('dEmail').value.trim();
             const amount = parseInt(document.getElementById('dAmount').value) || 0;
             const msgBox = document.getElementById('donateMsg');
 
-            if(!phone || phone.length < 10){alert('Please enter a valid phone number');return;}
-            if(amount < 10){alert('Minimum donation is KSH 10');return;}
+            if(!name || !phone || !email){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Please fill in all fields</h3><p>Name, Phone, and Email are required for donation.</p>';
+                return;
+            }
+            if(amount < 10){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Minimum donation is KSH 10</h3><p>Please enter a valid donation amount.</p>';
+                return;
+            }
+            if(phone.length < 10){
+                msgBox.className = 'msg-box show err';
+                msgBox.innerHTML = '<h3>⚠️ Invalid Phone Number</h3><p>Please enter a valid 10-digit phone number.</p>';
+                return;
+            }
 
             const till = '4674059';
             const tillName = 'MANSANGO ENTERTAINMENT';
             const message = `💛 *CHING'ENDE DONATION*
 ─────────────────────
+👤 Name: ${name}
 📱 Phone: ${phone}
+📧 Email: ${email}
 💰 Amount: KSH ${amount.toLocaleString()}
 
 💳 *PAYMENT INSTRUCTIONS*
@@ -334,10 +981,17 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
             window.open(waUrl, '_blank');
         });
 
+        // ==================== PREVENT DEFAULT FORM SUBMISSION ====================
+        document.getElementById('bookingForm').addEventListener('submit', function(e){e.preventDefault();});
+        document.getElementById('bookingForm2').addEventListener('submit', function(e){e.preventDefault();});
+        document.getElementById('donateForm').addEventListener('submit', function(e){e.preventDefault();});
+
         // ==================== INIT ====================
         updateS();
         updateS2();
         console.log('🫘 CHING\'ENDE Ready! | Felix Nyabuto 0716 625 790');
+        console.log('💳 Paystack Live Mode Active (V2) - Hidden Loading');
+        console.log('📱 Phone number will be captured for payment');
     </script>
 </body>
 </html>
