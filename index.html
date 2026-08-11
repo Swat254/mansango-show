@@ -26,7 +26,7 @@
         .hero h1 .g{color:var(--p)}.hero h1 .gd{color:var(--g)}
         .btns{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
         .btn{padding:0.8rem 1.5rem;border-radius:50px;font-weight:600;font-size:0.9rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;border:none;transition:0.3s}
-        .btn-green{background:var(--gr);color:white}.btn-wa{background:#25D366;color:white}.btn-donate{background:var(--g);color:#000;font-weight:700}.btn-mdogo{background:#7c3aed;color:white}
+        .btn-green{background:var(--gr);color:white}.btn-wa{background:#25D366;color:white}.btn-donate{background:var(--g);color:#000;font-weight:700}
         .countdown{display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
         .cd-item{background:white;padding:0.8rem 1rem;border-radius:14px;border:2px solid var(--b);text-align:center;min-width:70px}
         .cd-item span{display:block;font-family:var(--m);font-size:1.5rem;font-weight:700;color:var(--p)}.cd-item small{font-size:0.65rem}
@@ -47,13 +47,10 @@
         .sum-box{background:var(--bg);border-radius:14px;padding:1rem;margin-bottom:1rem;border:2px solid var(--b)}
         .s-row{display:flex;justify-content:space-between;padding:0.2rem 0;font-size:0.85rem}
         .s-row.bold{border-top:1px solid var(--b);margin-top:0.3rem;padding-top:0.5rem;font-weight:700;color:var(--p);font-size:1rem;font-family:var(--m)}
-        .btn-pay{width:100%;padding:0.9rem;background:var(--gr);color:white;border:none;border-radius:14px;font-weight:600;font-size:1rem;cursor:pointer;margin:0.3rem 0}
-        .btn-pay:disabled{background:#9ca3af;cursor:not-allowed}
         .btn-wa-pay{width:100%;padding:0.9rem;background:#25D366;color:white;border:none;border-radius:14px;font-weight:600;font-size:1rem;cursor:pointer;margin:0.3rem 0;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem}
         .btn-wa-pay:hover{background:#1da851}
-        .btn-retry{width:100%;padding:0.8rem;background:var(--g);color:#000;border:none;border-radius:12px;font-weight:600;cursor:pointer;margin-top:0.3rem}
         .msg-box{display:none;padding:1rem;border-radius:14px;margin-top:1rem;text-align:center}
-        .msg-box.show{display:block}.msg-box.ok{background:#ecfdf5;border:2px solid #6ee7b7}.msg-box.err{background:#fef2f2;border:2px solid #fca5a5}.msg-box.info{background:#eff6ff;border:2px solid #93c5fd}.msg-box.warn{background:#fffbeb;border:2px solid #fcd34d}
+        .msg-box.show{display:block}.msg-box.ok{background:#ecfdf5;border:2px solid #6ee7b7}.msg-box.err{background:#fef2f2;border:2px solid #fca5a5}
         .hidden{display:none!important}
         .till-box{background:#fef3c7;padding:1rem;border-radius:12px;border:2px solid #f59e0b;text-align:center;margin:1rem 0}
         .till-box .big{font-family:var(--m);font-size:2rem;font-weight:800;color:#d97706}
@@ -61,8 +58,34 @@
         .dev-section{text-align:center;padding:1.5rem;background:#064e3b;color:white;font-size:0.85rem}
         .dev-section a{color:#34d399;text-decoration:none;font-weight:600}
         .dev-section .wa-btn{display:inline-flex;align-items:center;gap:0.3rem;background:#25D366;color:white;padding:0.5rem 1.2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.85rem;margin:0.5rem}
-        @media(max-width:1100px){.pricing{grid-template-columns:repeat(2,1fr)}}
-        @media(max-width:768px){.hero h1{font-size:1.8rem}.nav-links{display:none}.pricing{grid-template-columns:1fr}}
+        
+        /* Mobile Responsive */
+        @media(max-width:1024px){.pricing{grid-template-columns:repeat(2,1fr)}}
+        @media(max-width:768px){
+            .hero h1{font-size:1.8rem}
+            .nav-links{display:none}
+            .pricing{grid-template-columns:1fr 1fr;gap:0.8rem}
+            .pcard{min-height:240px;padding:1rem 0.8rem}
+            .pcard .ticket-icon{font-size:2.2rem}
+            .pcard h3{font-size:0.9rem}
+            .pcard .price{font-size:1.3rem}
+            .pcard ul{font-size:0.7rem}
+            .pcard ul li{padding:0.2rem 0}
+            .pcard .btn-pick{font-size:0.75rem;padding:0.5rem}
+            .form-card{padding:1.2rem;margin:0 0.5rem}
+            .till-box .big{font-size:1.5rem}
+            .btn-wa-pay{font-size:0.85rem;padding:0.7rem}
+        }
+        @media(max-width:480px){
+            .pricing{grid-template-columns:1fr 1fr;gap:0.5rem}
+            .pcard{min-height:200px;padding:0.8rem 0.5rem}
+            .pcard .ticket-icon{font-size:1.8rem}
+            .pcard h3{font-size:0.8rem}
+            .pcard .price{font-size:1.1rem}
+            .pcard ul{font-size:0.65rem;padding-left:0.3rem}
+            .pcard ul li{padding:0.15rem 0}
+            .pcard .btn-pick{font-size:0.65rem;padding:0.4rem}
+        }
     </style>
 </head>
 <body>
@@ -81,17 +104,21 @@
         <div class="section-title"><h2>🎫 Choose Your Ticket</h2></div>
         <div class="pricing">
             <div class="pcard" data-ticket="Regular" data-price="1000"><div><div class="ticket-icon">🎫</div><h3>Regular</h3><div class="price">KSH 1,000</div><ul><li>General Admission</li><li>Main Arena Access</li><li>Standard Seating</li></ul></div><button class="btn-pick">Select</button></div>
-            <div class="pcard" data-ticket="VIP" data-price="2000"><div><div class="ticket-icon">👑</div><h3>VIP</h3><div class="price">KSH 2,000</div><ul><li>VIP Entrance</li><li>Premium Seating</li><li>Welcome </li></Links</li><li>Meet & Greet</li></ul></div><button class="btn-pick">Select</button></div>
-            <div class="pcard" data-ticket="VIP Group (5 People)" data-price="9000"><div><div class="ticket-icon">👥</div><h3>VIP Group</h3><div class="price">KSH 9,000</div><ul><li>5 Regular Tickets</li><li>Group Seating</li><li>Save KSH 1,000</li></ul></div><button class="btn-pick">Select</button></div>
+            
+            <div class="pcard" data-ticket="VIP" data-price="2000"><div><div class="ticket-icon">👑</div><h3>VIP</h3><div class="price">KSH 2,000</div><ul><li>VIP Entrance</li><li>Premium Seating</li><li>Priority Access</li></ul></div><button class="btn-pick">Select</button></div>
+            
+            <div class="pcard" data-ticket="VVIP" data-price="5000"><div><div class="ticket-icon">💎</div><h3>VVIP</h3><div class="price">KSH 5,000</div><ul><li>VVIP Entrance</li><li>Front Row Seating</li><li>Meet & Greet</li><li>Priority Access</li></ul></div><button class="btn-pick">Select</button></div>
+            
+            <div class="pcard" data-ticket="VIP Group (5 People)" data-price="9000"><div><div class="ticket-icon">👥</div><h3>VIP Group</h3><div class="price">KSH 9,000</div><ul><li>5 VIP Tickets</li><li>Group Seating</li><li>Save KSH 1,000</li></ul></div><button class="btn-pick">Select</button></div>
         </div>
-        <div id="bookingFormSection" style="display:none;max-width:500px;margin:0 auto;"><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">📝 Complete Booking</h3><form id="bookingForm"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" required></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail" required></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="Regular Group (5 People)|9000">Regular Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
-            <div class="till-box"><p style="font-size:0.8rem;color:#92400e">💳 Pay via M-PESA Till</p><div class="big">4674059</div><p style="font-size:0.75rem;color:#92400e">Caleb Sangara</p></div>
+        <div id="bookingFormSection" style="display:none;max-width:500px;margin:0 auto;"><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">📝 Complete Booking</h3><form id="bookingForm"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" required></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="bPhone" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail" required></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
+            <div class="till-box"><p style="font-size:0.8rem;color:#92400e">💳 Pay via M-PESA Till</p><div class="big">4674059</div><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
             <button type="submit" class="btn-wa-pay">💬 Pay via WhatsApp</button>
         </form><div class="msg-box" id="msgBox"></div></div></div>
     </div></div></section>
 
-    <section class="section" id="page-book"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">Reserve Your Spot</h2></div><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">🎫 Ticket Reservation</h3><form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" required></div><div class="f-group"><label>📱 Phone</label><input type="tel" id="bPhone2" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail2" required></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="Regular Group (5 People)|9000">Regular Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty2" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div>
-        <div class="till-box"><p style="font-size:0.8rem;color:#92400e">💳 Pay via M-PESA Till</p>4674059<div class="big"></div><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
+    <section class="section" id="page-book"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">Reserve Your Spot</h2></div><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">🎫 Ticket Reservation</h3><form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" required></div><div class="f-group"><label>📱 Phone</label><input type="tel" id="bPhone2" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email</label><input type="email" id="bEmail2" required></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty2" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div>
+        <div class="till-box"><p style="font-size:0.8rem;color:#92400e">💳 Pay via M-PESA Till</p><div class="big">4674059</div><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
         <button type="submit" class="btn-wa-pay">💬 Pay via WhatsApp</button>
     </form><div class="msg-box" id="msgBox2"></div></div></section>
 
@@ -111,7 +138,7 @@
         <a href="https://wa.me/254748840501?text=Hello%20CHING'ENDE%20Team" target="_blank" class="wa-btn">💬 Chat with CHING'ENDE Team</a>
         <p style="margin:8px 0 0;font-size:0.7rem;opacity:0.7;">© 2026 CHING'ENDE. All rights reserved.</p>
     </div>
-    <footer><p>🫘 CHING'ENDE LAUNCH • Oct 10, 2026 • 💬 0748 840 501 • 🏦 Till: 3626261</p></footer>
+    <footer><p>🫘 CHING'ENDE LAUNCH • Oct 10, 2026 • 💬 0748 840 501 • 🏦 Till: 4674059</p></footer>
 
     <script>
         // ==================== NAVIGATION ====================
@@ -171,9 +198,8 @@
         // ==================== WHATSAPP PAYMENT ====================
         function sendToWhatsApp(name, phone, email, ticket, qty, total, msgBox) {
             const till = '4674059';
-            const tillName = 'Caleb Sangara';
+            const tillName = 'MANSANGO ENTERTAINMENT';
             
-            // Build the WhatsApp message
             const message = `🎫 *CHING'ENDE TICKET BOOKING*
 ─────────────────────
 👤 Name: ${name}
@@ -186,10 +212,9 @@
 💳 *PAYMENT INSTRUCTIONS*
 1. Go to M-PESA
 2. Select *Pay Bill* or *Lipa Na M-PESA*
-3. Enter Business Number: *${till}*
-4. Enter Account Number: *${phone}*
-5. Amount: *KSH ${total.toLocaleString()}*
-6. Enter M-PESA PIN
+3. Enter Till Number: *${till}*
+4. Enter Amount: *KSH ${total.toLocaleString()}*
+5. Enter M-PESA PIN
 
 📌 After payment, send M-PESA confirmation to:
 📱 *0748 840 501* (CHING'ENDE Team)
@@ -201,7 +226,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
             const encoded = encodeURIComponent(message);
             const waUrl = `https://wa.me/254748840501?text=${encoded}`;
             
-            // Show message with till details
             msgBox.className = 'msg-box show ok';
             msgBox.innerHTML = `
                 <div style="font-size:2rem;">✅</div>
@@ -211,8 +235,7 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                     <p style="font-size:0.8rem;color:#92400e">💳 M-PESA Till Number</p>
                     <div class="big">${till}</div>
                     <p style="font-size:0.75rem;color:#92400e">${tillName}</p>
-                    <p style="font-size:0.8rem;margin-top:0.5rem;">Account: <strong>${phone}</strong></p>
-                    <p style="font-size:0.8rem;">Amount: <strong>KSH ${total.toLocaleString()}</strong></p>
+                    <p style="font-size:0.8rem;margin-top:0.5rem;">Amount: <strong>KSH ${total.toLocaleString()}</strong></p>
                 </div>
                 <p style="font-size:0.85rem;color:#6b7280;">You'll be redirected to WhatsApp to complete booking.</p>
                 <a href="${waUrl}" target="_blank" class="btn-wa-pay" style="text-decoration:none;display:inline-flex;width:auto;padding:0.8rem 2rem;">
@@ -221,7 +244,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                 <p style="font-size:0.75rem;color:#6b7280;margin-top:0.5rem;">📌 After payment, send confirmation to <strong>0748 840 501</strong></p>
             `;
             
-            // Open WhatsApp in new tab
             window.open(waUrl, '_blank');
         }
 
@@ -269,7 +291,7 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
             if(!phone || phone.length < 10){alert('Please enter a valid phone number');return;}
             if(amount < 10){alert('Minimum donation is KSH 10');return;}
 
-            const till = '3626261';
+            const till = '4674059';
             const tillName = 'MANSANGO ENTERTAINMENT';
             const message = `💛 *CHING'ENDE DONATION*
 ─────────────────────
@@ -279,10 +301,9 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
 💳 *PAYMENT INSTRUCTIONS*
 1. Go to M-PESA
 2. Select *Pay Bill* or *Lipa Na M-PESA*
-3. Enter Business Number: *${till}*
-4. Enter Account Number: *${phone}*
-5. Amount: *KSH ${amount.toLocaleString()}*
-6. Enter M-PESA PIN
+3. Enter Till Number: *${till}*
+4. Enter Amount: *KSH ${amount.toLocaleString()}*
+5. Enter M-PESA PIN
 
 📌 After donation, send confirmation to:
 📱 *0748 840 501* (CHING'ENDE Team)
@@ -302,8 +323,7 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                     <p style="font-size:0.8rem;color:#92400e">💳 M-PESA Till Number</p>
                     <div class="big">${till}</div>
                     <p style="font-size:0.75rem;color:#92400e">${tillName}</p>
-                    <p style="font-size:0.8rem;margin-top:0.5rem;">Account: <strong>${phone}</strong></p>
-                    <p style="font-size:0.8rem;">Amount: <strong>KSH ${amount.toLocaleString()}</strong></p>
+                    <p style="font-size:0.8rem;margin-top:0.5rem;">Amount: <strong>KSH ${amount.toLocaleString()}</strong></p>
                 </div>
                 <a href="${waUrl}" target="_blank" class="btn-wa-pay" style="text-decoration:none;display:inline-flex;width:auto;padding:0.8rem 2rem;">
                     💬 Open WhatsApp
