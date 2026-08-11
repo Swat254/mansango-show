@@ -68,63 +68,12 @@
         .dev-section{text-align:center;padding:1.5rem;background:#064e3b;color:white;font-size:0.85rem}
         .dev-section a{color:#34d399;text-decoration:none;font-weight:600}
         .dev-section .wa-btn{display:inline-flex;align-items:center;gap:0.3rem;background:#25D366;color:white;padding:0.5rem 1.2rem;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.85rem;margin:0.5rem}
-        
-        /* Paystack Loading Overlay - HIDDEN */
-        .paystack-overlay {
-            display: none !important;
-        }
-        
-        /* Hide any Paystack loading indicators */
-        .paystack-loading,
-        .paystack-loader,
-        .paystack-spinner {
-            display: none !important;
-        }
-
-        /* Custom loading overlay */
-        .custom-loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            flex-direction: column;
-        }
-        .custom-loading.active {
-            display: flex;
-        }
-        .custom-loading .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #d1fae5;
-            border-top-color: #059669;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        .custom-loading p {
-            margin-top: 20px;
-            color: #064e3b;
-            font-weight: 600;
-            font-family: var(--m);
-        }
-
         @media(max-width:1024px){.pricing{grid-template-columns:repeat(2,1fr)}}
         @media(max-width:768px){.hero h1{font-size:1.8rem}.nav-links{display:none}.pricing{grid-template-columns:1fr 1fr;gap:0.8rem}.pcard{min-height:240px;padding:1rem 0.8rem}.pcard .ticket-icon{font-size:2.2rem}.pcard h3{font-size:0.9rem}.pcard .price{font-size:1.3rem}.pcard ul{font-size:0.7rem}.pcard ul li{padding:0.2rem 0}.pcard .btn-pick{font-size:0.75rem;padding:0.5rem}.form-card{padding:1.2rem;margin:0 0.5rem}}
         @media(max-width:480px){.pricing{grid-template-columns:1fr 1fr;gap:0.5rem}.pcard{min-height:200px;padding:0.8rem 0.5rem}.pcard .ticket-icon{font-size:1.8rem}.pcard h3{font-size:0.8rem}.pcard .price{font-size:1.1rem}.pcard ul{font-size:0.65rem;padding-left:0.3rem}.pcard ul li{padding:0.15rem 0}.pcard .btn-pick{font-size:0.65rem;padding:0.4rem}}
     </style>
 </head>
 <body>
-    <!-- Custom Loading Overlay -->
-    <div class="custom-loading" id="customLoading">
-        <div class="spinner"></div>
-        <p>Processing your payment...</p>
-    </div>
-
     <nav>
         <a href="/" class="logo"><img src="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/Untitled%20folder/sano.jpg" alt="CHING'ENDE" class="logo-icon"><span class="logo-text">CHING'ENDE LAUNCH</span></a>
         <ul class="nav-links"><li><a class="nav-link on" data-page="home">Home</a></li><li><a class="nav-link" data-page="book">Book Now</a></li><li><a class="nav-link" data-page="donate">💛 Donate</a></li><li><a class="nav-link" data-page="about">About</a></li><li><a class="nav-link" data-page="contact">Contact</a></li></ul>
@@ -144,7 +93,13 @@
             <div class="pcard" data-ticket="VVIP" data-price="5000"><div><div class="ticket-icon">💎</div><h3>VVIP</h3><div class="price">KSH 5,000</div><ul><li>VVIP Entrance</li><li>Front Row Seating</li><li>Meet & Greet</li><li>Priority Access</li></ul></div><button class="btn-pick">Select</button></div>
             <div class="pcard" data-ticket="VIP Group (5 People)" data-price="9000"><div><div class="ticket-icon">👥</div><h3>VIP Group</h3><div class="price">KSH 9,000</div><ul><li>5 VIP Tickets</li><li>Group Seating</li><li>Save KSH 1,000</li></ul></div><button class="btn-pick">Select</button></div>
         </div>
-        <div id="bookingFormSection" style="display:none;max-width:500px;margin:0 auto;"><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">📝 Complete Booking</h3><form id="bookingForm"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" required placeholder="Enter your full name"></div><div class="f-group"><label>📱 Phone Number</label><input type="tel" id="bPhone" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email Address</label><input type="email" id="bEmail" required placeholder="your@email.com"></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
+        <div id="bookingFormSection" style="display:none;max-width:500px;margin:0 auto;"><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">📝 Complete Booking</h3><form id="bookingForm">
+            <div class="f-group"><label>👤 Full Name</label><input type="text" id="bName" required placeholder="Enter your full name"></div>
+            <div class="f-group"><label>📱 Phone Number</label><input type="tel" id="bPhone" required placeholder="0712 345 678"></div>
+            <div class="f-group"><label>📧 Email Address</label><input type="email" id="bEmail" required placeholder="your@email.com"></div>
+            <div class="f-group"><label>🎟️ Ticket</label><select id="bTicket"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div>
+            <div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty" min="1" max="20" value="1"></div>
+            <div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal">KSH 0</span></div></div>
             
             <div class="payment-options">
                 <button type="button" class="btn-paystack" id="payBtn">💳 Pay Now</button>
@@ -156,7 +111,13 @@
         </form><div class="msg-box" id="msgBox"></div></div></div>
     </div></div></section>
 
-    <section class="section" id="page-book"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">Reserve Your Spot</h2></div><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">🎫 Ticket Reservation</h3><form id="bookingForm2"><div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" required placeholder="Enter your full name"></div><div class="f-group"><label>📱 Phone Number</label><input type="tel" id="bPhone2" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email Address</label><input type="email" id="bEmail2" required placeholder="your@email.com"></div><div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div><div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty2" min="1" max="20" value="1"></div><div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div>
+    <section class="section" id="page-book"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">Reserve Your Spot</h2></div><div class="form-card"><h3 style="font-family:var(--m);text-align:center;">🎫 Ticket Reservation</h3><form id="bookingForm2">
+        <div class="f-group"><label>👤 Full Name</label><input type="text" id="bName2" required placeholder="Enter your full name"></div>
+        <div class="f-group"><label>📱 Phone Number</label><input type="tel" id="bPhone2" required placeholder="0712 345 678"></div>
+        <div class="f-group"><label>📧 Email Address</label><input type="email" id="bEmail2" required placeholder="your@email.com"></div>
+        <div class="f-group"><label>🎟️ Ticket</label><select id="bTicket2"><option value="">Select...</option><option value="Regular|1000">Regular - KSH 1,000</option><option value="VIP|2000">VIP - KSH 2,000</option><option value="VVIP|5000">VVIP - KSH 5,000</option><option value="VIP Group (5 People)|9000">VIP Group - KSH 9,000</option></select></div>
+        <div class="f-group"><label>🔢 Quantity</label><input type="number" id="bQty2" min="1" max="20" value="1"></div>
+        <div class="sum-box"><div class="s-row bold"><span>Total:</span><span id="sumTotal2">KSH 0</span></div></div>
         
         <div class="payment-options">
             <button type="button" class="btn-paystack" id="payBtn2">💳 Pay Now</button>
@@ -167,7 +128,11 @@
         <div class="till-box" style="margin-top:0.5rem;"><p style="font-size:0.8rem;color:#92400e">💳 M-PESA Till: <strong>4674059</strong></p><p style="font-size:0.75rem;color:#92400e">MANSANGO ENTERTAINMENT</p></div>
     </form><div class="msg-box" id="msgBox2"></div></div></section>
 
-    <section class="section" id="page-donate"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">💛 Donate</h2></div><div class="form-card"><h3>💛 Make a Donation</h3><form id="donateForm"><div class="f-group"><label>👤 Full Name</label><input type="text" id="dName" required placeholder="Enter your full name"></div><div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" required placeholder="0712 345 678"></div><div class="f-group"><label>📧 Email</label><input type="email" id="dEmail" required placeholder="your@email.com"></div><div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div>
+    <section class="section" id="page-donate"><div style="padding:7rem 2rem 2rem;text-align:center"><h2 style="font-family:var(--m);font-size:2rem">💛 Donate</h2></div><div class="form-card"><h3>💛 Make a Donation</h3><form id="donateForm">
+        <div class="f-group"><label>👤 Full Name</label><input type="text" id="dName" required placeholder="Enter your full name"></div>
+        <div class="f-group"><label>📱 M-PESA Phone</label><input type="tel" id="dPhone" required placeholder="0712 345 678"></div>
+        <div class="f-group"><label>📧 Email</label><input type="email" id="dEmail" required placeholder="your@email.com"></div>
+        <div class="f-group"><label>💰 Amount (min KSH 10)</label><input type="number" id="dAmount" value="100" min="10" required></div>
         
         <div class="payment-options">
             <button type="button" class="btn-paystack" id="donatePayBtn">💛 Donate with Paystack</button>
@@ -209,17 +174,6 @@
             console.log('✅ Paystack V2 SDK loaded successfully');
         } else {
             console.error('❌ Paystack V2 SDK failed to load');
-        }
-
-        // ==================== CUSTOM LOADING OVERLAY ====================
-        function showLoading(message) {
-            const overlay = document.getElementById('customLoading');
-            overlay.querySelector('p').textContent = message || 'Processing your payment...';
-            overlay.classList.add('active');
-        }
-
-        function hideLoading() {
-            document.getElementById('customLoading').classList.remove('active');
         }
 
         // ==================== NAVIGATION ====================
@@ -328,15 +282,12 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
             window.open(waUrl, '_blank');
         }
 
-        // ==================== PAYSTACK PAYMENT (Tickets) - HIDDEN LOADING ====================
+        // ==================== PAYSTACK PAYMENT ====================
         async function processPaystackPayment(name, phone, email, ticket, qty, total, msgBox, payBtn) {
             if (payBtn) {
                 payBtn.disabled = true;
                 payBtn.innerHTML = '<span class="loading-spinner"></span> Processing...';
             }
-            
-            // Show custom loading overlay
-            showLoading('Initializing payment...');
             
             msgBox.className = 'msg-box show info';
             msgBox.innerHTML = '<span class="loading-spinner"></span> Initializing payment...';
@@ -369,10 +320,7 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                     throw new Error(data.error || 'Payment initialization failed');
                 }
 
-                // Hide loading before opening popup
-                hideLoading();
-
-                // 2. Open Paystack popup - HIDDEN LOADING
+                // 2. Open Paystack popup
                 const popup = new PaystackPop();
                 
                 const paystackConfig = {
@@ -383,14 +331,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                     phone: phone,
                     currency: 'KES',
                     firstName: name,
-                    // Hide loading indicators
-                    hideLoading: true,
-                    // Custom loading message
-                    loadingMessage: 'Please wait...',
-                    // Close popup automatically on success
-                    closeOnSuccess: true,
-                    // Custom colors
-                    color: '#059669',
                     metadata: {
                         custom_fields: [
                             {
@@ -416,8 +356,8 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                         ]
                     },
                     onSuccess: async function(transaction) {
-                        // Show loading while verifying
-                        showLoading('Verifying payment...');
+                        msgBox.className = 'msg-box show pending';
+                        msgBox.innerHTML = '<span class="loading-spinner"></span> Verifying payment...';
                         
                         try {
                             const verifyRes = await fetch(`${SUPABASE_FUNCTION_URL}/verify?reference=${transaction.reference}`, {
@@ -426,8 +366,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                                 }
                             });
                             const verifyData = await verifyRes.json();
-
-                            hideLoading();
 
                             if (verifyData.success && verifyData.status === 'completed') {
                                 msgBox.className = 'msg-box show ok';
@@ -465,7 +403,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                                 `;
                             }
                         } catch (verifyError) {
-                            hideLoading();
                             msgBox.className = 'msg-box show err';
                             msgBox.innerHTML = `
                                 <div style="font-size:3rem;">❌</div>
@@ -481,7 +418,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                         }
                     },
                     onCancel: function() {
-                        hideLoading();
                         msgBox.className = 'msg-box show warn';
                         msgBox.innerHTML = `
                             <div style="font-size:3rem;">⚠️</div>
@@ -493,7 +429,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                         `;
                     },
                     onError: function(error) {
-                        hideLoading();
                         console.error('Paystack error:', error);
                         msgBox.className = 'msg-box show err';
                         msgBox.innerHTML = `
@@ -524,7 +459,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                 }
 
             } catch (error) {
-                hideLoading();
                 console.error('Payment error:', error);
                 msgBox.className = 'msg-box show err';
                 msgBox.innerHTML = `
@@ -540,44 +474,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                     payBtn.innerHTML = '💳 Pay Now';
                 }
             }
-        }
-
-        // ==================== PAYMENT HANDLERS ====================
-        function handlePaymentSuccess(transaction, name, phone, email, ticket, qty, total, msgBox) {
-            showLoading('Verifying payment...');
-            
-            // ... rest of the success handler
-        }
-
-        function handlePaymentCancel(msgBox) {
-            hideLoading();
-            msgBox.className = 'msg-box show warn';
-            msgBox.innerHTML = `
-                <div style="font-size:3rem;">⚠️</div>
-                <h3>Payment Cancelled</h3>
-                <p>You cancelled the payment. You can try again anytime.</p>
-                <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
-                    🔄 Try Again
-                </button>
-            `;
-        }
-
-        function handlePaymentError(error, msgBox) {
-            hideLoading();
-            console.error('Paystack error:', error);
-            msgBox.className = 'msg-box show err';
-            msgBox.innerHTML = `
-                <div style="font-size:3rem;">❌</div>
-                <h3>Payment Error</h3>
-                <p>${error.message || 'Something went wrong. Please try again.'}</p>
-                <button onclick="location.reload()" style="margin-top:1rem;padding:0.6rem 2rem;border:none;background:#059669;color:white;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem;">
-                    🔄 Try Again
-                </button>
-                <br>
-                <a href="https://wa.me/254748840501" target="_blank" class="btn-wa-pay" style="text-decoration:none;display:inline-flex;width:auto;padding:0.6rem 1.5rem;margin-top:0.5rem;">
-                    💬 Contact Support
-                </a>
-            `;
         }
 
         // ==================== PAYSTACK DONATION ====================
@@ -605,7 +501,8 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                     payBtn.innerHTML = '<span class="loading-spinner"></span> Processing...';
                 }
 
-                showLoading('Opening Paystack...');
+                msgBox.className = 'msg-box show info';
+                msgBox.innerHTML = '<span class="loading-spinner"></span> Opening Paystack...';
 
                 const popup = new PaystackPop();
 
@@ -616,9 +513,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                     currency: 'KES',
                     firstName: name,
                     phone: phone,
-                    hideLoading: true,
-                    closeOnSuccess: true,
-                    color: '#059669',
                     metadata: {
                         custom_fields: [
                             {
@@ -639,7 +533,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                         ]
                     },
                     onSuccess: function(transaction) {
-                        hideLoading();
                         console.log('Donation successful:', transaction.reference);
                         msgBox.className = 'msg-box show ok';
                         msgBox.innerHTML = `
@@ -664,7 +557,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                         }
                     },
                     onCancel: function() {
-                        hideLoading();
                         console.log('Donation cancelled');
                         msgBox.className = 'msg-box show warn';
                         msgBox.innerHTML = `
@@ -681,7 +573,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                         }
                     },
                     onError: function(error) {
-                        hideLoading();
                         console.error('Paystack error:', error);
                         msgBox.className = 'msg-box show err';
                         msgBox.innerHTML = `
@@ -700,7 +591,6 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
                 });
 
             } catch (error) {
-                hideLoading();
                 console.error('Donation error:', error);
                 msgBox.className = 'msg-box show err';
                 msgBox.innerHTML = `
@@ -990,8 +880,8 @@ CHING'ENDE Album Launch • Oct 10, 2026`;
         updateS();
         updateS2();
         console.log('🫘 CHING\'ENDE Ready! | Felix Nyabuto 0716 625 790');
-        console.log('💳 Paystack Live Mode Active (V2) - Hidden Loading');
-        console.log('📱 Phone number will be captured for payment');
+        console.log('💳 Paystack Live Mode Active (V2)');
+        console.log('📱 Phone number is visible and will be captured');
     </script>
 </body>
 </html>
