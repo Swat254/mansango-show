@@ -1,0 +1,1 @@
+{"name":"chingende-album-launch","private":true,"version":"1.0.0","type":"module","scripts":{"dev":"vite","build":"vite","preview":"vite preview"},"devDependencies":{"typescript":"^5.6.3","vite":"^6.0.0"}}
