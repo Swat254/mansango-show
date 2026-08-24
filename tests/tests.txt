@@ -1,0 +1,11 @@
+# CHING'ENDE sanity tests
+1. Ticket Select opens the checkout modal.
+2. Name and Gmail are validated before payment.
+3. M-PESA sends the request to the Supabase Paystack Edge Function.
+4. Card requests use Paystack's secure popup/access-code flow.
+5. Failed payments show an unsuccessful message and allow retry.
+6. Donation is one small button beside Quick Tickets.
+7. Donation asks for amount, Gmail and Kenyan M-PESA number.
+8. Donation success displays "Donation received" and "Goika ebe ebuse".
+9. Date, 6:00 PM and Mansango remain in the hero.
+10. YouTube, Facebook, Instagram and WhatsApp remain horizontal.
