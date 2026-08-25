@@ -1,16 +1,1167 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CHING'ENDE Album Launch — Tickets</title>
-<meta name="theme-color" content="#059669">
-<meta name="description" content="CHING'ENDE Album Launch — October 10, 2026, Mansango.">
-<link rel="icon" href="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/WhatsApp%20Image%202026-08-11%20at%203.57.54%20PM.jpeg">
-<link rel="stylesheet" href="./assets/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CHING'ENDE Album Launch — Mansango</title>
+  <meta name="description" content="CHING'ENDE Album Launch — October 10, 2026 at Mansango. Get your tickets and support the event.">
+  <meta name="theme-color" content="#059669">
+
+  <link rel="icon" type="image/jpeg"
+    href="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/WhatsApp%20Image%202026-08-11%20at%203.57.54%20PM.jpeg">
+
+  <link rel="apple-touch-icon"
+    href="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/WhatsApp%20Image%202026-08-11%20at%203.57.54%20PM.jpeg">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top, rgba(5,150,105,.12), transparent 35%),
+        #f7faf8;
+      color: #14231d;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(100%, 980px);
+      margin: auto;
+      padding: 22px 16px 50px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 28px 12px 18px;
+    }
+
+    .logo {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 12px 30px rgba(0,0,0,.14);
+      margin-bottom: 16px;
+    }
+
+    .eyebrow {
+      color: #059669;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 8vw, 68px);
+      line-height: .98;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .hero-subtitle {
+      margin: 14px auto 0;
+      max-width: 650px;
+      color: #52635c;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .event-info {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 24px auto 20px;
+    }
+
+    .info-item {
+      min-width: 145px;
+      background: #fff;
+      border: 1px solid #e0e9e4;
+      border-radius: 14px;
+      padding: 13px 18px;
+      box-shadow: 0 7px 20px rgba(0,0,0,.05);
+    }
+
+    .info-label {
+      display: block;
+      color: #78857f;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-weight: 900;
+      color: #14231d;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 28px 0 14px;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .tickets {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .ticket {
+      background: #fff;
+      border: 1px solid #dfe9e3;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 7px 22px rgba(0,0,0,.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 145px;
+    }
+
+    .ticket-name {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .ticket-price {
+      font-size: 22px;
+      font-weight: 900;
+      color: #059669;
+      margin: 6px 0 12px;
+    }
+
+    .select-btn,
+    .donation-btn {
+      border: 0;
+      border-radius: 9px;
+      padding: 9px 11px;
+      font-weight: 900;
+      color: white;
+      background: #059669;
+      transition: transform .15s, opacity .15s;
+    }
+
+    .select-btn:hover,
+    .donation-btn:hover {
+      transform: translateY(-1px);
+      opacity: .92;
+    }
+
+    .bottom-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .donation-btn {
+      background: #eab308;
+      color: #211b00;
+      width: auto;
+      min-width: 100px;
+      font-size: 12px;
+      padding: 8px 15px;
+    }
+
+    .social-title {
+      text-align: center;
+      margin: 22px 0 10px;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #78857f;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      flex-wrap: wrap;
+    }
+
+    .social {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      text-decoration: none;
+      background: #fff;
+      border: 1px solid #dfe9e3;
+      box-shadow: 0 5px 15px rgba(0,0,0,.06);
+      color: #14231d;
+      font-size: 17px;
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+    }
+
+    .social:hover {
+      transform: translateY(-2px);
+    }
+
+    .creator {
+      text-align: center;
+      margin-top: 26px;
+      color: #7a8781;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+
+    .creator strong {
+      color: #33443c;
+    }
+
+    .whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 7px;
+      color: #128c4a;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,20,16,.62);
+      backdrop-filter: blur(7px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(100%, 470px);
+      max-height: 94vh;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.25);
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 12px;
+      border: 0;
+      background: transparent;
+      font-size: 25px;
+      color: #65736c;
+    }
+
+    .modal h2 {
+      font-size: 25px;
+      font-weight: 900;
+      padding-right: 35px;
+      margin-bottom: 5px;
+    }
+
+    .modal-note {
+      color: #718079;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-bottom: 17px;
+    }
+
+    .summary {
+      background: #f0f9f5;
+      border: 1px solid #d7eee4;
+      border-radius: 12px;
+      padding: 13px;
+      margin-bottom: 15px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 5px 0;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .summary-row strong {
+      font-weight: 900;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      display: block;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      color: #405049;
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      border: 1px solid #ccd9d3;
+      border-radius: 10px;
+      padding: 12px;
+      outline: none;
+      background: #fff;
+      color: #14231d;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: #059669;
+      box-shadow: 0 0 0 3px rgba(5,150,105,.1);
+    }
+
+    .payment-methods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin: 12px 0;
+    }
+
+    .method {
+      border: 1px solid #d5e0db;
+      background: #fff;
+      border-radius: 10px;
+      padding: 11px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .method.active {
+      border-color: #059669;
+      background: #effaf5;
+      color: #047857;
+    }
+
+    .pay-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 11px;
+      padding: 14px;
+      background: #059669;
+      color: #fff;
+      font-weight: 900;
+      font-size: 16px;
+      margin-top: 4px;
+    }
+
+    .pay-btn:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .status {
+      display: none;
+      margin-top: 13px;
+      border-radius: 11px;
+      padding: 12px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.loading {
+      background: #f1f5f9;
+      color: #334155;
+    }
+
+    .status.success {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .status.error {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .till-help {
+      display: none;
+      margin-top: 10px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      border-radius: 11px;
+      padding: 12px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .till-help strong {
+      font-size: 17px;
+    }
+
+    .spinner {
+      width: 17px;
+      height: 17px;
+      border: 2px solid rgba(255,255,255,.45);
+      border-top-color: #fff;
+      border-radius: 50%;
+      display: inline-block;
+      vertical-align: -4px;
+      animation: spin .8s linear infinite;
+      margin-right: 6px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 760px) {
+      .tickets {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .event-info {
+        gap: 6px;
+      }
+
+      .info-item {
+        min-width: calc(50% - 6px);
+      }
+    }
+
+    @media (max-width: 430px) {
+      .page {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .hero {
+        padding-top: 15px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .tickets {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 7px;
+      }
+
+      .ticket {
+        padding: 11px;
+        min-height: 128px;
+      }
+
+      .ticket-name {
+        font-size: 13px;
+      }
+
+      .ticket-price {
+        font-size: 17px;
+      }
+
+      .select-btn {
+        padding: 8px 7px;
+        font-size: 11px;
+      }
+
+      .info-item {
+        min-width: 0;
+        width: calc(50% - 4px);
+        padding: 10px 6px;
+      }
+
+      .info-value {
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div id="app"></div>
-<script src="./assets/app.js"></script>
+
+<div class="page">
+
+  <header class="hero">
+    <img
+      class="logo"
+      src="https://zxforhokpsiqkceesalk.supabase.co/storage/v1/object/public/logo/WhatsApp%20Image%202026-08-11%20at%203.57.54%20PM.jpeg"
+      alt="CHING'ENDE"
+    >
+
+    <div class="eyebrow">Album Launch</div>
+    <h1>CHING'ENDE</h1>
+    <p class="hero-subtitle">
+      Join us for an unforgettable album launch celebration at Mansango.
+    </p>
+
+    <div class="event-info">
+      <div class="info-item">
+        <span class="info-label">Date</span>
+        <span class="info-value">10 October 2026</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Time</span>
+        <span class="info-value">6:00 PM</span>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Venue</span>
+        <span class="info-value">Mansango</span>
+      </div>
+    </div>
+  </header>
+
+  <h2 class="section-title">Tickets</h2>
+
+  <section class="tickets">
+
+    <article class="ticket">
+      <div>
+        <div class="ticket-name">Regular</div>
+        <div class="ticket-price">KES 1,000</div>
+      </div>
+      <button class="select-btn" onclick="openTicket('Regular',1000)">Select</button>
+    </article>
+
+    <article class="ticket">
+      <div>
+        <div class="ticket-name">VIP</div>
+        <div class="ticket-price">KES 2,000</div>
+      </div>
+      <button class="select-btn" onclick="openTicket('VIP',2000)">Select</button>
+    </article>
+
+    <article class="ticket">
+      <div>
+        <div class="ticket-name">VVIP</div>
+        <div class="ticket-price">KES 5,000</div>
+      </div>
+      <button class="select-btn" onclick="openTicket('VVIP',5000)">Select</button>
+    </article>
+
+    <article class="ticket">
+      <div>
+        <div class="ticket-name">VIP Group (5)</div>
+        <div class="ticket-price">KES 9,000</div>
+      </div>
+      <button class="select-btn" onclick="openTicket('VIP Group (5)',9000)">Select</button>
+    </article>
+
+  </section>
+
+  <div class="bottom-actions">
+    <button class="donation-btn" onclick="openDonation()">Donation</button>
+  </div>
+
+  <div class="social-title">Mansango Official</div>
+
+  <div class="socials">
+    <a class="social" href="https://youtube.com/@mansangoofficial?si=FvqKErV8sRsFuOgQ" target="_blank" rel="noopener" aria-label="YouTube">YT</a>
+    <a class="social" href="https://www.facebook.com/ManSangoOfficial" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+    <a class="social" href="https://www.instagram.com/man_sango_official?igsi=MXE3bnBraTRhbDgwMA==" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+    <a class="social" href="https://wa.me/254748840501" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+  </div>
+
+  <div class="creator">
+    Website created by <strong>Felix Nyabuto</strong><br>
+    <a class="whatsapp" href="https://wa.me/254716625790" target="_blank" rel="noopener">
+      WhatsApp: 0716 625 790
+    </a>
+  </div>
+
+</div>
+
+
+<!-- PAYMENT MODAL -->
+
+<div class="modal" id="paymentModal">
+  <div class="modal-card">
+
+    <button class="close" onclick="closeModal()" aria-label="Close">×</button>
+
+    <h2 id="modalTitle">Complete Payment</h2>
+
+    <p class="modal-note">
+      Enter your details below. Your payment will be processed securely.
+    </p>
+
+    <div class="summary">
+      <div class="summary-row">
+        <span>Ticket</span>
+        <strong id="summaryTicket">—</strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Amount</span>
+        <strong id="summaryAmount">KES 0</strong>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="customerName">Full Name</label>
+      <input id="customerName" type="text" autocomplete="name" placeholder="Your full name">
+    </div>
+
+    <div class="field">
+      <label for="customerEmail">Email Address</label>
+      <input id="customerEmail" type="email" autocomplete="email" placeholder="you@example.com">
+    </div>
+
+    <div class="field">
+      <label for="customerPhone">M-PESA Phone Number</label>
+      <input id="customerPhone" type="tel" autocomplete="tel" inputmode="numeric" placeholder="07XXXXXXXX">
+    </div>
+
+    <div class="field" id="quantityField">
+      <label for="quantity">Quantity</label>
+      <select id="quantity">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+
+    <div class="payment-methods">
+      <button class="method active" id="mpesaMethod" onclick="setMethod('mpesa')">
+        M-PESA
+      </button>
+
+      <button class="method" id="cardMethod" onclick="setMethod('card')">
+        Card
+      </button>
+    </div>
+
+    <button class="pay-btn" id="payButton" onclick="submitPayment()">
+      Pay with M-PESA
+    </button>
+
+    <div class="status" id="statusBox"></div>
+
+    <div class="till-help" id="tillHelp">
+      If the online payment does not work, you can complete your payment
+      manually through the event M-PESA Till. Please contact the event team
+      for the current Till number.
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+  /*
+   * ============================================================
+   * CHING'ENDE PAYMENT FRONTEND
+   * ============================================================
+   *
+   * Supabase Edge Function:
+   * https://zxforhokpsiqkceesalk.supabase.co/functions/v1/paystack
+   *
+   * The Paystack secret key MUST remain inside Supabase.
+   * Never place the secret key in this HTML file.
+   */
+
+  const PAYMENT_ENDPOINT =
+    'https://zxforhokpsiqkceesalk.supabase.co/functions/v1/paystack';
+
+  let currentTicket = null;
+  let currentAmount = 0;
+  let paymentMethod = 'mpesa';
+  let pollingTimer = null;
+
+  function money(amount) {
+    return 'KES ' + Number(amount).toLocaleString('en-KE');
+  }
+
+  function openTicket(name, amount) {
+    currentTicket = name;
+    currentAmount = amount;
+
+    document.getElementById('modalTitle').textContent = 'Complete Payment';
+    document.getElementById('summaryTicket').textContent = name;
+    document.getElementById('summaryAmount').textContent = money(amount);
+
+    document.getElementById('quantityField').style.display = 'block';
+    document.getElementById('quantity').value = '1';
+
+    clearStatus();
+    setMethod('mpesa');
+
+    document.getElementById('paymentModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openDonation() {
+    currentTicket = 'Donation';
+    currentAmount = 0;
+
+    document.getElementById('modalTitle').textContent = 'Make a Donation';
+    document.getElementById('summaryTicket').textContent = 'Donation';
+    document.getElementById('summaryAmount').textContent = 'Enter amount';
+
+    document.getElementById('quantityField').style.display = 'none';
+
+    clearStatus();
+    setMethod('mpesa');
+
+    /*
+     * Replace the quantity field with a donation amount field.
+     */
+    const oldAmount = document.getElementById('donationAmount');
+
+    if (!oldAmount) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'field';
+      wrapper.id = 'donationAmountWrapper';
+
+      wrapper.innerHTML = `
+        <label for="donationAmount">Donation Amount (KES)</label>
+        <input id="donationAmount" type="number" min="1" step="1"
+          inputmode="numeric" placeholder="Enter donation amount">
+      `;
+
+      const phone = document.getElementById('customerPhone');
+      phone.parentNode.before(wrapper);
+    }
+
+    document.getElementById('paymentModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (pollingTimer) {
+      clearInterval(pollingTimer);
+      pollingTimer = null;
+    }
+
+    document.getElementById('paymentModal').classList.remove('show');
+    document.body.style.overflow = '';
+
+    clearStatus();
+  }
+
+  function setMethod(method) {
+    paymentMethod = method;
+
+    document.getElementById('mpesaMethod').classList.toggle(
+      'active',
+      method === 'mpesa'
+    );
+
+    document.getElementById('cardMethod').classList.toggle(
+      'active',
+      method === 'card'
+    );
+
+    document.getElementById('payButton').textContent =
+      method === 'card' ? 'Continue to Card Payment' : 'Pay with M-PESA';
+  }
+
+  function clearStatus() {
+    const box = document.getElementById('statusBox');
+    box.className = 'status';
+    box.innerHTML = '';
+    document.getElementById('tillHelp').style.display = 'none';
+
+    const button = document.getElementById('payButton');
+    button.disabled = false;
+
+    button.textContent =
+      paymentMethod === 'card'
+        ? 'Continue to Card Payment'
+        : 'Pay with M-PESA';
+  }
+
+  function showStatus(type, message) {
+    const box = document.getElementById('statusBox');
+
+    box.className = 'status show ' + type;
+    box.innerHTML = message;
+  }
+
+  function normalizeKenyanPhone(value) {
+    let phone = String(value || '').replace(/[^\d+]/g, '');
+
+    if (phone.startsWith('+254')) {
+      phone = phone.substring(1);
+    }
+
+    if (phone.startsWith('254')) {
+      return phone;
+    }
+
+    if (phone.startsWith('0') && phone.length === 10) {
+      return '254' + phone.substring(1);
+    }
+
+    if (phone.length === 9 && /^[17]/.test(phone)) {
+      return '254' + phone;
+    }
+
+    return null;
+  }
+
+  function validEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function getPaymentAmount() {
+    if (currentTicket === 'Donation') {
+      return Number(document.getElementById('donationAmount').value);
+    }
+
+    const quantity = Number(document.getElementById('quantity').value || 1);
+    return currentAmount * quantity;
+  }
+
+  async function submitPayment() {
+    const name = document.getElementById('customerName').value.trim();
+    const email = document.getElementById('customerEmail').value.trim();
+    const rawPhone = document.getElementById('customerPhone').value.trim();
+    const phone = normalizeKenyanPhone(rawPhone);
+    const amount = getPaymentAmount();
+
+    if (!name) {
+      showStatus('error', 'Please enter your full name.');
+      return;
+    }
+
+    if (!validEmail(email)) {
+      showStatus('error', 'Please enter a valid email address.');
+      return;
+    }
+
+    if (!phone) {
+      showStatus(
+        'error',
+        'Please enter a valid Kenyan phone number, for example 0712345678.'
+      );
+      return;
+    }
+
+    if (!Number.isFinite(amount) || amount < 1) {
+      showStatus('error', 'Please enter a valid payment amount.');
+      return;
+    }
+
+    const button = document.getElementById('payButton');
+
+    button.disabled = true;
+    button.innerHTML = '<span class="spinner"></span>Processing...';
+
+    showStatus(
+      'loading',
+      paymentMethod === 'mpesa'
+        ? 'Sending payment request. Please wait...'
+        : 'Preparing secure card payment...'
+    );
+
+    try {
+      /*
+       * The Edge Function should accept:
+       * {
+       *   action: "initiate",
+       *   name,
+       *   email,
+       *   phone,
+       *   amount,
+       *   ticket_type,
+       *   quantity,
+       *   payment_method
+       * }
+       */
+
+      const payload = {
+        action: 'initiate',
+        name: name,
+        email: email,
+        phone: phone,
+        amount: Math.round(amount),
+        ticket_type: currentTicket,
+        quantity:
+          currentTicket === 'Donation'
+            ? 1
+            : Number(document.getElementById('quantity').value || 1),
+        payment_method: paymentMethod
+      };
+
+      const response = await fetch(PAYMENT_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const text = await response.text();
+
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error(
+          'The payment server returned an invalid response.'
+        );
+      }
+
+      if (!response.ok || data.success === false) {
+        throw new Error(
+          data.error ||
+          data.message ||
+          'Payment could not be started.'
+        );
+      }
+
+      /*
+       * Card flow:
+       * If your Edge Function returns a Paystack authorization URL,
+       * open it in a new tab. M-PESA does not use this branch.
+       */
+      if (paymentMethod === 'card') {
+        const authorizationUrl =
+          data.authorization_url ||
+          data.data?.authorization_url ||
+          data.checkout_url;
+
+        if (authorizationUrl) {
+          showStatus(
+            'success',
+            'Secure card payment is ready. Opening payment page...'
+          );
+
+          window.location.href = authorizationUrl;
+          return;
+        }
+
+        /*
+         * Some backend implementations return a reference instead.
+         * In that case we leave the customer on the page and poll.
+         */
+      }
+
+      showStatus(
+        'loading',
+        '<strong>Payment request sent.</strong><br>' +
+        'Check your phone and complete the M-PESA prompt with your PIN.'
+      );
+
+      /*
+       * If the Edge Function returns a reference, poll the same
+       * Edge Function for status.
+       */
+      const reference =
+        data.reference ||
+        data.payment_reference ||
+        data.data?.reference ||
+        data.transaction?.reference;
+
+      if (reference) {
+        startStatusPolling(reference);
+      } else {
+        /*
+         * Webhook-driven systems can still show this state.
+         * The webhook should update Supabase and your backend.
+         */
+        button.textContent = 'Payment request sent';
+      }
+
+    } catch (error) {
+      console.error('Payment error:', error);
+
+      showStatus(
+        'error',
+        'Payment was unsuccessful.<br>' +
+        '<strong>' +
+        escapeHtml(error.message || 'Please try again.') +
+        '</strong>'
+      );
+
+      document.getElementById('tillHelp').style.display = 'block';
+
+      button.disabled = false;
+      button.textContent =
+        paymentMethod === 'card'
+          ? 'Try Card Payment Again'
+          : 'Try M-PESA Again';
+    }
+  }
+
+  function startStatusPolling(reference) {
+    if (pollingTimer) {
+      clearInterval(pollingTimer);
+    }
+
+    let attempts = 0;
+
+    pollingTimer = setInterval(async () => {
+      attempts++;
+
+      if (attempts > 30) {
+        clearInterval(pollingTimer);
+        pollingTimer = null;
+
+        showStatus(
+          'error',
+          'We could not confirm the payment yet. If money was deducted, please contact the event team with your payment reference: ' +
+          escapeHtml(reference)
+        );
+
+        document.getElementById('tillHelp').style.display = 'block';
+        document.getElementById('payButton').disabled = false;
+        return;
+      }
+
+      try {
+        const response = await fetch(PAYMENT_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            action: 'status',
+            reference: reference
+          })
+        });
+
+        const data = await response.json();
+
+        const status = String(
+          data.status ||
+          data.payment_status ||
+          data.data?.status ||
+          ''
+        ).toLowerCase();
+
+        if (
+          status === 'success' ||
+          status === 'successful' ||
+          status === 'paid' ||
+          status === 'completed'
+        ) {
+          clearInterval(pollingTimer);
+          pollingTimer = null;
+
+          if (currentTicket === 'Donation') {
+            showStatus(
+              'success',
+              '<strong>Donation received.</strong><br>Goika ebe ebuse.'
+            );
+          } else {
+            showStatus(
+              'success',
+              '<strong>Payment successful.</strong><br>Your ticket payment has been confirmed.'
+            );
+          }
+
+          document.getElementById('payButton').disabled = true;
+          return;
+        }
+
+        if (
+          status === 'failed' ||
+          status === 'cancelled' ||
+          status === 'canceled'
+        ) {
+          clearInterval(pollingTimer);
+          pollingTimer = null;
+
+          showStatus(
+            'error',
+            '<strong>Payment unsuccessful.</strong><br>Please try again or use the alternative payment option.'
+          );
+
+          document.getElementById('tillHelp').style.display = 'block';
+          document.getElementById('payButton').disabled = false;
+
+          document.getElementById('payButton').textContent =
+            paymentMethod === 'card'
+              ? 'Try Card Payment Again'
+              : 'Try M-PESA Again';
+        }
+      } catch (error) {
+        console.warn('Payment status check failed:', error);
+      }
+    }, 5000);
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  document.getElementById('paymentModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+
+  document.getElementById('quantity').addEventListener('change', function() {
+    if (!currentTicket || currentTicket === 'Donation') return;
+
+    const quantity = Number(this.value || 1);
+    document.getElementById('summaryAmount').textContent =
+      money(currentAmount * quantity);
+  });
+</script>
+
 </body>
 </html>
+```
