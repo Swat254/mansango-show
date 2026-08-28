@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Free Ticket Giveaway — CHING'ENDE</title>
+
+  <meta
+    name="description"
+    content="Claim your free CHING'ENDE Album Launch ticket."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+
+      background:
+        radial-gradient(circle at top, #174f3b 0%, #07130f 45%, #030806 100%);
+
+      color: #ffffff;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .card {
+      background: rgba(15, 35, 28, 0.97);
+      border: 1px solid rgba(228, 184, 63, 0.35);
+      border-radius: 22px;
+      padding: 32px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      color: #e4b83f;
+      font-size: 34px;
+      line-height: 1.1;
+      letter-spacing: 1px;
+      font-weight: 900;
+    }
+
+    .brand p {
+      margin: 12px 0 0;
+      color: #b9c9c1;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .giveaway-badge {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: #e4b83f;
+      color: #111;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    label {
+      display: block;
+      margin: 19px 0 7px;
+
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+
+      border: 1px solid #3d6655;
+      border-radius: 10px;
+
+      background: #07130f;
+      color: #ffffff;
+
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      border-color: #e4b83f;
+      box-shadow: 0 0 0 3px rgba(228, 184, 63, 0.12);
+    }
+
+    input::placeholder {
+      color: #73877e;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 15px 18px;
+
+      border: 0;
+      border-radius: 10px;
+
+      background: #e4b83f;
+      color: #111111;
+
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .message {
+      margin-top: 18px;
+      padding: 15px;
+
+      border-radius: 10px;
+
+      background: #07130f;
+
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.success {
+      border: 1px solid #4caf78;
+      color: #b9f0cc;
+    }
+
+    .message.error {
+      border: 1px solid #c96c6c;
+      color: #ffc1c1;
+    }
+
+    .footer {
+      margin-top: 22px;
+
+      text-align: center;
+
+      color: #71857d;
+
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 12px;
+      }
+
+      .card {
+        padding: 24px 19px;
+        border-radius: 18px;
+      }
+
+      .brand h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <div class="brand">
+
+        <div class="giveaway-badge">
+          FREE TICKET
+        </div>
+
+        <h1>CHING'ENDE</h1>
+
+        <p>
+          Album Launch Giveaway
+        </p>
+
+        <p>
+          Enter your details below to claim your free ticket.
+          Only one free ticket is allowed per person.
+        </p>
+
+      </div>
+
+
+      <form id="giveawayForm">
+
+        <label for="name">
+          Full Name
+        </label>
+
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter your full name"
+          autocomplete="name"
+          maxlength="100"
+          required
+        >
+
+
+        <label for="email">
+          Email Address
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="example@gmail.com"
+          autocomplete="email"
+          maxlength="160"
+          required
+        >
+
+
+        <label for="phone">
+          Phone Number
+        </label>
+
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="07XXXXXXXX"
+          autocomplete="tel"
+          maxlength="20"
+          required
+        >
+
+
+        <button
+          type="submit"
+          id="claimButton"
+        >
+          CLAIM FREE TICKET
+        </button>
+
+      </form>
+
+
+      <div
+        id="message"
+        class="message hidden"
+      ></div>
+
+
+      <div class="footer">
+        Your details are used only to process your giveaway ticket.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /*
+      CHING'ENDE GIVEAWAY
+
+      The frontend does NOT connect directly to Supabase.
+
+      It sends the information to:
+
+      /api/giveaway/claim
+
+      The backend is responsible for:
+      - validating the information
+      - checking whether the user already claimed
+      - creating the giveaway record
+      - generating the ticket reference
+      - preventing duplicate claims
+    */
+
+
+    const form = document.getElementById("giveawayForm");
+
+    const claimButton =
+      document.getElementById("claimButton");
+
+    const message =
+      document.getElementById("message");
+
+
+    function showMessage(text, success) {
+
+      message.classList.remove("hidden");
+
+      message.classList.remove("success");
+
+      message.classList.remove("error");
+
+      if (success) {
+
+        message.classList.add("success");
+
+      } else {
+
+        message.classList.add("error");
+
+      }
+
+      message.textContent = text;
+    }
+
+
+    form.addEventListener("submit", async function(event) {
+
+      event.preventDefault();
+
+
+      const name =
+        document.getElementById("name").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const phone =
+        document.getElementById("phone").value.trim();
+
+
+      if (!name) {
+
+        showMessage(
+          "Please enter your full name.",
+          false
+        );
+
+        return;
+      }
+
+
+      if (!email) {
+
+        showMessage(
+          "Please enter your email address.",
+          false
+        );
+
+        return;
+      }
+
+
+      if (!phone) {
+
+        showMessage(
+          "Please enter your phone number.",
+          false
+        );
+
+        return;
+      }
+
+
+      claimButton.disabled = true;
+
+      claimButton.textContent =
+        "PROCESSING...";
+
+      message.classList.add("hidden");
+
+
+      try {
+
+        const response = await fetch(
+          "/api/giveaway/claim",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+              name: name,
+
+              email: email,
+
+              phone: phone
+
+            })
+          }
+        );
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          showMessage(
+            data.error ||
+            "Unable to process your giveaway claim.",
+            false
+          );
+
+          return;
+        }
+
+
+        if (data.success) {
+
+          showMessage(
+            data.message ||
+            "Congratulations. Your free ticket has been issued.",
+            true
+          );
+
+
+          form.style.display = "none";
+
+
+        } else {
+
+          showMessage(
+            data.error ||
+            "Unable to claim the free ticket.",
+            false
+          );
+
+        }
+
+
+      } catch (error) {
+
+        console.error(error);
+
+
+        showMessage(
+          "Unable to connect to the giveaway service. Please try again.",
+          false
+        );
+
+
+      } finally {
+
+        claimButton.disabled = false;
+
+        claimButton.textContent =
+          "CLAIM FREE TICKET";
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
